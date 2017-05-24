@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+		<RuntimeFrameworkVersion>2.0.0-preview1-001919-00</RuntimeFrameworkVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/build/../tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -o ${ProjectDir}/Ccs -no-listener -no-visitor -Dlanguage=CSharp_v2_0 -package CIV.Ccs ${ProjectDir}/ccs/CcsLexer.g4
+</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/build/../tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -o ${ProjectDir}/Ccs -Dlanguage=CSharp_v2_0 -package CIV.Ccs ${ProjectDir}/ccs/CcsParser.g4
+</command>
+          <workingdir>${ProjectDir}</workingdir>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+    <NoWarn>1701;1702;1705;3021</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Antlr4" Version="4.6.1-beta001" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ccs\" />
+    <Folder Include="Processes\" />
+    <Folder Include="HmlCheck\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,50 @@
+* ack, full and empty are for verification purposes only
+* isFull is to notify that the "full" action has been performed
+Room = roomIn.full.isFull.roomOut.empty.Room;
+Prisoner = 'roomIn.'isFull.ack.Round1Prisoner;
+
+Round1Prisoner= ('turnOn.'roomOut.Round2Prisoner)+('turnOff.'turnOn.'roomOut.'roomIn.'isFull.Round1Prisoner);
+Round2Prisoner = 'roomIn.'isFull.(('turnOn.'roomOut.IdlePrisoner)+('turnOff.'turnOn.'roomOut.Round2Prisoner));
+IdlePrisoner = 'roomIn.'isFull.tau.'roomOut.IdlePrisoner;
+
+* Initial state of the light is unknown
+Light = tau.LightOn+tau.LightOff;
+LightOn = turnOff.LightOff;
+LightOff = turnOn.LightOn;
+
+Leader10 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader9)+('turnOn.'turnOff.'roomOut.Leader10));
+Leader9 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader8)+('turnOn.'turnOff.'roomOut.Leader9));
+Leader8 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader7)+('turnOn.'turnOff.'roomOut.Leader8));
+Leader7 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader6)+('turnOn.'turnOff.'roomOut.Leader7));
+Leader6 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader5)+('turnOn.'turnOff.'roomOut.Leader6));
+Leader5 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader4)+('turnOn.'turnOff.'roomOut.Leader5));
+Leader4 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader3)+('turnOn.'turnOff.'roomOut.Leader4));
+Leader3 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader2)+('turnOn.'turnOff.'roomOut.Leader3));
+Leader2 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader1)+('turnOn.'turnOff.'roomOut.Leader2));
+Leader1 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader0)+('turnOn.'turnOff.'roomOut.Leader1));
+Leader0 = freeAll.0;
+
+* If the prison contains n prisoners (including the counting one), the countdown starts at 2(n-1)
+* We rename "full" and "empty" to tau for weak bisimulation
+BasePrison = (Room | Light | Prisoner | Prisoner | Prisoner | Prisoner | Leader8)\{turnOff, turnOn, roomIn, roomOut, isFull};
+Prison = BasePrison[tau/full, tau/empty];
+
+set A = {prova};
+NewPrison = BasePrison\A;
+
+
+* In order to test properties about the mutual exclusion, we are not interested in the "ack" and "freeAll" channels
+MutexPrison = BasePrison[tau/ack, tau/freeAll];
+
+****** Specifications
+Idle = tau.Idle; * Idle process. Used as a "sink" for weak bisimulations
+
+* Verify that freeAll happens after exactly 2(n-1) acks
+ProtocolSpec = ack.ack.ack.ack.freeAll.Idle;
+
+* Verify that each prisoner does exactly one ack, and that it happens when
+* The prisoner is in the room.
+* This is necessary, otherwise the CountSpec would not make sense.
+PrisonerSpec = full.ack.empty.MutexSpec;
+MutexSpec = full.empty.MutexSpec;
+PrisonerTest = ((Room | Light | Prisoner)\{turnOff, turnOn, roomIn, roomOut, isFull});
