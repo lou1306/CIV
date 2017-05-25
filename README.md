@@ -41,6 +41,10 @@ To avoid the Antlr step in debug mode, open `CIV/CIV.csproj` and delete or comme
 This project has been greatly influenced by [CAAL](http://caal.cs.aau.dk/) and aims at maximum compatibility with its `.caal`format.
 [TAPAS](http://etapas.sourceforge.net/) is also a source of inspiration: basically I'm trying to merge CAAL's ease of use with TAPAS' performance and general non-"itrunsinthebrowser"-ness.
 
+Some *very* useful Antlr tutorials are available
+[here](https://tomassetti.me/antlr-mega-tutorial/ )
+and
+[here](https://tomassetti.me/getting-started-with-antlr-in-csharp/).
 ## Disclaimer
 
 Use at your own risk. However, if you're messing with CCS you're already accustomed to laughing in the face of danger.
