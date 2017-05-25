@@ -14,9 +14,7 @@ namespace CIV.HmlCheck
             var processes = (from t in process.Transitions()
                              where t.Label == Label
                              select t.Process);
-            return processes.Any(
-                p => Inner.Check(p)
-            );
+            return processes.Any(Inner.Check);
         }
     }
 }

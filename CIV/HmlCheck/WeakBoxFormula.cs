@@ -14,9 +14,7 @@ namespace CIV.HmlCheck
             var processes = (from t in process.WeakTransitions()
                              where t.Label == Label
                              select t.Process);
-            return processes.All(
-                p => Inner.Check(p)
-            );
+            return processes.All(Inner.Check);
         }
     }
 }
