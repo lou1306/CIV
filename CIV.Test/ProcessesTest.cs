@@ -24,9 +24,56 @@ namespace CIV.Test
             var process = new PrefixProcess
             {
                 Label = "tau",
-                Inner = new Mock<IProcess>() as IProcess
+                Inner = Mock.Of<IProcess>()
             };
             Assert.Equal(1, process.Transitions().Count());
+        }
+
+        [Fact]
+        public void ParProcessHasParTransitions()
+        {
+            var transitions = SetupParProcess().Transitions();
+            foreach (var t in transitions)
+            {
+                Assert.Equal(typeof(ParProcess), t.Process.GetType());
+            }
+        }
+
+        [Fact]
+        public void ParProcessFollowsSemantics()
+        {
+            var transitions = SetupParProcess().Transitions();
+			
+		}
+
+        /// <summary>
+        /// Setup a ParProcess where inner processes can evolve together.
+        /// </summary>
+        /// <returns>The par process.</returns>
+        ParProcess SetupParProcess(String action = "action")
+        {
+            var p1 = Mock.Of<IProcess>(
+                p => p.Transitions() == new List<Transition> { SetupTransition(action) }
+            );
+
+			var p2 = Mock.Of<IProcess>(
+                p => p.Transitions() == new List<Transition> { SetupTransition(action.Coaction()) }
+			);
+
+            return new ParProcess
+            {
+                Inner1 = p1,
+                Inner2 = p2
+            };
+        }
+
+        Transition SetupTransition(String label)
+        {
+            return new Transition
+            {
+                Label = label,
+                Process = Mock.Of<IProcess>()
+            };
         }
 
         /// <summary>
@@ -35,7 +82,7 @@ namespace CIV.Test
         //[Fact]
         //public void Transitions_Par()
         //{
-            
+
         //}
 
     }
