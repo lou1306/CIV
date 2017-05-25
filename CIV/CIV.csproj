@@ -37,5 +37,6 @@
     <Folder Include="Ccs\" />
     <Folder Include="Processes\" />
     <Folder Include="HmlCheck\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>
