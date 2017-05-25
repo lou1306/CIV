@@ -39,12 +39,91 @@ namespace CIV.Test
             }
         }
 
-        [Fact]
-        public void ParProcessFollowsSemantics()
+        [Theory]
+        [InlineData("action")]
+        [InlineData("tau")]
+        public void ParProcessFollowsSemantics(String action)
         {
-            var transitions = SetupParProcess().Transitions();
-			
+            var transitions = SetupParProcess(action).Transitions().ToList();
+            Assert.Equal(3, transitions.Count());
+            switch (action)
+            {
+                case "tau":
+                    Assert.Equal(3, transitions.Where(t => t.Label == action).Count());
+                    break;
+                default:
+                    Assert.Equal(1, transitions.Where(t => t.Label == action).Count());
+                    Assert.Equal(1, transitions.Where(t => t.Label == action.Coaction()).Count());
+                    Assert.Equal(1, transitions.Where(t => t.Label == "tau").Count());
+                    break;
+            }
+        }
+
+        [Theory]
+		[InlineData("action")]
+        public void RestrictedProcessFollowsSemantics(String innerAction)
+        {
+            var restrictions = new HashSet<String> { innerAction };
+            var process = new RestrictedProcess
+            {
+                Inner = SetupMockProcess(innerAction),
+                Restrictions = restrictions
+            };
+            var n = innerAction == "tau" ? 1 : 0;
+            Assert.Equal(n, process.Transitions().Count());
+
+			process = new RestrictedProcess
+			{
+                Inner = SetupParProcess(innerAction),
+				Restrictions = restrictions
+			};
+
+			n = innerAction == "tau" ? 3 : 0;
+			Assert.Equal(n, process.Transitions().Count());
 		}
+
+
+        [Theory]
+        [InlineData("action", "renamed")]
+        [InlineData("'action", "renamed")]
+        [InlineData("action", "'renamed")]
+        [InlineData("'action", "'renamed")]
+        [InlineData("action", "tau")]
+        public void RenamedProcessFollowsSemantics(String action, String renamed)
+        {
+            var process = SetupRenamedProcess(action, renamed);
+            var transitions = process.Transitions();
+
+			Assert.Equal(0, transitions.Where(t => t.Label == action).Count());
+            Assert.Equal(1, transitions.Where(t => t.Label == renamed).Count());
+
+            Assert.Equal(1, 0);
+        }
+
+        [Theory]
+		[InlineData("action", "renamed")]
+        public void RenamedProcessHasRenamedTransitions(String action, String renamed)
+        {
+            var process = SetupRenamedProcess(action, renamed);
+			var transitions = process.Transitions();
+
+            foreach (var t in transitions)
+            {
+                Assert.Equal(t.Process.GetType(), typeof(RenamedProcess));
+            }
+        }
+
+
+        RenamedProcess SetupRenamedProcess(String action, String renamed)
+        {
+			return new RenamedProcess
+			{
+				Inner = SetupMockProcess(action),
+				Renamings = new Dictionary<String, String> {
+					{ action, renamed }
+				}
+			};
+        }
 
         /// <summary>
         /// Setup a ParProcess where inner processes can evolve together.
@@ -52,19 +131,23 @@ namespace CIV.Test
         /// <returns>The par process.</returns>
         ParProcess SetupParProcess(String action = "action")
         {
-            var p1 = Mock.Of<IProcess>(
-                p => p.Transitions() == new List<Transition> { SetupTransition(action) }
-            );
-
-			var p2 = Mock.Of<IProcess>(
-                p => p.Transitions() == new List<Transition> { SetupTransition(action.Coaction()) }
-			);
-
             return new ParProcess
             {
-                Inner1 = p1,
-                Inner2 = p2
+                Inner1 = SetupMockProcess(action),
+                Inner2 = SetupMockProcess(action.Coaction())
             };
+        }
+
+        /// <summary>
+        /// Setup a mock process that can only do the given action. 
+        /// </summary>
+        /// <returns>The mock process.</returns>
+        /// <param name="action">Action.</param>
+        IProcess SetupMockProcess(String action = "action")
+        {
+            return Mock.Of<IProcess>(
+                p => p.Transitions() == new List<Transition> { SetupTransition(action) }
+            );
         }
 
         Transition SetupTransition(String label)
