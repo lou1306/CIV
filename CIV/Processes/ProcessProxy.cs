@@ -8,8 +8,8 @@ namespace CIV.Processes
     {
         protected ProcessContext context;
         protected ProcessFactory factory;
-        private IProcess _real;
-        private IProcess RealProcess =>
+        IProcess _real;
+        IProcess RealProcess =>
             _real ?? (_real = factory.Create(context));
         public ProcessProxy(ProcessFactory factory, ProcessContext context)
         {
