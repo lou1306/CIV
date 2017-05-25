@@ -13,7 +13,8 @@ namespace CIV.Processes
 		/// <param name="action">A CCS action</param>
 		public static String Coaction(this String action)
 		{
-			return action.StartsWith("'", StringComparison.InvariantCultureIgnoreCase) ?
+            if (action == "tau") return "tau";
+            return action.StartsWith("'", StringComparison.InvariantCultureIgnoreCase) ?
 					   action.Substring(1) : String.Format("'{0}", action);
 		}
 
