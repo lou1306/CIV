@@ -1,9 +1,15 @@
 # CIV - CCS Interpreter and Verifier
 
 CIV (pronounced *One-Zero-Four* or *CentoQuattro*) is a tool to verify properties on a CCS process.
-It includes ANTLR-based parsers for CCS and (hopefully) HML with fixpoints. 
+It includes Antlr4-based parsers for CCS and (hopefully) HML with fixpoints. 
+
+I do *not* want to build a super-efficient or "enterprise-ready" implementation.
+This will be, first and foremost, an educational project to show off the capabilities of Antlr4 and C# on the .NET Core platform. 
+And to get to know CCS/HML a little deeper :)
 
 ## Requirements
+
+You need java if you want to re-generate the lexers/parsers during the build phase (in Debug mode).
 
 You must have installed .NET Core 2.0 for this software to run. You can verify your version by running 
 ```
@@ -18,8 +24,17 @@ cd <your-favorite-dir>
 git clone https://github.com/lou1306/CIV.git
 cd CIV/CIV
 dotnet restore
-dotnet run
+dotnet run -c Release
 ```
+
+## Remove Antlr build step
+
+If you do not want to mess with the files, just run CIV in release mode:
+```
+dotnet run -c Release
+```
+To avoid the Antlr step in debug mode, open `CIV/CIV.csproj` and delete or comment out everything between `<CustomCommands>` and `</CustomCommands>`.
+
 
 ## Influences
 
