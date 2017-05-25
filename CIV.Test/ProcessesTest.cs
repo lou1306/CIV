@@ -4,48 +4,38 @@ using CIV.Ccs;
 using Xunit;
 using Antlr4.Runtime;
 using CIV.Processes;
+using Moq;
+using System.Collections.Generic;
 
 namespace CIV.Test
 {
     public class ProcessesTest
     {
         [Fact]
-        public void Transitions_EmptyForNil()
+        public void NilProcessHasNoTransitions()
         {
             var nil = new NilProcess();
-            Assert.Equal(nil.Transitions().Count(), 0);
+            Assert.Equal(0, nil.Transitions().Count());
         }
 
         [Fact]
-        public void PrefixShouldHaveOneTransition()
+        public void PrefixProcessHasOneTransition()
         {
-            var label = "tau";
-            var nil = new NilProcess();
-            var proc = new PrefixProcess
+            var process = new PrefixProcess
             {
-                Label = label,
-                Inner = nil
+                Label = "tau",
+                Inner = new Mock<IProcess>() as IProcess
             };
-            var transitions = proc.Transitions().ToList();
-            Assert.Equal(proc.Transitions().Count(), 1);
+            Assert.Equal(1, process.Transitions().Count());
         }
 
         /// <summary>
         /// Pars the should have par transitions.
         /// </summary>
-        [Fact]
-        public void ParShouldHaveParTransitions()
-        {
+        //[Fact]
+        //public void Transitions_Par()
+        //{
             
-        }
-
-
-   //     CIV.Ccs.CcsParser SetupParser(String text)
-   //     {
-   //         var inputStream = new AntlrInputStream(text);
-			//var lexer = new CcsLexer(inputStream);
-			//var tokens = new CommonTokenStream(lexer);
-			//return new CcsParser(tokens);
         //}
 
     }
