@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CIV.Ccs;
+using CIV.Helpers;
 
 namespace CIV
 {
@@ -11,8 +12,9 @@ namespace CIV
         public IDictionary<CcsParser.SetExpressionContext, ISet<String>> ExprSets { get; set; }
         public IDictionary<CcsParser.RenamingExpressionContext, IDictionary<String, String>> Renamings { get; set; }
 
-        Stack<ISet<String>> setsStack;
-        Stack<IDictionary<String, String>> renamingsStack;
+
+        RestrictionSet currentSet;
+        IDictionary<String, String> currentRenaming;
 
         public CcsListener()
         {
@@ -20,8 +22,6 @@ namespace CIV
             NamedSets = new Dictionary<String, ISet<String>>();
             ExprSets = new Dictionary<CcsParser.SetExpressionContext, ISet<String>>();
             Renamings = new Dictionary<CcsParser.RenamingExpressionContext, IDictionary<String, String>>();
-            setsStack = new Stack<ISet<string>>();
-            renamingsStack = new Stack<IDictionary<string, string>>();
         }
 
         public Processes.ProcessFactory GetProcessFactory() =>
@@ -30,7 +30,7 @@ namespace CIV
                             NamedProcessesTable = Processes,
                             NamedSetsTable = NamedSets,
                             InlineSetsTable = ExprSets,
-                            Renamings = Renamings,
+                            Renamings = Renamings
                         };
 
         //public override void EnterSetDef(CcsParser.SetDefContext context)
@@ -39,43 +39,43 @@ namespace CIV
         //}
         public override void EnterSetList(CcsParser.SetListContext context)
         {
-            setsStack.Peek().Add(context.nonTauAction().GetText());
+            currentSet.Add(context.nonTauAction().GetText());
             base.EnterSetList(context);
         }
         public override void EnterSetExpression(CcsParser.SetExpressionContext context)
         {
-            setsStack.Push(new HashSet<String>());
+            currentSet = new RestrictionSet();
         }
         public override void ExitSetExpression(CcsParser.SetExpressionContext context)
         {
-            // If we are a SetDef, we will add the set to the NamedSets
+            // If we are in a SetDef, we will add the set to NamedSets instead
             if (context.Parent.GetType() != typeof(CcsParser.SetDefContext))
             {
-                ExprSets.Add(context, setsStack.Pop());
+                ExprSets.Add(context, currentSet);
             }
             base.ExitSetExpression(context);
         }
         public override void ExitSetDef(CcsParser.SetDefContext context)
         {
-            NamedSets.Add(context.IDENTIFIER().GetText(), setsStack.Pop());
+            NamedSets.Add(context.IDENTIFIER().GetText(), currentSet);
             base.ExitSetDef(context);
         }
 
         public override void EnterRenamingExpression(CcsParser.RenamingExpressionContext context)
         {
-            renamingsStack.Push(new Dictionary<String, String>());
+            currentRenaming = new Dictionary<String, String>();
         }
 
         public override void ExitRenamingExpression(CcsParser.RenamingExpressionContext context)
         {
-            Renamings.Add(context, renamingsStack.Pop());
+            Renamings.Add(context, currentRenaming);
             base.ExitRenamingExpression(context);
         }
 
         public override void EnterRenamingList(CcsParser.RenamingListContext context)
         {
             var renaming = context.renaming();
-            renamingsStack.Peek().Add(
+            currentRenaming.Add(
                 renaming.nonTauAction().GetText(),
                 renaming.action().GetText());
             base.EnterRenamingList(context);
