@@ -40,14 +40,14 @@ namespace CIV
             for (int i = 0; i < moves; i++)
             {
                 var transitions = start.Transitions();
-                if (transitions.Count() == 0)
+                if (!transitions.Any())
                 {
                     break;
                 }
                 int index = rand.Next(0, transitions.Count());
                 var nextTransition = transitions.ElementAt(index);
                 start = nextTransition.Process;
-                if (nextTransition.Label != "tau" | printTau)
+                if (nextTransition.Label != "tau" || printTau)
                 {
                     Console.WriteLine(
                         String.Format("{0:000}: {1}", i, nextTransition.Label));
