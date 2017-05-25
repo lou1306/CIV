@@ -13,7 +13,8 @@ namespace CIV.Processes
         {
             return (from t in Inner.Transitions()
                     where
-                    !(Restrictions.Contains(t.Label) |
+                    t.Label == "tau" ||
+                    !(Restrictions.Contains(t.Label) ||
                       Restrictions.Contains(t.Label.Coaction()))
                     select new Transition
                     {
