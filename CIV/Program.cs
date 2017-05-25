@@ -25,45 +25,14 @@ namespace CIV
 
             var factory = listener.GetProcessFactory();
             var prison = factory.Create(listener.Processes["Prison"]);
-
             RandomTrace(prison, 450);
-            //PrintStuff(listener);
         }
-
 
         static AntlrInputStream CreateInputStream(string filename)
         {
             var text = System.IO.File.ReadAllText(filename);
             return new AntlrInputStream(text);
         }
-
-        static void PrintStuff(CcsListener listener)
-        {
-            foreach (KeyValuePair<String, ISet<String>> kv in listener.NamedSets)
-            {
-                Console.WriteLine(String.Format(
-                    "{0} -- [{1}]",
-                    kv.Key,
-                    String.Join(", ", kv.Value)));
-            }
-            foreach (var kv in listener.ExprSets)
-            {
-                Console.WriteLine(String.Format(
-                    "{0} -- [{1}]",
-                    kv.Key.GetText(),
-                    String.Join(", ", kv.Value)));
-            }
-            foreach (var renamings in listener.Renamings.Values)
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (var kv in renamings)
-                {
-                    sb.Append(String.Format(", {0}/{1}", kv.Key, kv.Value));
-                }
-                Console.WriteLine(sb.ToString().Substring(2));
-            }
-        }
-
 
         static void RandomTrace(IProcess start, int moves, bool printTau = false)
         {
