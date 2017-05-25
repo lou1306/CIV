@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
 		<RuntimeFrameworkVersion>2.0.0-preview1-001919-00</RuntimeFrameworkVersion>
+		<Description>CCS Interpreter and Verifier</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -23,6 +24,10 @@
         </Command>
       </CustomCommands>
     </CustomCommands>
+    <NoWarn>1701;1702;1705;3021</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
     <NoWarn>1701;1702;1705;3021</NoWarn>
   </PropertyGroup>
   <ItemGroup>
