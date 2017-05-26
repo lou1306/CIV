@@ -10,7 +10,7 @@ namespace CIV
         public IDictionary<String, CcsParser.ProcessContext> Processes { get; set; }
         public IDictionary<String, ISet<String>> NamedSets { get; set; }
         public IDictionary<CcsParser.SetExpressionContext, ISet<String>> ExprSets { get; set; }
-        public IDictionary<CcsParser.RenamingExpressionContext, RelabelingFunction> Renamings { get; set; }
+        public IDictionary<CcsParser.RelabelExpressionContext, RelabelingFunction> Relabelings { get; set; }
 
 
         RestrictionSet currentSet;
@@ -21,7 +21,7 @@ namespace CIV
             Processes = new Dictionary<String, CcsParser.ProcessContext>();
             NamedSets = new Dictionary<String, ISet<String>>();
             ExprSets = new Dictionary<CcsParser.SetExpressionContext, ISet<String>>();
-            Renamings = new Dictionary<CcsParser.RenamingExpressionContext, RelabelingFunction>();
+            Relabelings = new Dictionary<CcsParser.RelabelExpressionContext, RelabelingFunction>();
         }
 
         public Processes.ProcessFactory GetProcessFactory() =>
@@ -30,7 +30,7 @@ namespace CIV
                             NamedProcessesTable = Processes,
                             NamedSetsTable = NamedSets,
                             InlineSetsTable = ExprSets,
-                            Renamings = Renamings
+                            Relabelings = Relabelings
                         };
 
         //public override void EnterSetDef(CcsParser.SetDefContext context)
@@ -61,24 +61,22 @@ namespace CIV
             base.ExitSetDef(context);
         }
 
-        public override void EnterRenamingExpression(CcsParser.RenamingExpressionContext context)
+        public override void EnterRelabelExpression(CcsParser.RelabelExpressionContext context)
         {
             currentRenaming = new RelabelingFunction();
         }
 
-        public override void ExitRenamingExpression(CcsParser.RenamingExpressionContext context)
+        public override void ExitRelabelExpression(CcsParser.RelabelExpressionContext context)
         {
-            Renamings.Add(context, currentRenaming);
-            base.ExitRenamingExpression(context);
+            Relabelings.Add(context, currentRenaming);
         }
 
-        public override void EnterRenamingList(CcsParser.RenamingListContext context)
+        public override void EnterRelabelList(CcsParser.RelabelListContext context)
         {
-            var renaming = context.renaming();
+            var renaming = context.relabel();
             currentRenaming.Add(
                 renaming.nonTauAction().GetText(),
                 renaming.action().GetText());
-            base.EnterRenamingList(context);
         }
 
 

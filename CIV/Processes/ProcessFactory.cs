@@ -14,7 +14,7 @@ namespace CIV.Processes
         public IDictionary<String, CcsParser.ProcessContext> NamedProcessesTable { get; set; }
         public IDictionary<String, ISet<String>> NamedSetsTable { get; set; }
         public IDictionary<CcsParser.SetExpressionContext, ISet<String>> InlineSetsTable { get; set; }
-        public IDictionary<CcsParser.RenamingExpressionContext, RelabelingFunction> Renamings { get; set; }
+        public IDictionary<CcsParser.RelabelExpressionContext, RelabelingFunction> Relabelings { get; set; }
 
 
         /// <summary>
@@ -92,12 +92,12 @@ namespace CIV.Processes
             };
         }
 
-        IProcess Create(CcsParser.RenamProcContext context)
+        IProcess Create(CcsParser.RelabelProcContext context)
         {
             return new RelabeledProcess
             {
                 Inner = new ProcessProxy(this, context.process()),
-                Relabeling = Renamings[context.renamingExpression()]
+                Relabeling = Relabelings[context.relabelExpression()]
             };
         }
     }

@@ -38,12 +38,12 @@ public partial class CcsParser : Parser {
 	public const int
 		RULE_program = 0, RULE_line = 1, RULE_statement = 2, RULE_comment = 3, 
 		RULE_procDef = 4, RULE_setDef = 5, RULE_process = 6, RULE_label = 7, RULE_pid = 8, 
-		RULE_renamingExpression = 9, RULE_renamingList = 10, RULE_renaming = 11, 
+		RULE_relabelExpression = 9, RULE_relabelList = 10, RULE_relabel = 11, 
 		RULE_setVar = 12, RULE_setId = 13, RULE_setExpression = 14, RULE_setList = 15, 
 		RULE_action = 16, RULE_nonTauAction = 17;
 	public static readonly string[] ruleNames = {
 		"program", "line", "statement", "comment", "procDef", "setDef", "process", 
-		"label", "pid", "renamingExpression", "renamingList", "renaming", "setVar", 
+		"label", "pid", "relabelExpression", "relabelList", "relabel", "setVar", 
 		"setId", "setExpression", "setList", "action", "nonTauAction"
 	};
 
@@ -419,6 +419,23 @@ public partial class CcsParser : Parser {
 			base.CopyFrom(context);
 		}
 	}
+	public partial class RelabelProcContext : ProcessContext {
+		public ProcessContext process() {
+			return GetRuleContext<ProcessContext>(0);
+		}
+		public RelabelExpressionContext relabelExpression() {
+			return GetRuleContext<RelabelExpressionContext>(0);
+		}
+		public RelabelProcContext(ProcessContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICcsParserListener typedListener = listener as ICcsParserListener;
+			if (typedListener != null) typedListener.EnterRelabelProc(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICcsParserListener typedListener = listener as ICcsParserListener;
+			if (typedListener != null) typedListener.ExitRelabelProc(this);
+		}
+	}
 	public partial class PrefixProcContext : ProcessContext {
 		public LabelContext label() {
 			return GetRuleContext<LabelContext>(0);
@@ -435,23 +452,6 @@ public partial class CcsParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			ICcsParserListener typedListener = listener as ICcsParserListener;
 			if (typedListener != null) typedListener.ExitPrefixProc(this);
-		}
-	}
-	public partial class RenamProcContext : ProcessContext {
-		public ProcessContext process() {
-			return GetRuleContext<ProcessContext>(0);
-		}
-		public RenamingExpressionContext renamingExpression() {
-			return GetRuleContext<RenamingExpressionContext>(0);
-		}
-		public RenamProcContext(ProcessContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.EnterRenamProc(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.ExitRenamProc(this);
 		}
 	}
 	public partial class RestrictIdProcContext : ProcessContext {
@@ -665,11 +665,11 @@ public partial class CcsParser : Parser {
 
 					case 3:
 						{
-						_localctx = new RenamProcContext(new ProcessContext(_parentctx, _parentState));
+						_localctx = new RelabelProcContext(new ProcessContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_process);
 						State = 82;
 						if (!(Precpred(_ctx, 8))) throw new FailedPredicateException(this, "Precpred(_ctx, 8)");
-						State = 83; renamingExpression();
+						State = 83; relabelExpression();
 						}
 						break;
 
@@ -799,36 +799,36 @@ public partial class CcsParser : Parser {
 		return _localctx;
 	}
 
-	public partial class RenamingExpressionContext : ParserRuleContext {
+	public partial class RelabelExpressionContext : ParserRuleContext {
 		public ITerminalNode LBRACK() { return GetToken(CcsParser.LBRACK, 0); }
-		public RenamingListContext renamingList() {
-			return GetRuleContext<RenamingListContext>(0);
+		public RelabelListContext relabelList() {
+			return GetRuleContext<RelabelListContext>(0);
 		}
 		public ITerminalNode RBRACK() { return GetToken(CcsParser.RBRACK, 0); }
-		public RenamingExpressionContext(ParserRuleContext parent, int invokingState)
+		public RelabelExpressionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_renamingExpression; } }
+		public override int RuleIndex { get { return RULE_relabelExpression; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.EnterRenamingExpression(this);
+			if (typedListener != null) typedListener.EnterRelabelExpression(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.ExitRenamingExpression(this);
+			if (typedListener != null) typedListener.ExitRelabelExpression(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public RenamingExpressionContext renamingExpression() {
-		RenamingExpressionContext _localctx = new RenamingExpressionContext(_ctx, State);
-		EnterRule(_localctx, 18, RULE_renamingExpression);
+	public RelabelExpressionContext relabelExpression() {
+		RelabelExpressionContext _localctx = new RelabelExpressionContext(_ctx, State);
+		EnterRule(_localctx, 18, RULE_relabelExpression);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 99; Match(LBRACK);
-			State = 100; renamingList(0);
+			State = 100; relabelList(0);
 			State = 101; Match(RBRACK);
 			}
 		}
@@ -843,47 +843,47 @@ public partial class CcsParser : Parser {
 		return _localctx;
 	}
 
-	public partial class RenamingListContext : ParserRuleContext {
-		public RenamingContext renaming() {
-			return GetRuleContext<RenamingContext>(0);
+	public partial class RelabelListContext : ParserRuleContext {
+		public RelabelContext relabel() {
+			return GetRuleContext<RelabelContext>(0);
 		}
-		public RenamingListContext renamingList() {
-			return GetRuleContext<RenamingListContext>(0);
+		public RelabelListContext relabelList() {
+			return GetRuleContext<RelabelListContext>(0);
 		}
 		public ITerminalNode COMMA() { return GetToken(CcsParser.COMMA, 0); }
-		public RenamingListContext(ParserRuleContext parent, int invokingState)
+		public RelabelListContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_renamingList; } }
+		public override int RuleIndex { get { return RULE_relabelList; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.EnterRenamingList(this);
+			if (typedListener != null) typedListener.EnterRelabelList(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.ExitRenamingList(this);
+			if (typedListener != null) typedListener.ExitRelabelList(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public RenamingListContext renamingList() {
-		return renamingList(0);
+	public RelabelListContext relabelList() {
+		return relabelList(0);
 	}
 
-	private RenamingListContext renamingList(int _p) {
+	private RelabelListContext relabelList(int _p) {
 		ParserRuleContext _parentctx = _ctx;
 		int _parentState = State;
-		RenamingListContext _localctx = new RenamingListContext(_ctx, _parentState);
-		RenamingListContext _prevctx = _localctx;
+		RelabelListContext _localctx = new RelabelListContext(_ctx, _parentState);
+		RelabelListContext _prevctx = _localctx;
 		int _startState = 20;
-		EnterRecursionRule(_localctx, 20, RULE_renamingList, _p);
+		EnterRecursionRule(_localctx, 20, RULE_relabelList, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
-			State = 104; renaming();
+			State = 104; relabel();
 			}
 			_ctx.stop = _input.Lt(-1);
 			State = 111;
@@ -895,12 +895,12 @@ public partial class CcsParser : Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new RenamingListContext(_parentctx, _parentState);
-					PushNewRecursionContext(_localctx, _startState, RULE_renamingList);
+					_localctx = new RelabelListContext(_parentctx, _parentState);
+					PushNewRecursionContext(_localctx, _startState, RULE_relabelList);
 					State = 106;
 					if (!(Precpred(_ctx, 1))) throw new FailedPredicateException(this, "Precpred(_ctx, 1)");
 					State = 107; Match(COMMA);
-					State = 108; renaming();
+					State = 108; relabel();
 					}
 					} 
 				}
@@ -921,7 +921,7 @@ public partial class CcsParser : Parser {
 		return _localctx;
 	}
 
-	public partial class RenamingContext : ParserRuleContext {
+	public partial class RelabelContext : ParserRuleContext {
 		public ActionContext action() {
 			return GetRuleContext<ActionContext>(0);
 		}
@@ -929,25 +929,25 @@ public partial class CcsParser : Parser {
 		public NonTauActionContext nonTauAction() {
 			return GetRuleContext<NonTauActionContext>(0);
 		}
-		public RenamingContext(ParserRuleContext parent, int invokingState)
+		public RelabelContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_renaming; } }
+		public override int RuleIndex { get { return RULE_relabel; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.EnterRenaming(this);
+			if (typedListener != null) typedListener.EnterRelabel(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			ICcsParserListener typedListener = listener as ICcsParserListener;
-			if (typedListener != null) typedListener.ExitRenaming(this);
+			if (typedListener != null) typedListener.ExitRelabel(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public RenamingContext renaming() {
-		RenamingContext _localctx = new RenamingContext(_ctx, State);
-		EnterRule(_localctx, 22, RULE_renaming);
+	public RelabelContext relabel() {
+		RelabelContext _localctx = new RelabelContext(_ctx, State);
+		EnterRule(_localctx, 22, RULE_relabel);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
@@ -1279,7 +1279,7 @@ public partial class CcsParser : Parser {
 		switch (ruleIndex) {
 		case 6: return process_sempred((ProcessContext)_localctx, predIndex);
 
-		case 10: return renamingList_sempred((RenamingListContext)_localctx, predIndex);
+		case 10: return relabelList_sempred((RelabelListContext)_localctx, predIndex);
 
 		case 15: return setList_sempred((SetListContext)_localctx, predIndex);
 		}
@@ -1299,7 +1299,7 @@ public partial class CcsParser : Parser {
 		}
 		return true;
 	}
-	private bool renamingList_sempred(RenamingListContext _localctx, int predIndex) {
+	private bool relabelList_sempred(RelabelListContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 5: return Precpred(_ctx, 1);
 		}

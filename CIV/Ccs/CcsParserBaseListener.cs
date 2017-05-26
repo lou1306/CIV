@@ -36,6 +36,21 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class CcsParserBaseListener : ICcsParserListener {
 	/// <summary>
+	/// Enter a parse tree produced by the <c>relabelProc</c>
+	/// labeled alternative in <see cref="CcsParser.process"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRelabelProc([NotNull] CcsParser.RelabelProcContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>relabelProc</c>
+	/// labeled alternative in <see cref="CcsParser.process"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRelabelProc([NotNull] CcsParser.RelabelProcContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>prefixProc</c>
 	/// labeled alternative in <see cref="CcsParser.process"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -49,21 +64,6 @@ public partial class CcsParserBaseListener : ICcsParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPrefixProc([NotNull] CcsParser.PrefixProcContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>renamProc</c>
-	/// labeled alternative in <see cref="CcsParser.process"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRenamProc([NotNull] CcsParser.RenamProcContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>renamProc</c>
-	/// labeled alternative in <see cref="CcsParser.process"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRenamProc([NotNull] CcsParser.RenamProcContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>restrictIdProc</c>
@@ -288,43 +288,43 @@ public partial class CcsParserBaseListener : ICcsParserListener {
 	public virtual void ExitPid([NotNull] CcsParser.PidContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CcsParser.renamingExpression"/>.
+	/// Enter a parse tree produced by <see cref="CcsParser.relabelExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRenamingExpression([NotNull] CcsParser.RenamingExpressionContext context) { }
+	public virtual void EnterRelabelExpression([NotNull] CcsParser.RelabelExpressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CcsParser.renamingExpression"/>.
+	/// Exit a parse tree produced by <see cref="CcsParser.relabelExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRenamingExpression([NotNull] CcsParser.RenamingExpressionContext context) { }
+	public virtual void ExitRelabelExpression([NotNull] CcsParser.RelabelExpressionContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CcsParser.renamingList"/>.
+	/// Enter a parse tree produced by <see cref="CcsParser.relabelList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRenamingList([NotNull] CcsParser.RenamingListContext context) { }
+	public virtual void EnterRelabelList([NotNull] CcsParser.RelabelListContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CcsParser.renamingList"/>.
+	/// Exit a parse tree produced by <see cref="CcsParser.relabelList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRenamingList([NotNull] CcsParser.RenamingListContext context) { }
+	public virtual void ExitRelabelList([NotNull] CcsParser.RelabelListContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CcsParser.renaming"/>.
+	/// Enter a parse tree produced by <see cref="CcsParser.relabel"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRenaming([NotNull] CcsParser.RenamingContext context) { }
+	public virtual void EnterRelabel([NotNull] CcsParser.RelabelContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CcsParser.renaming"/>.
+	/// Exit a parse tree produced by <see cref="CcsParser.relabel"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRenaming([NotNull] CcsParser.RenamingContext context) { }
+	public virtual void ExitRelabel([NotNull] CcsParser.RelabelContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="CcsParser.setVar"/>.

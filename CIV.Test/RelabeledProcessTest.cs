@@ -9,9 +9,8 @@ namespace CIV.Test
 {
     public class RelabeledProcessTest
     {
-        [Theory]
-        [InlineData("action", "renamed")]
-        public void RenamedProcessHasRenamedTransitions(String action, String renamed)
+        [Fact]
+        public void RelabeledProcessHasRelabeledTransitions()
         {
             var process = new RelabeledProcess
             {

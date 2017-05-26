@@ -21,7 +21,7 @@ procDef     : IDENTIFIER DEF process TERM ;
 setDef      : SETDEF IDENTIFIER DEF setExpression TERM ;
 
 process     :   LPAREN process RPAREN               #parenthProc
-            |   process renamingExpression          #renamProc
+            |   process relabelExpression           #relabelProc
             |   process T__1 setId                  #restrictIdProc
             |   process T__1 setExpression          #restrictExprProc
             |   <assoc=right>label PREFIX process   #prefixProc
@@ -38,16 +38,16 @@ pid         : IDENTIFIER
             ;
 
 
-renamingExpression
-    : LBRACK renamingList RBRACK
+relabelExpression
+    : LBRACK relabelList RBRACK
     ;
 
-renamingList
-    : renaming
-    | renamingList COMMA renaming
+relabelList
+    : relabel
+    | relabelList COMMA relabel
     ;
 
-renaming:
+relabel:
     action DIV nonTauAction;
 
 setVar
