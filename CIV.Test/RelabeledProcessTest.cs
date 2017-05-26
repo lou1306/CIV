@@ -1,8 +1,7 @@
-﻿﻿using System;
+﻿using System;
 using System.Linq;
 using CIV.Helpers;
 using CIV.Processes;
-using Moq;
 using Xunit;
 
 namespace CIV.Test
@@ -14,7 +13,7 @@ namespace CIV.Test
         {
             var process = new RelabeledProcess
             {
-                Inner = Mock.Of<IProcess>(),
+                Inner = Common.SetupMockProcess(),
                 Relabeling = new RelabelingFunction
                 {
                     { "action", "relabeled" }
@@ -29,10 +28,10 @@ namespace CIV.Test
         }
 
         [Theory]
-		[InlineData("action", "relabel", "relabel")]
-		[InlineData("action", "'relabel", "'relabel")]
-		[InlineData("'action", "relabel", "'relabel")]
-		[InlineData("'action", "'relabel", "relabel")]
+        [InlineData("action", "relabel", "relabel")]
+        [InlineData("action", "'relabel", "'relabel")]
+        [InlineData("'action", "relabel", "'relabel")]
+        [InlineData("'action", "'relabel", "relabel")]
         public void RelabeledProcessFollowsSemantics(
             string action,
             string relabel,
@@ -55,5 +54,14 @@ namespace CIV.Test
             Assert.Equal(1, transitions.Where(t => t.Label == expectedRelabel).Count());
         }
 
+        [Fact]
+        public void RelabelingFunctionRefusesTau()
+        {
+            Assert.Throws<ArgumentException>(
+                () => new RelabelingFunction
+            {
+                { "tau", "relabeled"}
+            });
+        }
     }
 }

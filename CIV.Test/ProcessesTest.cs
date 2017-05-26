@@ -60,6 +60,7 @@ namespace CIV.Test
 
         [Theory]
 		[InlineData("action")]
+		[InlineData("'action")]
         public void RestrictedProcessFollowsSemantics(String innerAction)
         {
             var restrictions = new RestrictionSet { innerAction };
@@ -80,6 +81,14 @@ namespace CIV.Test
 			n = innerAction == "tau" ? 3 : 1;
 			Assert.Equal(n, process.Transitions().Count());
 		}
+
+        [Fact]
+        public void RestrictionSetRefusesTau()
+        {
+            Assert.Throws<ArgumentException>(
+                () => new RestrictionSet { "tau" }
+            );
+        }
 
 
         /// <summary>
