@@ -10,18 +10,18 @@ namespace CIV
         public IDictionary<String, CcsParser.ProcessContext> Processes { get; set; }
         public IDictionary<String, ISet<String>> NamedSets { get; set; }
         public IDictionary<CcsParser.SetExpressionContext, ISet<String>> ExprSets { get; set; }
-        public IDictionary<CcsParser.RenamingExpressionContext, IDictionary<String, String>> Renamings { get; set; }
+        public IDictionary<CcsParser.RenamingExpressionContext, RelabelingFunction> Renamings { get; set; }
 
 
         RestrictionSet currentSet;
-        IDictionary<String, String> currentRenaming;
+        RelabelingFunction currentRenaming;
 
         public CcsListener()
         {
             Processes = new Dictionary<String, CcsParser.ProcessContext>();
             NamedSets = new Dictionary<String, ISet<String>>();
             ExprSets = new Dictionary<CcsParser.SetExpressionContext, ISet<String>>();
-            Renamings = new Dictionary<CcsParser.RenamingExpressionContext, IDictionary<String, String>>();
+            Renamings = new Dictionary<CcsParser.RenamingExpressionContext, RelabelingFunction>();
         }
 
         public Processes.ProcessFactory GetProcessFactory() =>
@@ -63,7 +63,7 @@ namespace CIV
 
         public override void EnterRenamingExpression(CcsParser.RenamingExpressionContext context)
         {
-            currentRenaming = new Dictionary<String, String>();
+            currentRenaming = new RelabelingFunction();
         }
 
         public override void ExitRenamingExpression(CcsParser.RenamingExpressionContext context)
