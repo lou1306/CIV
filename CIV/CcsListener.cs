@@ -33,10 +33,6 @@ namespace CIV
                             Relabelings = Relabelings
                         };
 
-        //public override void EnterSetDef(CcsParser.SetDefContext context)
-        //{
-        //    base.EnterSetDef(context);
-        //}
         public override void EnterSetList(CcsParser.SetListContext context)
         {
             currentSet.Add(context.nonTauAction().GetText());
@@ -78,7 +74,6 @@ namespace CIV
                 renaming.nonTauAction().GetText(),
                 renaming.action().GetText());
         }
-
 
         public override void ExitProcDef(CcsParser.ProcDefContext context)
         {
