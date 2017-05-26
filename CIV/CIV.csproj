@@ -3,7 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-		<RuntimeFrameworkVersion>2.0.0-preview1-001919-00</RuntimeFrameworkVersion>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+		<RuntimeFrameworkVersion>2.0.0-preview1</RuntimeFrameworkVersion>
 		<Description>CCS Interpreter and Verifier</Description>
   </PropertyGroup>
 
