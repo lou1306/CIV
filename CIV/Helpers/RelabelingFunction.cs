@@ -6,7 +6,7 @@ namespace CIV.Helpers
 {
     public class RelabelingFunction : ICollection<KeyValuePair<string, string>>
     {
-        IDictionary<string, string> dict;
+        IDictionary<string, string> dict = new Dictionary<string, string>();
 
         public int Count => dict.Count;
 
