@@ -13,10 +13,10 @@ namespace CIV.Test
         [InlineData("action", "renamed")]
         public void RenamedProcessHasRenamedTransitions(String action, String renamed)
         {
-            var process = new RenamedProcess
+            var process = new RelabeledProcess
             {
                 Inner = Mock.Of<IProcess>(),
-                Renamings = new RelabelingFunction
+                Relabeling = new RelabelingFunction
                 {
                     { "action", "relabeled" }
                 }
@@ -25,7 +25,7 @@ namespace CIV.Test
 
             foreach (var t in transitions)
             {
-                Assert.Equal(t.Process.GetType(), typeof(RenamedProcess));
+                Assert.Equal(t.Process.GetType(), typeof(RelabeledProcess));
             }
         }
 
@@ -42,10 +42,10 @@ namespace CIV.Test
         {
             var innerAction = action.IsOutput() ? action.Coaction() : action;
 
-            var process = new RenamedProcess
+            var process = new RelabeledProcess
             {
                 Inner = Common.SetupMockProcess(innerAction),
-                Renamings = new RelabelingFunction
+                Relabeling = new RelabelingFunction
                 {
                     { action, relabel }
                 }

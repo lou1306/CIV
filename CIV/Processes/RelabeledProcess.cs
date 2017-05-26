@@ -5,10 +5,10 @@ using CIV.Helpers;
 
 namespace CIV.Processes
 {
-    public class RenamedProcess : IProcess
+    public class RelabeledProcess : IProcess
     {
         public IProcess Inner { get; set; }
-        public RelabelingFunction Renamings { get; set; }
+        public RelabelingFunction Relabeling { get; set; }
 
         public IEnumerable<Transition> Transitions()
         {
@@ -19,16 +19,16 @@ namespace CIV.Processes
 
         Transition RenamedTransition(Transition t)
         {
-            var label = Renamings.ContainsKey(t.Label)
-                                 ? Renamings[t.Label]
+            var label = Relabeling.ContainsKey(t.Label)
+                                 ? Relabeling[t.Label]
                                  : t.Label;
             return new Transition
             {
                 Label = label,
-                Process = new RenamedProcess
+                Process = new RelabeledProcess
                 {
                     Inner = t.Process,
-                    Renamings = Renamings
+                    Relabeling = Relabeling
                 }
             };
         }
