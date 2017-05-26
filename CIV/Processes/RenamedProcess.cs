@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using CIV.Helpers;
 
 namespace CIV.Processes
 {
     public class RenamedProcess : IProcess
     {
         public IProcess Inner { get; set; }
-        public IDictionary<String, String> Renamings { get; set; }
+        public RelabelingFunction Renamings { get; set; }
 
         public IEnumerable<Transition> Transitions()
         {
