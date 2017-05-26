@@ -34,9 +34,6 @@ IDENTIFIER
     : [A-Z][A-Za-z0-9]*
     ;
 
-//RENAMINGS   : RENAMING ',' RENAMINGS;
-//RENAMING    : ACTION  ACTION;
-
 // ignore whitespace
 WHITESPACE  : [ \r\n\t] + -> channel (HIDDEN);
 
