@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Antlr4.Runtime;
 using CIV.Ccs;
+using CIV.Helpers;
 
 namespace CIV.Processes
 {
@@ -13,7 +14,7 @@ namespace CIV.Processes
         public IDictionary<String, CcsParser.ProcessContext> NamedProcessesTable { get; set; }
         public IDictionary<String, ISet<String>> NamedSetsTable { get; set; }
         public IDictionary<CcsParser.SetExpressionContext, ISet<String>> InlineSetsTable { get; set; }
-        public IDictionary<CcsParser.RenamingExpressionContext, IDictionary<String, String>> Renamings { get; set; }
+        public IDictionary<CcsParser.RenamingExpressionContext, RelabelingFunction> Renamings { get; set; }
 
 
         /// <summary>
