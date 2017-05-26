@@ -34,7 +34,7 @@ namespace CIV.Helpers
             if (action.IsOutput())
             {
                 action = action.Coaction();
-                relabeled = action.Coaction();
+                relabeled = relabeled.Coaction();
             }
             dict.Add(action, relabeled);
         }
