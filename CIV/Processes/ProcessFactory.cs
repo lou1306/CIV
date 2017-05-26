@@ -94,10 +94,10 @@ namespace CIV.Processes
 
         IProcess Create(CcsParser.RenamProcContext context)
         {
-            return new RenamedProcess
+            return new RelabeledProcess
             {
                 Inner = new ProcessProxy(this, context.process()),
-                Renamings = Renamings[context.renamingExpression()]
+                Relabeling = Renamings[context.renamingExpression()]
             };
         }
     }
