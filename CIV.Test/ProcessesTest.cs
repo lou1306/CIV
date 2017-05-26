@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
-using CIV.Ccs;
 using Xunit;
-using Antlr4.Runtime;
 using CIV.Processes;
 using Moq;
 using System.Collections.Generic;
@@ -89,7 +87,6 @@ namespace CIV.Test
         [InlineData("'action", "renamed")]
         [InlineData("action", "'renamed")]
         [InlineData("'action", "'renamed")]
-        //[InlineData("action", "tau")]
         public void RenamedProcessFollowsSemantics(String action, String renamed)
         {
             var process = SetupRenamedProcess(action, renamed);
