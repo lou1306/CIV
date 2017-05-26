@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Linq;
 using CIV.Helpers;
 using CIV.Processes;
@@ -34,7 +34,7 @@ namespace CIV.Test
 		[InlineData("action", "'relabel", "'relabel")]
 		[InlineData("'action", "relabel", "'relabel")]
 		[InlineData("'action", "'relabel", "relabel")]
-        public void RelabeledProcessRelabelsInputAsInput(
+        public void RelabeledProcessFollowsSemantics(
             string action,
             string relabel,
             string expectedRelabel
