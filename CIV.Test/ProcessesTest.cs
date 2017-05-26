@@ -65,7 +65,7 @@ namespace CIV.Test
             var restrictions = new RestrictionSet { innerAction };
             var process = new RestrictedProcess
             {
-                Inner = SetupMockProcess(innerAction),
+                Inner = Common.SetupMockProcess(innerAction),
                 Restrictions = restrictions
             };
             var n = innerAction == "tau" ? 1 : 0;
@@ -77,49 +77,10 @@ namespace CIV.Test
 				Restrictions = restrictions
 			};
 
-			n = innerAction == "tau" ? 3 : 0;
+			n = innerAction == "tau" ? 3 : 1;
 			Assert.Equal(n, process.Transitions().Count());
 		}
 
-
-        [Theory]
-        [InlineData("action", "renamed")]
-        [InlineData("'action", "renamed")]
-        [InlineData("action", "'renamed")]
-        [InlineData("'action", "'renamed")]
-        public void RenamedProcessFollowsSemantics(String action, String renamed)
-        {
-            var process = SetupRenamedProcess(action, renamed);
-            var transitions = process.Transitions();
-
-			Assert.Equal(0, transitions.Where(t => t.Label == action).Count());
-            Assert.Equal(1, transitions.Where(t => t.Label == renamed).Count());
-        }
-
-        [Theory]
-		[InlineData("action", "renamed")]
-        public void RenamedProcessHasRenamedTransitions(String action, String renamed)
-        {
-            var process = SetupRenamedProcess(action, renamed);
-			var transitions = process.Transitions();
-
-            foreach (var t in transitions)
-            {
-                Assert.Equal(t.Process.GetType(), typeof(RenamedProcess));
-            }
-        }
-
-
-        RenamedProcess SetupRenamedProcess(String action, String renamed)
-        {
-			return new RenamedProcess
-			{
-				Inner = SetupMockProcess(action),
-				Renamings = new Dictionary<String, String> {
-					{ action, renamed }
-				}
-			};
-        }
 
         /// <summary>
         /// Setup a ParProcess where inner processes can evolve together.
@@ -129,40 +90,10 @@ namespace CIV.Test
         {
             return new ParProcess
             {
-                Inner1 = SetupMockProcess(action),
-                Inner2 = SetupMockProcess(action.Coaction())
+                Inner1 = Common.SetupMockProcess(action),
+                Inner2 = Common.SetupMockProcess(action.Coaction())
             };
         }
-
-        /// <summary>
-        /// Setup a mock process that can only do the given action. 
-        /// </summary>
-        /// <returns>The mock process.</returns>
-        /// <param name="action">Action.</param>
-        IProcess SetupMockProcess(String action = "action")
-        {
-            return Mock.Of<IProcess>(
-                p => p.Transitions() == new List<Transition> { SetupTransition(action) }
-            );
-        }
-
-        Transition SetupTransition(String label)
-        {
-            return new Transition
-            {
-                Label = label,
-                Process = Mock.Of<IProcess>()
-            };
-        }
-
-        /// <summary>
-        /// Pars the should have par transitions.
-        /// </summary>
-        //[Fact]
-        //public void Transitions_Par()
-        //{
-
-        //}
 
     }
 }
