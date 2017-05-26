@@ -39,5 +39,6 @@
     <Folder Include="Processes\" />
     <Folder Include="HmlCheck\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Hml\" />
   </ItemGroup>
 </Project>
