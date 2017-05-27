@@ -3,8 +3,7 @@ mono: none
 dotnet: 2.0.0-preview1-005977
 dist: trusty
 solution: CIV.sln
-os:
-  - osx
+
 env:
     # Set the DOTNET_SKIP_FIRST_TIME_EXPERIENCE environment variable to stop wasting time caching packages
   - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
@@ -13,5 +12,5 @@ env:
 
 script:
   - dotnet restore
-  - dotnet build CIV/CIV.csproj
+  - dotnet build CIV/CIV.csproj -c Release
   - dotnet test CIV.Test/CIV.Test.csproj
