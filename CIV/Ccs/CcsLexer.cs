@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from /Users/luca/Projects/CIV/CIV/ccs/CcsLexer.g4 by ANTLR 4.5.3
+// Generated from CcsLexer.g4 by ANTLR 4.5.3
 
 // Unreachable code detected
 #pragma warning disable 0162
