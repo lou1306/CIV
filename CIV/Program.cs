@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿﻿using System;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using CIV.Ccs;
+using CIV.Hml;
 using System.Linq;
-using System.Text;
 using CIV.Processes;
 
 namespace CIV
@@ -13,20 +12,29 @@ namespace CIV
     {
         static void Main(string[] args)
         {
-            // Parse the file
-            var inputStream = Program.CreateInputStream("prisoners.ccs.txt");
-            var lexer = new CcsLexer(inputStream);
-            var tokens = new CommonTokenStream(lexer);
-            var parser = new CcsParser(tokens);
-            var programCtx = parser.program();
+			// Parse the file
+			var inputStream = CreateInputStream("prisoners.ccs.txt");
+			var lexer = new CcsLexer(inputStream);
+			var tokens = new CommonTokenStream(lexer);
+			var parser = new CcsParser(tokens);
+			var programCtx = parser.program();
 
-            var listener = new CcsListener();
-            ParseTreeWalker.Default.Walk(listener, programCtx);
+			var listener = new CcsListener();
+			ParseTreeWalker.Default.Walk(listener, programCtx);
 
-            var factory = listener.GetProcessFactory();
-            var prison = factory.Create(listener.Processes["Prison"]);
-            RandomTrace(prison, 450);
-        }
+			var factory = listener.GetProcessFactory();
+			var prison = factory.Create(listener.Processes["Prison"]);
+			RandomTrace(prison, 450);
+
+			//var formula = new AntlrInputStream("[a]<b>(<c>tt and [b]ff)");
+			//var lexer = new HmlLexer(formula);
+			//var tokens = new CommonTokenStream(lexer);
+            //var parser = new HmlParser(tokens);
+
+            //var listener = new HmlListener();
+            //ParseTreeWalker.Default.Walk(listener, parser.baseHml());
+
+		}
 
         static AntlrInputStream CreateInputStream(string filename)
         {
@@ -47,10 +55,9 @@ namespace CIV
                 int index = rand.Next(0, transitions.Count());
                 var nextTransition = transitions.ElementAt(index);
                 start = nextTransition.Process;
-                if (nextTransition.Label != "tau" || printTau)
+                if (nextTransition.Label != Const.tau || printTau)
                 {
-                    Console.WriteLine(
-                        String.Format("{0:000}: {1}", i, nextTransition.Label));
+                    Console.WriteLine("{0:000}: {1}", i, nextTransition.Label);
                 }
             }
         }
