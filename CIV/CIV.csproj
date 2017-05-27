@@ -5,7 +5,7 @@
 		<TargetFramework>netcoreapp2.0</TargetFramework>
 		<TargetFrameworks>netcoreapp2.0</TargetFrameworks>
 		<RuntimeFrameworkVersion>2.0.0-preview1</RuntimeFrameworkVersion>
-		<Description>CCS Interpreter and Verifier</Description>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
 		<AntlrPath>
 			/Users/luca/.nuget/packages/antlr4/4.5.3/tools/antlr4-csharp-4.5.3-complete.jar
 		</AntlrPath>
@@ -47,11 +47,12 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Antlr4" Version="4.6.1-beta001" />
+		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0-preview1-25305-02" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Ccs\" />
 		<Folder Include="Processes\" />
-		<Folder Include="HmlCheck\" />
+		<Folder Include="HmlFormula\" />
 		<Folder Include="Helpers\" />
 		<Folder Include="Hml\" />
 	</ItemGroup>

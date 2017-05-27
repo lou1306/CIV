@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using CIV.Processes;
 
-namespace CIV.HmlCheck
+namespace CIV.HmlFormula
 {
-    public class BoxFormula : HmlLabelFormula
+    public class WeakDiamondFormula : HmlLabelFormula
     {
 		protected override bool CheckStrategy(IEnumerable<IProcess> processes)
-			=> processes.All(Inner.Check);
+			=> processes.Any(Inner.Check);
 
 		protected override IEnumerable<Transition> GetTransitions(IProcess process)
-			=> process.Transitions();
+			=> process.WeakTransitions();
     }
 }

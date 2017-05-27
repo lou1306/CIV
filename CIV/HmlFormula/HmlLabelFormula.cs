@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CIV.Processes;
 
-namespace CIV.HmlCheck
+namespace CIV.HmlFormula
 {
     public abstract class HmlLabelFormula : IHmlFormula
     {

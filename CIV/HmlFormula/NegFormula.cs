@@ -1,7 +1,7 @@
 ﻿using System;
 using CIV.Processes;
 
-namespace CIV.HmlCheck
+namespace CIV.HmlFormula
 {
     public class NegFormula : IHmlFormula
     {

@@ -236,6 +236,17 @@ public interface IHmlParserListener : IParseTreeListener {
 	void ExitLabel([NotNull] HmlParser.LabelContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="HmlParser.baseHml"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBaseHml([NotNull] HmlParser.BaseHmlContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="HmlParser.baseHml"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBaseHml([NotNull] HmlParser.BaseHmlContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="HmlParser.hml"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

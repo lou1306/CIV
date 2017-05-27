@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CIV.Processes;
 
-namespace CIV.HmlCheck
+namespace CIV.HmlFormula
 {
     public class WeakBoxFormula : HmlLabelFormula
     {
