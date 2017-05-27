@@ -3,6 +3,7 @@ mono: none
 dotnet: 2.0.0-preview1-005977
 dist: trusty
 solution: CIV.sln
+install: ./dotnet-install.sh
 
 env:
     # Set the DOTNET_SKIP_FIRST_TIME_EXPERIENCE environment variable to stop wasting time caching packages
