@@ -1,20 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CIV.Processes;
 
 namespace CIV.HmlCheck
 {
-    public class WeakBoxFormula : IHmlFormula
+    public class WeakBoxFormula : HmlLabelFormula
     {
-        public String Label { get; set; }
-		public IHmlFormula Inner { get; set; }
 
-		public bool Check(IProcess process)
-        {
-            var processes = (from t in process.WeakTransitions()
-                             where t.Label == Label
-                             select t.Process);
-            return processes.All(Inner.Check);
-        }
+        protected override bool CheckStrategy(IEnumerable<IProcess> processes)
+            => processes.All(Inner.Check);
+
+        protected override IEnumerable<Transition> GetTransitions(IProcess process)
+            => process.WeakTransitions();
     }
 }

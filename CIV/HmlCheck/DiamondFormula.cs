@@ -1,20 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CIV.Processes;
 
 namespace CIV.HmlCheck
 {
-    public class DiamondFormula : IHmlFormula
+    public class DiamondFormula : HmlLabelFormula
     {
-        public String Label { get; set; }
-		public IHmlFormula Inner { get; set; }
+        protected override bool CheckStrategy(IEnumerable<IProcess> processes)
+            => processes.Any(Inner.Check);
 
-		public bool Check(IProcess process)
-        {
-            var processes = (from t in process.Transitions()
-                             where t.Label == Label
-                             select t.Process);
-            return processes.Any(Inner.Check);
-        }
+        protected override IEnumerable<Transition> GetTransitions(IProcess process)
+            => process.Transitions();
     }
 }
