@@ -1,0 +1,8 @@
+language: csharp
+mono: none
+dotnet: 2.0.0
+dist: trusty
+solution: CIV.sln
+script:
+  - cd CIV && dotnet restore && dotnet build
+  - cd CIV.Test && dotnet test
