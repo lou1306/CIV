@@ -5,11 +5,13 @@
 # solution: CIV.sln
 os:
   - osx
+osx_image: xcode8.3
 install: ./dotnet-install.sh
 
 env:
-    # Set the DOTNET_SKIP_FIRST_TIME_EXPERIENCE environment variable to stop wasting time caching packages
-  - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true DOTNET_CLI_TELEMETRY_OPTOUT=true
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true 
+    - DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 script:
   - /Users/travis/.dotnet/dotnet restore
