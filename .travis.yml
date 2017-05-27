@@ -10,5 +10,6 @@ env:
   - DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 script:
-  - dotnet build
+  - dotnet restore
+  - dotnet build CIV/CIV.csproj
   - dotnet test CIV.Test/CIV.Test.csproj
