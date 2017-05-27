@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 namespace CIV.Helpers
@@ -13,7 +13,7 @@ namespace CIV.Helpers
 
         public bool Add(string item)
         {
-            if (item == "tau")
+            if (item == Const.tau)
             {
                 throw new ArgumentException("Illegal restriction: tau");
             }
