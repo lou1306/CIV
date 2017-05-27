@@ -14,6 +14,7 @@
     <PackageReference Include="Antlr4" Version="4.6.1-beta002" />
     <PackageReference Include="Moq" Version="4.7.10" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170523-01" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0-preview2-25325-03" />
   </ItemGroup>
 
   <ItemGroup>
