@@ -11,6 +11,8 @@ labelList
 
 label : TAU | ACTION | COACTION ;
 
+baseHml : hml; 
+
 hml
     : LPAREN hml RPAREN                     #Parenth
     | NOT hml                               #Negated

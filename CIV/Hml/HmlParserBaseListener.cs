@@ -272,6 +272,19 @@ public partial class HmlParserBaseListener : IHmlParserListener {
 	public virtual void ExitLabel([NotNull] HmlParser.LabelContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="HmlParser.baseHml"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBaseHml([NotNull] HmlParser.BaseHmlContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="HmlParser.baseHml"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBaseHml([NotNull] HmlParser.BaseHmlContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="HmlParser.hml"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
