@@ -5,11 +5,23 @@ using CIV.Processes;
 using Moq;
 using System.Collections.Generic;
 using CIV.Helpers;
+using CIV.Ccs;
 
 namespace CIV.Test
 {
     public class ProcessesTest
     {
+
+        [Fact]
+        public void ConstTauMatchesLexerTau()
+        {
+            var lexerTau = CcsLexer
+                .DefaultVocabulary
+                .GetLiteralName(CcsLexer.TAU)
+                .Replace("'", "");
+            Assert.Equal(Const.tau, lexerTau);
+        }
+
         [Fact]
         public void NilProcessHasNoTransitions()
         {
@@ -22,7 +34,7 @@ namespace CIV.Test
         {
             var process = new PrefixProcess
             {
-                Label = "tau",
+                Label = Const.tau,
                 Inner = Mock.Of<IProcess>()
             };
             Assert.Equal(1, process.Transitions().Count());
@@ -40,27 +52,27 @@ namespace CIV.Test
 
         [Theory]
         [InlineData("action")]
-        [InlineData("tau")]
+        [InlineData(Const.tau)]
         public void ParProcessFollowsSemantics(String action)
         {
             var transitions = SetupParProcess(action).Transitions().ToList();
-            Assert.Equal(3, transitions.Count());
+            Assert.Equal(3, transitions.Count);
             switch (action)
             {
-                case "tau":
+                case Const.tau:
                     Assert.Equal(3, transitions.Where(t => t.Label == action).Count());
                     break;
                 default:
-                    Assert.Equal(1, transitions.Where(t => t.Label == action).Count());
-                    Assert.Equal(1, transitions.Where(t => t.Label == action.Coaction()).Count());
-                    Assert.Equal(1, transitions.Where(t => t.Label == "tau").Count());
+                    Assert.Equal(1, transitions.Count(t => t.Label == action));
+                    Assert.Equal(1, transitions.Count(t => t.Label == action.Coaction()));
+                    Assert.Equal(1, transitions.Count(t => t.Label == Const.tau));
                     break;
             }
         }
 
         [Theory]
-		[InlineData("action")]
-		[InlineData("'action")]
+        [InlineData("action")]
+        [InlineData("'action")]
         public void RestrictedProcessFollowsSemantics(String innerAction)
         {
             var restrictions = new RestrictionSet { innerAction };
@@ -69,24 +81,24 @@ namespace CIV.Test
                 Inner = Common.SetupMockProcess(innerAction),
                 Restrictions = restrictions
             };
-            var n = innerAction == "tau" ? 1 : 0;
+            var n = innerAction == Const.tau ? 1 : 0;
             Assert.Equal(n, process.Transitions().Count());
 
-			process = new RestrictedProcess
-			{
+            process = new RestrictedProcess
+            {
                 Inner = SetupParProcess(innerAction),
-				Restrictions = restrictions
-			};
+                Restrictions = restrictions
+            };
 
-			n = innerAction == "tau" ? 3 : 1;
-			Assert.Equal(n, process.Transitions().Count());
-		}
+            n = innerAction == Const.tau ? 3 : 1;
+            Assert.Equal(n, process.Transitions().Count());
+        }
 
         [Fact]
         public void RestrictionSetRefusesTau()
         {
             Assert.Throws<ArgumentException>(
-                () => new RestrictionSet { "tau" }
+                () => new RestrictionSet { Const.tau }
             );
         }
 

@@ -50,8 +50,8 @@ namespace CIV.Test
             };
 
             var transitions = process.Transitions();
-            Assert.Equal(0, transitions.Where(t => t.Label == action).Count());
-            Assert.Equal(1, transitions.Where(t => t.Label == expectedRelabel).Count());
+            Assert.Equal(0, transitions.Count(t => t.Label == action));
+            Assert.Equal(1, transitions.Count(t => t.Label == expectedRelabel));
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace CIV.Test
             Assert.Throws<ArgumentException>(
                 () => new RelabelingFunction
             {
-                { "tau", "relabeled"}
+                { Const.tau, "relabeled"}
             });
         }
     }
