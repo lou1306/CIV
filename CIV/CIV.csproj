@@ -1,44 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>netcoreapp2.0</TargetFramework>
+		<TargetFrameworks>netcoreapp2.0</TargetFrameworks>
 		<RuntimeFrameworkVersion>2.0.0-preview1</RuntimeFrameworkVersion>
 		<Description>CCS Interpreter and Verifier</Description>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <CustomCommands>
-      <CustomCommands>
-        <Command>
-          <type>BeforeBuild</type>
-          <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/build/../tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -o ${ProjectDir}/Ccs -no-listener -no-visitor -Dlanguage=CSharp_v2_0 -package CIV.Ccs ${ProjectDir}/ccs/CcsLexer.g4
-</command>
-          <workingdir>${ProjectDir}</workingdir>
-        </Command>
-        <Command>
-          <type>BeforeBuild</type>
-          <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/build/../tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -o ${ProjectDir}/Ccs -Dlanguage=CSharp_v2_0 -package CIV.Ccs ${ProjectDir}/ccs/CcsParser.g4
-</command>
-          <workingdir>${ProjectDir}</workingdir>
-        </Command>
-      </CustomCommands>
-    </CustomCommands>
-    <NoWarn>1701;1702;1705;3021</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType></DebugType>
-    <NoWarn>1701;1702;1705;3021</NoWarn>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Antlr4" Version="4.6.1-beta001" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Ccs\" />
-    <Folder Include="Processes\" />
-    <Folder Include="HmlCheck\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Hml\" />
-  </ItemGroup>
+		<AntlrPath>
+			/Users/luca/.nuget/packages/antlr4/4.5.3/tools/antlr4-csharp-4.5.3-complete.jar
+		</AntlrPath>
+		<AntlrCommand>
+			java -cp $(AntlrPath) org.antlr.v4.CSharpTool -Dlanguage=CSharp_v2_0
+		</AntlrCommand>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<CustomCommands>
+			<CustomCommands>
+				<Command>
+					<type>BeforeBuild</type>
+					<command>$(AntlrCommand) -no-listener -no-visitor -package CIV.Ccs CcsLexer.g4</command>
+					<workingdir>${ProjectDir}/Ccs</workingdir>
+				</Command>
+				<Command>
+					<type>BeforeBuild</type>
+					<command>$(AntlrCommand) -package CIV.Ccs CcsParser.g4</command>
+					<workingdir>${ProjectDir}/Ccs</workingdir>
+				</Command>
+				<Command>
+					<type>BeforeBuild</type>
+					<command>$(AntlrCommand) -no-listener -no-visitor -package CIV.Hml HmlLexer.g4</command>
+					<workingdir>${ProjectDir}/Hml</workingdir>
+				</Command>
+				<Command>
+					<type>BeforeBuild</type>
+					<command>$(AntlrCommand) -package CIV.Hml HmlParser.g4</command>
+					<workingdir>${ProjectDir}/Hml</workingdir>
+				</Command>
+			</CustomCommands>
+		</CustomCommands>
+		<NoWarn>1701;1702;1705;3021</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>
+		</DebugType>
+		<NoWarn>1701;1702;1705;3021</NoWarn>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Antlr4" Version="4.6.1-beta001" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Ccs\" />
+		<Folder Include="Processes\" />
+		<Folder Include="HmlCheck\" />
+		<Folder Include="Helpers\" />
+		<Folder Include="Hml\" />
+	</ItemGroup>
 </Project>
