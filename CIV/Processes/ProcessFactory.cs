@@ -72,9 +72,6 @@ namespace CIV.Processes
 						Relabeling = Relabelings[c.relabelExpression()]
 					};
                 default:
-					Console.WriteLine("------------------");
-					Console.WriteLine(context);
-                    Console.WriteLine(context.GetType());
                     throw new NotSupportedException();
 			}
         }
