@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/lou1306/CIV.svg?token=ThHjw176gDPz2r4TcA5L&branch=master)](https://travis-ci.com/lou1306/CIV)
+
 # CIV - CCS Interpreter and Verifier
 
 CIV (pronounced *One-Zero-Four* or *CentoQuattro*) is a tool to verify properties on a CCS process.
