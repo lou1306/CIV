@@ -39,7 +39,7 @@ namespace CIV.Processes
                        on t1.Label equals t2.Label.Coaction()
                        select new Transition
                        {
-                           Label = "tau",
+                           Label = Const.tau,
                            Process = new ParProcess
                            {
                                Inner1 = t1.Process,

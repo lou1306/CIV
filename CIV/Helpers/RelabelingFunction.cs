@@ -27,7 +27,7 @@ namespace CIV.Helpers
 
         public void Add(string action, string relabeled)
         {
-            if (action == "tau")
+            if (action == Const.tau)
             {
                 throw new ArgumentException("Cannot relabel tau");
             }

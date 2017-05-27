@@ -12,11 +12,10 @@ namespace CIV.Helpers
         /// <returns>The coaction: 'action if action does not start
         /// with ' and vice versa</returns>
         /// <param name="action">A CCS action</param>
-        public static String Coaction(this String action)
+        public static String Coaction(this string action)
         {
-            if (action == "tau") return "tau";
-            return action.StartsWith("'", StringComparison.InvariantCultureIgnoreCase) ?
-                       action.Substring(1) : String.Format("'{0}", action);
+            if (action == Const.tau) return action;
+            return action.IsOutput() ? action.Substring(1) : $"'{action}";
         }
 
         /// <summary>
@@ -27,13 +26,14 @@ namespace CIV.Helpers
         /// <param name="action">An action.</param>
         public static bool IsOutput(this String action)
         {
-            return action != "tau" && action.StartsWith("'", StringComparison.InvariantCulture);
+            return action != Const.tau && action[0] == '\'';
         }
     }
 }
 
 namespace CIV.Processes
 {
+   
     public static class Extensions
     {
         /// <summary>
@@ -51,10 +51,10 @@ namespace CIV.Processes
             var transitions = process.Transitions();
             var result = (
                 from t in transitions
-                where t.Label != "tau"
+                where t.Label != Const.tau
                 select t
             );
-            foreach (var t in transitions.Where(x => x.Label == "tau"))
+            foreach (var t in transitions.Where(x => x.Label == Const.tau))
             {
                 result.Concat(t.Process.WeakTransitions());
             }
