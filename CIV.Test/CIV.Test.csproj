@@ -20,7 +20,4 @@
   <ItemGroup>
     <ProjectReference Include="..\CIV\CIV.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mocks\" />
-  </ItemGroup>
 </Project>
