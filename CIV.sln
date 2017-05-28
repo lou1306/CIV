@@ -1,9 +1,11 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIV", "CIV\CIV.csproj", "{A46F6F5E-4E91-4ECB-B70A-AC8E7CA53B98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIV", "CIV\CIV.csproj", "{BA759F74-1B88-43E5-B2F5-F2832D8715B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIV.Test", "CIV.Test\CIV.Test.csproj", "{A6827471-96F4-4B99-9A1A-D280B704C5B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIV.Test", "CIV.Test\CIV.Test.csproj", "{C64E53EC-6C2C-4C5A-8988-AACC311544DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIV.Ccs", "CIV.Ccs\CIV.Ccs.csproj", "{C374D555-BE70-4966-B018-1168BEF0F045}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A46F6F5E-4E91-4ECB-B70A-AC8E7CA53B98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A46F6F5E-4E91-4ECB-B70A-AC8E7CA53B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A46F6F5E-4E91-4ECB-B70A-AC8E7CA53B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A46F6F5E-4E91-4ECB-B70A-AC8E7CA53B98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6827471-96F4-4B99-9A1A-D280B704C5B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6827471-96F4-4B99-9A1A-D280B704C5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6827471-96F4-4B99-9A1A-D280B704C5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6827471-96F4-4B99-9A1A-D280B704C5B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA759F74-1B88-43E5-B2F5-F2832D8715B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA759F74-1B88-43E5-B2F5-F2832D8715B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA759F74-1B88-43E5-B2F5-F2832D8715B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA759F74-1B88-43E5-B2F5-F2832D8715B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C64E53EC-6C2C-4C5A-8988-AACC311544DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C64E53EC-6C2C-4C5A-8988-AACC311544DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C64E53EC-6C2C-4C5A-8988-AACC311544DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C64E53EC-6C2C-4C5A-8988-AACC311544DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C374D555-BE70-4966-B018-1168BEF0F045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C374D555-BE70-4966-B018-1168BEF0F045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C374D555-BE70-4966-B018-1168BEF0F045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C374D555-BE70-4966-B018-1168BEF0F045}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		description = CCS Interpreter and Verifier

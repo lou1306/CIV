@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using CIV.Processes;
+using CIV.Ccs;
+
 
 namespace CIV.HmlFormula
 {
@@ -20,6 +21,6 @@ namespace CIV.HmlFormula
 
         protected abstract IEnumerable<Transition> GetTransitions(IProcess process);
 
-        protected abstract bool CheckStrategy(IEnumerable<IProcess> process);
+        protected abstract bool CheckStrategy(IEnumerable<IProcess> processes);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CIV.Processes
+namespace CIV.Ccs
 {
     public class NilProcess : IProcess
     {

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr4.Runtime;
-using CIV.Ccs;
-using CIV.Helpers;
 
-namespace CIV.Processes
+namespace CIV.Ccs
 {
     /// <summary>
-    /// Process factory that recursively builds Processes from contexts.
+    /// Process factory that builds Processes from contexts.
     /// </summary>
-    public class ProcessFactory
+    class ProcessFactory
     {
         public IDictionary<String, CcsParser.ProcessContext> NamedProcessesTable { get; set; }
         public IDictionary<String, ISet<String>> NamedSetsTable { get; set; }

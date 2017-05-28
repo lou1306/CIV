@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using CIV.Ccs;
-using CIV.Helpers;
-using CIV.Processes;
 
-namespace CIV
+namespace CIV.Ccs
 {
     public class CcsListener : CcsParserBaseListener
     {
@@ -37,7 +34,7 @@ namespace CIV
             };
             return Processes.ToDictionary(
                 x => x.Key,
-                x => new ProcessProxy(factory, x.Value) as IProcess);
+                x => factory.Create(x.Value));
         }
         //new Processes.ProcessFactory
         //{

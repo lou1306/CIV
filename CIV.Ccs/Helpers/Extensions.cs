@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CIV.Helpers
+namespace CIV.Ccs
 {
     public static class Extensions
     {
@@ -28,14 +28,7 @@ namespace CIV.Helpers
         {
             return action != Const.tau && action[0] == '\'';
         }
-    }
-}
-
-namespace CIV.Processes
-{
-   
-    public static class Extensions
-    {
+    
         /// <summary>
         /// Returns weak transitions for the given process.
         /// Weak transitions:

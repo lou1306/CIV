@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 using CIV.HmlFormula;
-using CIV.Processes;
+using CIV.Ccs;
 using Moq;
 
 namespace CIV.Test

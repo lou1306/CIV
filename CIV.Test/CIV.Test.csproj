@@ -19,5 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CIV\CIV.csproj" />
+    <ProjectReference Include="..\CIV.Ccs\CIV.Ccs.csproj" />
   </ItemGroup>
 </Project>

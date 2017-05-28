@@ -6,55 +6,19 @@
 		<TargetFrameworks>netcoreapp2.0</TargetFrameworks>
 		<RuntimeFrameworkVersion>2.0.0-preview1</RuntimeFrameworkVersion>
     <GenerateDependencyFile>false</GenerateDependencyFile>
-		<AntlrPath>
-			/Users/luca/.nuget/packages/antlr4/4.5.3/tools/antlr4-csharp-4.5.3-complete.jar
-		</AntlrPath>
-		<AntlrCommand>
-			java -cp $(AntlrPath) org.antlr.v4.CSharpTool -Dlanguage=CSharp_v2_0
-		</AntlrCommand>
+    <NoWarn>1701;1702;1705;3021</NoWarn>
 	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<CustomCommands>
-		  <CustomCommands>
-		    <Command>
-		      <type>BeforeBuild</type>
-		      <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -Dlanguage=CSharp_v2_0 -no-listener -no-visitor -package CIV.Ccs CcsLexer.g4</command>
-		      <workingdir>${ProjectDir}/Ccs</workingdir>
-		    </Command>
-		    <Command>
-		      <type>BeforeBuild</type>
-		      <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -Dlanguage=CSharp_v2_0 -package CIV.Ccs CcsParser.g4</command>
-		      <workingdir>${ProjectDir}/Ccs</workingdir>
-		    </Command>
-		    <Command>
-		      <type>BeforeBuild</type>
-		      <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -Dlanguage=CSharp_v2_0 -no-listener -no-visitor -package CIV.Hml HmlLexer.g4</command>
-		      <workingdir>${ProjectDir}/Hml</workingdir>
-		    </Command>
-		    <Command>
-		      <type>BeforeBuild</type>
-		      <command>java -cp /Users/luca/.nuget/packages/antlr4/4.5.3/tools/antlr4-csharp-4.5.3-complete.jar org.antlr.v4.CSharpTool -Dlanguage=CSharp_v2_0 -package CIV.Hml HmlParser.g4</command>
-		      <workingdir>${ProjectDir}/Hml</workingdir>
-		    </Command>
-		  </CustomCommands>
-		</CustomCommands>
-		<NoWarn>1701;1702;1705;3021</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>
-		</DebugType>
-		<NoWarn>1701;1702;1705;3021</NoWarn>
-	</PropertyGroup>
+
+
 	<ItemGroup>
 		<PackageReference Include="Antlr4" Version="4.6.1-beta002" />
 		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0-*" />
 		<PackageReference Include="Antlr4.Runtime" Version="4.6.1-beta002" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Ccs\" />
-		<Folder Include="Processes\" />
 		<Folder Include="HmlFormula\" />
-		<Folder Include="Helpers\" />
-		<Folder Include="Hml\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\CIV.Ccs\CIV.Ccs.csproj" />
 	</ItemGroup>
 </Project>

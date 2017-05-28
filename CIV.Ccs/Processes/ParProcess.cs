@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
-using CIV.Helpers;
 
-namespace CIV.Processes
+namespace CIV.Ccs
 {
     public class ParProcess : IProcess
     {

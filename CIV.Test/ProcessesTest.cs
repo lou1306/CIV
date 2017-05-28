@@ -1,11 +1,8 @@
 using System;
 using System.Linq;
 using Xunit;
-using CIV.Processes;
-using Moq;
-using System.Collections.Generic;
-using CIV.Helpers;
 using CIV.Ccs;
+using Moq;
 
 namespace CIV.Test
 {
@@ -60,7 +57,7 @@ namespace CIV.Test
             switch (action)
             {
                 case Const.tau:
-                    Assert.Equal(3, transitions.Where(t => t.Label == action).Count());
+                    Assert.Equal(3, transitions.Count(t => t.Label == action));
                     break;
                 default:
                     Assert.Equal(1, transitions.Count(t => t.Label == action));

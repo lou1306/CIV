@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CIV.Helpers
+namespace CIV.Ccs
 {
     public class RelabelingFunction : ICollection<KeyValuePair<string, string>>
     {

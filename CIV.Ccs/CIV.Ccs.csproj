@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+    <AntlrPath>
+      /usr/local/Cellar/antlr/4.7/antlr-4.7-complete.jar
+    </AntlrPath>
+    <AntlrCommand>
+      java -jar $(AntlrPath) -Dlanguage=CSharp
+    </AntlrCommand>
+  </PropertyGroup>
+
+	 <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0-*" />
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.1" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>$(AntlrCommand) -o ../gen -package ${ProjectName} CcsLexer.g4</command>
+          <workingdir>${ProjectDir}/grammar</workingdir>
+        </Command>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>$(AntlrCommand) -o ../gen -package ${ProjectName} CcsParser.g4</command>
+          <workingdir>${ProjectDir}/grammar</workingdir>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+    <NoWarn>1701;1702;1705;3021</NoWarn>
+  </PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>
+    </DebugType>
+    <NoWarn>1701;1702;1705;3021</NoWarn>
+  </PropertyGroup>
+	
+	 <ItemGroup>
+	   <Folder Include="Processes\" />
+	   <Folder Include="gen\" />
+	   <Folder Include="Helpers\" />
+	 </ItemGroup>
+</Project>

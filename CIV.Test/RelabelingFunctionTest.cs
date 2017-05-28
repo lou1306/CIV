@@ -1,6 +1,5 @@
-﻿using System;
-using CIV.Helpers;
-using Xunit;
+﻿using Xunit;
+using CIV.Ccs;
 
 namespace CIV.Test
 {
