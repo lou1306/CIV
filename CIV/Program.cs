@@ -22,9 +22,8 @@ namespace CIV
 			var listener = new CcsListener();
 			ParseTreeWalker.Default.Walk(listener, programCtx);
 
-			var factory = listener.GetProcessFactory();
-			var prison = factory.Create(listener.Processes["Prison"]);
-			RandomTrace(prison, 450);
+            var processes = listener.GetProcessesTable();
+			RandomTrace(processes["Prison"], 450);
 
 			//var formula = new AntlrInputStream("[a]<b>(<c>tt and [b]ff)");
 			//var lexer = new HmlLexer(formula);

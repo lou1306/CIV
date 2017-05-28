@@ -46,8 +46,9 @@
 		<NoWarn>1701;1702;1705;3021</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Antlr4" Version="4.6.1-beta001" />
+		<PackageReference Include="Antlr4" Version="4.6.1-beta002" />
 		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0-*" />
+		<PackageReference Include="Antlr4.Runtime" Version="4.6.1-beta002" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Ccs\" />
