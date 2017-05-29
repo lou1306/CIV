@@ -22,13 +22,9 @@ namespace CIV.Ccs
             return listener.GetProcessesTable();
         }
 
-        public static IDictionary<string, IProcess> ParseFile(string path)
-        {
-            return ParseAll(System.IO.File.ReadAllText(path));
-        }
-
-		public static void RandomTrace(IProcess start, int moves, bool printTau = false)
+        public static IEnumerable<string> RandomTrace(IProcess start, int moves, bool printTau = false)
 		{
+            var result = new List<string>();
 			var rand = new Random();
 			for (int i = 0; i < moves; i++)
 			{
@@ -42,9 +38,10 @@ namespace CIV.Ccs
 				start = nextTransition.Process;
 				if (nextTransition.Label != Const.tau || printTau)
 				{
-					Console.WriteLine("{0:000}: {1}", i, nextTransition.Label);
+                    result.Add(String.Format("{0:000}: {1}", i, nextTransition.Label));
 				}
 			}
+            return result;
 		}
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CIV.Ccs
 {
-    public class ParProcess : IProcess
+    class ParProcess : IProcess
     {
         public IProcess Inner1 { get; set; }
         public IProcess Inner2 { get; set; }
