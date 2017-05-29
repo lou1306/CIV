@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,20 +23,21 @@ namespace CIV.Ccs
             return listener.GetProcessesTable();
         }
 
-        public static IEnumerable<string> RandomTrace(IProcess start, int moves, bool printTau = false)
+        public static IEnumerable<string> RandomTrace(CcsProcess start, int moves, bool printTau = false)
 		{
             var result = new List<string>();
 			var rand = new Random();
+            IProcess proc = start;
 			for (int i = 0; i < moves; i++)
 			{
-				var transitions = start.Transitions();
+				var transitions = proc.Transitions();
 				if (!transitions.Any())
 				{
 					break;
 				}
 				int index = rand.Next(0, transitions.Count());
 				var nextTransition = transitions.ElementAt(index);
-				start = nextTransition.Process;
+				proc = nextTransition.Process;
 				if (nextTransition.Label != Const.tau || printTau)
 				{
                     result.Add(String.Format("{0:000}: {1}", i, nextTransition.Label));
