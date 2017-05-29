@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace CIV.Processes
+namespace CIV.Ccs
 {
 	public class ChoiceProcess : IProcess
 	{

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
-using CIV.Helpers;
 
-namespace CIV.Processes
+namespace CIV.Ccs
 {
-    public class ParProcess : IProcess
+    class ParProcess : IProcess
     {
         public IProcess Inner1 { get; set; }
         public IProcess Inner2 { get; set; }

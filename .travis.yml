@@ -11,7 +11,7 @@ env:
 
 script:
   - /Users/travis/.dotnet/dotnet restore --disable-parallel
-  - /Users/travis/.dotnet/dotnet build CIV/CIV.csproj -c Release
+  - /Users/travis/.dotnet/dotnet build -c Release
   - /Users/travis/.dotnet/dotnet test CIV.Test/CIV.Test.csproj
 
 notifications:

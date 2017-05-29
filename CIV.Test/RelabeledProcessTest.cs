@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
-using CIV.Helpers;
-using CIV.Processes;
+using CIV.Ccs;
 using Xunit;
 
 namespace CIV.Test

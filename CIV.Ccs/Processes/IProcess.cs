@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace CIV.Processes
+namespace CIV.Ccs
 {
     public interface IProcess
     {

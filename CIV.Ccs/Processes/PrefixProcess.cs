@@ -1,9 +1,7 @@
 ﻿using System;
-using CIV.Ccs;
 using System.Collections.Generic;
-using Antlr4.Runtime;
 
-namespace CIV.Processes
+namespace CIV.Ccs
 {
     public class PrefixProcess : IProcess
     {

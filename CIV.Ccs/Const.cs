@@ -1,5 +1,4 @@
-﻿using System;
-namespace CIV
+﻿namespace CIV.Ccs
 {
 	public static class Const
 	{

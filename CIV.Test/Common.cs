@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CIV.Helpers;
-using CIV.Processes;
+using CIV.Ccs;
 using Moq;
 
 namespace CIV.Test

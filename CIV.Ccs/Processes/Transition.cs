@@ -1,8 +1,6 @@
 ﻿using System;
-using Antlr4.Runtime;
-using CIV.Ccs;
 
-namespace CIV.Processes
+namespace CIV.Ccs
 {
     public class Transition
     {

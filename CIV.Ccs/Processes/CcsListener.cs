@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using CIV.Ccs;
-using CIV.Helpers;
 
-namespace CIV
+namespace CIV.Ccs
 {
     public class CcsListener : CcsParserBaseListener
     {
@@ -24,14 +23,26 @@ namespace CIV
             Relabelings = new Dictionary<CcsParser.RelabelExpressionContext, RelabelingFunction>();
         }
 
-        public Processes.ProcessFactory GetProcessFactory() =>
-                        new Processes.ProcessFactory
-                        {
-                            NamedProcessesTable = Processes,
-                            NamedSetsTable = NamedSets,
-                            InlineSetsTable = ExprSets,
-                            Relabelings = Relabelings
-                        };
+        public IDictionary<string, IProcess> GetProcessesTable()
+        {
+            var factory = new ProcessFactory
+            {
+                NamedProcessesTable = Processes,
+                NamedSetsTable = NamedSets,
+                InlineSetsTable = ExprSets,
+                Relabelings = Relabelings
+            };
+            return Processes.ToDictionary(
+                x => x.Key,
+                x => factory.Create(x.Value));
+        }
+        //new Processes.ProcessFactory
+        //{
+        //    NamedProcessesTable = Processes,
+        //    NamedSetsTable = NamedSets,
+        //    InlineSetsTable = ExprSets,
+        //    Relabelings = Relabelings
+        //};
 
         public override void EnterSetList(CcsParser.SetListContext context)
         {

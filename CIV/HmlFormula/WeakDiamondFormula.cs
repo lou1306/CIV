@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using CIV.Processes;
+using CIV.Ccs;
 
 namespace CIV.HmlFormula
 {
     public class WeakDiamondFormula : HmlLabelFormula
     {
-		protected override bool CheckStrategy(IEnumerable<IProcess> processes)
+        protected override bool CheckStrategy(IEnumerable<IProcess> processes)
 			=> processes.Any(Inner.Check);
 
 		protected override IEnumerable<Transition> GetTransitions(IProcess process)
