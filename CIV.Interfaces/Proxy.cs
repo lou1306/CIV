@@ -19,7 +19,7 @@ namespace CIV.Interfaces
 			}
         }
 
-        public Proxy(IFactory<T, CTX> factory, CTX context)
+        protected Proxy(IFactory<T, CTX> factory, CTX context)
         {
             this.factory = factory;
             this.context = context;
