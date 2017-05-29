@@ -11,7 +11,7 @@ namespace CIV.Ccs
 {
     public static class CcsFacade
     {
-        public static IDictionary<string, IProcess> ParseAll(string text){
+        public static IDictionary<string, CcsProcess> ParseAll(string text){
             var stream = new AntlrInputStream(text);
 			var lexer = new CcsLexer(stream);
 			var tokens = new CommonTokenStream(lexer);
