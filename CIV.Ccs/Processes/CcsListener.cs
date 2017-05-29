@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using CIV.Interfaces;
+using CIV.Ccs;
 
 namespace CIV.Ccs
 {
@@ -24,7 +24,7 @@ namespace CIV.Ccs
             Relabelings = new Dictionary<CcsParser.RelabelExpressionContext, RelabelingFunction>();
         }
 
-        public IDictionary<string, IProcess> GetProcessesTable()
+        public IDictionary<string, CcsProcess> GetProcessesTable()
         {
             var factory = new ProcessFactory
             {
