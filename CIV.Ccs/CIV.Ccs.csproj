@@ -1,18 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFramework>netstandard1.6</TargetFramework>
     <AntlrPath>
-      /usr/local/Cellar/antlr/4.7/antlr-4.7-complete.jar
+      /Users/luca/.nuget/packages/antlr4.codegenerator/4.6.1-beta002/tools/antlr4-csharp-4.6.1-SNAPSHOT-complete.jar 
     </AntlrPath>
     <AntlrCommand>
-      java -jar $(AntlrPath) -Dlanguage=CSharp
+      java -jar $(AntlrPath) -Dlanguage=CSharp_v4_5
     </AntlrCommand>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
 
 	 <ItemGroup>
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0-*" />
-    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.1" />
+    <PackageReference Include="Antlr4.Runtime" Version="4.6.1-beta002" />
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
