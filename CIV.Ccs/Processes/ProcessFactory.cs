@@ -1,70 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using Antlr4.Runtime;
 using CIV.Interfaces;
+using static CIV.Ccs.CcsParser;
 
 namespace CIV.Ccs
 {
     /// <summary>
     /// Process factory that builds Processes from contexts.
     /// </summary>
-    class ProcessFactory
+    class ProcessFactory : IFactory<CcsProcess, ProcessContext>
     {
-        public IDictionary<String, CcsParser.ProcessContext> NamedProcessesTable { get; set; }
+        public IDictionary<String, ProcessContext> NamedProcessesTable { get; set; }
         public IDictionary<String, ISet<String>> NamedSetsTable { get; set; }
-        public IDictionary<CcsParser.SetExpressionContext, ISet<String>> InlineSetsTable { get; set; }
-        public IDictionary<CcsParser.RelabelExpressionContext, RelabelingFunction> Relabelings { get; set; }
+        public IDictionary<SetExpressionContext, ISet<String>> InlineSetsTable { get; set; }
+        public IDictionary<RelabelExpressionContext, RelabelingFunction> Relabelings { get; set; }
 
         /// <summary>
         /// Create a Process from the specified context.
         /// </summary>
         /// <returns>The create.</returns>
         /// <param name="context">Context.</param>
-        public IProcess Create(ParserRuleContext context)
+        public CcsProcess Create(ProcessContext context)
         {
             switch(context)
             {
-                case CcsParser.NilProcContext c:
+                case NilProcContext c:
                     return new NilProcess();
-                case CcsParser.PrefixProcContext c:
+                case PrefixProcContext c:
 					return new PrefixProcess
 					{
 						Label = c.label().GetText(),
 						Inner = new ProcessProxy(this, c.process())
 					};
-                case CcsParser.PidProcContext c:
+                case PidProcContext c:
 					var pid = c.pid().GetText();
-					return new PidProcess(this, NamedProcessesTable[pid])
-					{
-						Pid = pid
-					};
-                case CcsParser.ParenthProcContext c:
-					return new ProcessProxy(this, c.process());
-                case CcsParser.ParProcContext c:
+                    return Create(NamedProcessesTable[pid]);
+                case ParenthProcContext c:
+					return Create(c.process());
+                case ParProcContext c:
 					return new ParProcess
 					{
 						Inner1 = new ProcessProxy(this, c.process(0)),
 						Inner2 = new ProcessProxy(this, c.process(1))
 					};
-                case CcsParser.ChoiceProcContext c:
+                case ChoiceProcContext c:
 					return new ChoiceProcess
 					{
 						Inner1 = new ProcessProxy(this, c.process(0)),
 						Inner2 = new ProcessProxy(this, c.process(1))
 					};
-                case CcsParser.RestrictIdProcContext c:
+                case RestrictIdProcContext c:
 					return new RestrictedProcess
 					{
 						Inner = new ProcessProxy(this, c.process()),
 						Restrictions = NamedSetsTable[c.setId().GetText()]
 					};
-				case CcsParser.RestrictExprProcContext c:
+				case RestrictExprProcContext c:
 					return new RestrictedProcess
 					{
 						Inner = new ProcessProxy(this, c.process()),
 						Restrictions = InlineSetsTable[c.setExpression()]
 					};
-                case CcsParser.RelabelProcContext c:
+                case RelabelProcContext c:
 					return new RelabeledProcess
 					{
 						Inner = new ProcessProxy(this, c.process()),
