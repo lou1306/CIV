@@ -4,7 +4,7 @@ using CIV.Interfaces;
          
 namespace CIV.Ccs
 {
-    public abstract class CcsProcess : IProcess, IHasWeakTransitions
+    public abstract class CcsProcess : IHasWeakTransitions
     {
         public abstract IEnumerable<Transition> Transitions();
 

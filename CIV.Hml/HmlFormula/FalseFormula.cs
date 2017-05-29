@@ -1,6 +1,7 @@
-﻿using CIV.Ccs;
+﻿using CIV.Interfaces;
 
-namespace CIV.HmlFormula
+
+namespace CIV.Hml
 {
     public class FalseFormula : IHmlFormula
     {

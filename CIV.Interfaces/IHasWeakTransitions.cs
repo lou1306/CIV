@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace CIV.Interfaces
 {
-    public interface IHasWeakTransitions
+    public interface IHasWeakTransitions : IProcess
     {
 		IEnumerable<Transition> WeakTransitions();
     }
