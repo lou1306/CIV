@@ -8,6 +8,7 @@
     <AntlrCommand>
       java -jar $(AntlrPath) -Dlanguage=CSharp_v4_5
     </AntlrCommand>
+    <GenerateDependencyFile>true</GenerateDependencyFile>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
