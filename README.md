@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/lou1306/CIV.svg?token=ThHjw176gDPz2r4TcA5L&branch=master)](https://travis-ci.com/lou1306/CIV)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # CIV - CCS Interpreter and Verifier
 
