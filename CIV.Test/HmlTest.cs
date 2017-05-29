@@ -3,6 +3,7 @@ using Xunit;
 using CIV.HmlFormula;
 using CIV.Ccs;
 using Moq;
+using System.Collections.Generic;
 
 namespace CIV.Test
 {
@@ -75,7 +76,7 @@ namespace CIV.Test
             var formula = new BoxFormula
             {
                 Inner = new FalseFormula(),
-                Label = { "anotherAction" }
+                Label = new HashSet<string>{ "anotherAction" }
             };
             Assert.True(formula.Check(process));
         }
