@@ -6,9 +6,14 @@ namespace CIV
     {
         static void Main(string[] args)
         {
-			// Parse the file and do a random trace
-            var processes = CcsFacade.ParseFile(args[0]);
-			CcsFacade.RandomTrace(processes["Prison"], 450);
-		}
+  			var text = System.IO.File.ReadAllText(args[0]);
+
+			var processes = CcsFacade.ParseAll(text);
+            var trace = CcsFacade.RandomTrace(processes["Prison"], 450);
+            foreach (var action in trace)
+            {
+                System.Console.WriteLine(action);
+            }
+        }
     }
 }
