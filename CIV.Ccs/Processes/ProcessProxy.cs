@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using static CIV.Ccs.CcsParser;
+using CIV.Interfaces;
 
 namespace CIV.Ccs
 {
@@ -8,7 +8,7 @@ namespace CIV.Ccs
     /// Proxy class that delays the creation of a new Process instance until it
     /// is needed.
     /// </summary>
-    class ProcessProxy : IProcess
+    class ProcessProxy : CcsProcess
     {
         protected ProcessContext context;
         protected ProcessFactory factory;
@@ -20,7 +20,7 @@ namespace CIV.Ccs
             this.context = context;
         }
 
-        IEnumerable<Transition> IProcess.Transitions() =>
+        public override IEnumerable<Transition> Transitions() =>
                                         RealProcess.Transitions();
     }
 }

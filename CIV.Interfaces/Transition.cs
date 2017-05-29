@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace CIV.Ccs
+﻿namespace CIV.Interfaces
 {
     public class Transition
     {
-        public String Label { get; set; }
+        public string Label { get; set; }
         public IProcess Process { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using CIV.HmlFormula;
 using CIV.Ccs;
+using CIV.Interfaces;
 using Moq;
 using System.Collections.Generic;
 

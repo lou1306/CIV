@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using CIV.Interfaces;
 
 [assembly: InternalsVisibleTo("CIV.Test")]
 namespace CIV.Ccs

@@ -20,5 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CIV\CIV.csproj" />
     <ProjectReference Include="..\CIV.Ccs\CIV.Ccs.csproj" />
+    <ProjectReference Include="..\CIV.Interfaces\CIV.Interfaces.csproj" />
   </ItemGroup>
 </Project>

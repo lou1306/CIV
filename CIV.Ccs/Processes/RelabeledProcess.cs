@@ -1,14 +1,15 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using CIV.Interfaces;
 
 namespace CIV.Ccs
 {
-    public class RelabeledProcess : IProcess
+    class RelabeledProcess : CcsProcess
     {
         public IProcess Inner { get; set; }
         public RelabelingFunction Relabeling { get; set; }
 
-        public IEnumerable<Transition> Transitions()
+        public override IEnumerable<Transition> Transitions()
         {
             var transitions = Inner.Transitions();
             return (from t in transitions

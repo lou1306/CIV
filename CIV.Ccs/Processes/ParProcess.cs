@@ -1,14 +1,15 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using CIV.Interfaces;
 
 namespace CIV.Ccs
 {
-    class ParProcess : IProcess
+    class ParProcess : CcsProcess
     {
         public IProcess Inner1 { get; set; }
         public IProcess Inner2 { get; set; }
 
-        public IEnumerable<Transition> Transitions()
+        public override IEnumerable<Transition> Transitions()
         {
             var transitions1 = Inner1.Transitions();
             var transitions2 = Inner2.Transitions();
