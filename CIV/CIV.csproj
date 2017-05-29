@@ -10,6 +10,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\CIV.Ccs\CIV.Ccs.csproj" />
-	  <ProjectReference Include="..\CIV.Interfaces\CIV.Interfaces.csproj" />
+	  <ProjectReference Include="..\CIV.Hml\CIV.Hml.csproj" />
 	</ItemGroup>
 </Project>
