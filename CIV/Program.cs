@@ -1,3 +1,4 @@
+﻿using static System.Console;
 ﻿using CIV.Ccs;
 
 namespace CIV
@@ -12,7 +13,7 @@ namespace CIV
             var trace = CcsFacade.RandomTrace(processes["Prison"], 450);
             foreach (var action in trace)
             {
-                System.Console.WriteLine(action);
+                WriteLine(action);
             }
         }
     }
