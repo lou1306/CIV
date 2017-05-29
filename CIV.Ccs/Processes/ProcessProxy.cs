@@ -8,19 +8,17 @@ namespace CIV.Ccs
     /// Proxy class that delays the creation of a new Process instance until it
     /// is needed.
     /// </summary>
-    class ProcessProxy : CcsProcess
+    class ProcessProxy : Proxy<CcsProcess, ProcessContext>, IHasWeakTransitions
     {
-        protected ProcessContext context;
-        protected ProcessFactory factory;
-        IProcess _real;
-        IProcess RealProcess => _real ?? (_real = factory.Create(context));
-        public ProcessProxy(ProcessFactory factory, ProcessContext context)
+        public ProcessProxy(IFactory<CcsProcess, ProcessContext> factory, ProcessContext context) : base(factory, context)
         {
-            this.factory = factory;
-            this.context = context;
         }
 
-        public override IEnumerable<Transition> Transitions() =>
-                                        RealProcess.Transitions();
+        IEnumerable<Transition> IProcess.Transitions() => Real.Transitions();
+
+        IEnumerable<Transition> IHasWeakTransitions.WeakTransitions()
+        {
+            return Real.WeakTransitions();
+        }
     }
 }
