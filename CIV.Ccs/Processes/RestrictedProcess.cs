@@ -7,8 +7,16 @@ namespace CIV.Ccs
 {
     class RestrictedProcess : CcsProcess
     {
-        public IProcess Inner { get; set; }
+        public CcsProcess Inner { get; set; }
         public ISet<String> Restrictions { get; set; }
+
+        public override bool Equals(CcsProcess other)
+        {
+            var otherRestricted = other as RestrictedProcess;
+            return otherRestricted != null
+                && Inner.Equals(otherRestricted.Inner)
+                     && Restrictions.SetEquals(otherRestricted.Restrictions);
+        }
 
         public override IEnumerable<Transition> Transitions()
         {
