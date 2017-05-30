@@ -22,31 +22,37 @@ namespace CIV.Ccs
                                   Inner1 = t.Process,
                                   Inner2 = Inner2
                               }
-                          })
-                .Union(from t in transitions2
-                       select new Transition
-                       {
-                           Label = t.Label,
-                           Process = new ParProcess
-                           {
-                               Inner1 = Inner1,
-                               Inner2 = t.Process
-                           }
-                       })
-                .Union(from t1 in transitions1
-                       join t2 in transitions2
-                       on t1.Label equals t2.Label.Coaction()
-                       select new Transition
-                       {
-                           Label = Const.tau,
-                           Process = new ParProcess
-                           {
-                               Inner1 = t1.Process,
-                               Inner2 = t2.Process
-                           }
-                       }
+                          });
+            foreach (var t in result)
+                yield return t;
+
+            result = (from t in transitions2
+                      select new Transition
+                      {
+                          Label = t.Label,
+                          Process = new ParProcess
+                          {
+                              Inner1 = Inner1,
+                              Inner2 = t.Process
+                          }
+                      });
+            foreach (var t in result)
+                yield return t;
+            result = (from t1 in transitions1
+                      join t2 in transitions2
+                      on t1.Label equals t2.Label.Coaction()
+                      select new Transition
+                      {
+                          Label = Const.tau,
+                          Process = new ParProcess
+                          {
+                              Inner1 = t1.Process,
+                              Inner2 = t2.Process
+                          }
+                      }
                 );
-            return result;
+			foreach (var t in result)
+				yield return t;
         }
     }
 }
