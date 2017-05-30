@@ -18,13 +18,13 @@ namespace CIV.Ccs
 
         public override bool Equals(CcsProcess other)
         {
-            var choice = other as ChoiceProcess;
-            return choice != null &&
-                (Inner1.Equals(choice.Inner1) &&
-                 Inner2.Equals(choice.Inner2))
+            var otherChoice = other as ChoiceProcess;
+            return otherChoice != null &&
+                (Inner1.Equals(otherChoice.Inner1) &&
+                 Inner2.Equals(otherChoice.Inner2))
                 ||
-                (Inner1.Equals(choice.Inner2) &&
-                 Inner2.Equals(choice.Inner1));
+                (Inner1.Equals(otherChoice.Inner2) &&
+                 Inner2.Equals(otherChoice.Inner1));
         }
         public override int GetHashCode() => Inner1.GetHashCode() * Inner2.GetHashCode();
     }
