@@ -4,7 +4,7 @@ using CIV.Interfaces;
 
 namespace CIV.Ccs
 {
-    public class PrefixProcess : CcsProcess
+    class PrefixProcess : CcsProcess
     {
         public String Label { get; set; }
         public CcsProcess Inner { get; set; }
