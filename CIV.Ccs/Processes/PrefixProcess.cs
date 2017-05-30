@@ -27,6 +27,10 @@ namespace CIV.Ccs
                 }
             };
         }
+        public override int GetHashCode()
+        {
+            return Label.GetHashCode() * Inner.GetHashCode();
+        }
 
     }
 }
