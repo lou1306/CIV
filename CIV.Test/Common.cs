@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CIV.Ccs;
 using CIV.Interfaces;
 using Moq;
 
@@ -12,9 +13,9 @@ namespace CIV.Test
         /// </summary>
         /// <returns>The mock process.</returns>
         /// <param name="action">Action.</param>
-        public static IProcess SetupMockProcess(String action = "action")
+        public static CcsProcess SetupMockProcess(String action = "action")
         {
-            return Mock.Of<IProcess>(p => p.Transitions() == new List<Transition>
+            return Mock.Of<CcsProcess>(p => p.Transitions() == new List<Transition>
             {
                 SetupTransition(action)
             }
@@ -26,7 +27,7 @@ namespace CIV.Test
 			return new Transition
 			{
 				Label = label,
-				Process = Mock.Of<IProcess>()
+				Process = Mock.Of<CcsProcess>()
 			};
 		}
 
