@@ -8,7 +8,7 @@ namespace CIV.Ccs
     /// <summary>
     /// Process factory that builds Processes from contexts.
     /// </summary>
-    class ProcessFactory : IFactory<CcsProcess, ProcessContext>
+    class CcsFactory : IFactory<CcsProcess, ProcessContext>
     {
         public IDictionary<String, ProcessContext> NamedProcessesTable { get; set; }
         public IDictionary<String, ISet<String>> NamedSetsTable { get; set; }
