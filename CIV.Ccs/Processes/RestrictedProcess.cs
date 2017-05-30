@@ -30,7 +30,7 @@ namespace CIV.Ccs
                         Label = t.Label,
                         Process = new RestrictedProcess
                         {
-                            Inner = t.Process,
+                            Inner = (CcsProcess) t.Process,
                             Restrictions = Restrictions
                         }
                     });

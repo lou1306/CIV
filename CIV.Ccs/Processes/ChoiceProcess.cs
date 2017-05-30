@@ -5,8 +5,8 @@ namespace CIV.Ccs
 {
     class ChoiceProcess : CcsProcess
     {
-        public IProcess Inner1 { get; set; }
-        public IProcess Inner2 { get; set; }
+        public CcsProcess Inner1 { get; set; }
+        public CcsProcess Inner2 { get; set; }
 
         public override IEnumerable<Transition> Transitions()
         {

@@ -7,7 +7,7 @@ namespace CIV.Ccs
 {
     class RelabeledProcess : CcsProcess
     {
-        public IProcess Inner { get; set; }
+        public CcsProcess Inner { get; set; }
         public RelabelingFunction Relabeling { get; set; }
 
         public override bool Equals(CcsProcess other)
@@ -36,7 +36,7 @@ namespace CIV.Ccs
                 Label = label,
                 Process = new RelabeledProcess
                 {
-                    Inner = t.Process,
+                    Inner = (CcsProcess) t.Process,
                     Relabeling = Relabeling
                 }
             };
