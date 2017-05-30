@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace CIV.Ccs
 {
-    public class RelabelingFunction : ICollection<KeyValuePair<string, string>>
+    public class RelabelingFunction : ICollection<KeyValuePair<string, string>>, IEquatable<RelabelingFunction>
     {
         readonly IDictionary<string, string> dict = new Dictionary<string, string>();
 
@@ -49,5 +50,14 @@ namespace CIV.Ccs
             => dict.CopyTo(array, arrayIndex);
 
         public bool Remove(KeyValuePair<string, string> item) => dict.Remove(item);
+
+        public bool Equals(RelabelingFunction other)
+        {
+			// https://stackoverflow.com/questions/3804367/
+			// We can use this solution because dict is a value-type dictionary,
+            // i.e. <string, string>
+            return dict.Count == other.dict.Count
+                       && !dict.Except(other.dict).Any();
+		}
     }
 }
