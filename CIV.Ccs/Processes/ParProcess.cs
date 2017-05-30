@@ -54,6 +54,17 @@ namespace CIV.Ccs
 			foreach (var t in result)
 				yield return t;
         }
+		public override bool Equals(CcsProcess other)
+		{
+            var otherPar = other as ParProcess;
+			return otherPar != null &&
+				(Inner1.Equals(otherPar.Inner1) &&
+				 Inner2.Equals(otherPar.Inner2))
+				||
+				(Inner1.Equals(otherPar.Inner2) &&
+				 Inner2.Equals(otherPar.Inner1));
+		}
+		public override int GetHashCode() => Inner1.GetHashCode() * Inner2.GetHashCode();
     }
 }
 

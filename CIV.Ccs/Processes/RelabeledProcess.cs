@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using CIV.Interfaces;
+using System;
 
 namespace CIV.Ccs
 {
@@ -8,6 +9,15 @@ namespace CIV.Ccs
     {
         public IProcess Inner { get; set; }
         public RelabelingFunction Relabeling { get; set; }
+
+        public override bool Equals(CcsProcess other)
+        {
+            var otherRelabeled = other as RelabeledProcess;
+            return
+                otherRelabeled != null
+                    && Inner.Equals(otherRelabeled.Inner)
+                            && Relabeling.Equals(otherRelabeled.Relabeling);
+        }
 
         public override IEnumerable<Transition> Transitions()
         {
