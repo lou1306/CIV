@@ -7,7 +7,16 @@ namespace CIV.Ccs
     public class PrefixProcess : CcsProcess
     {
         public String Label { get; set; }
-        public IProcess Inner { get; set; }
+        public CcsProcess Inner { get; set; }
+
+        public override bool Equals(CcsProcess other)
+        {
+            var otherPrefix = other as PrefixProcess;
+            return
+                otherPrefix != null &&
+                (Label == otherPrefix.Label) &&
+                Inner.Equals(otherPrefix.Inner);
+        }
 
         public override IEnumerable<Transition> Transitions()
         {
@@ -18,5 +27,6 @@ namespace CIV.Ccs
                 }
             };
         }
+
     }
 }
