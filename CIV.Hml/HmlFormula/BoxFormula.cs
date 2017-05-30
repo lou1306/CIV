@@ -10,5 +10,10 @@ namespace CIV.Hml
     {
 		protected override bool CheckStrategy(IEnumerable<IProcess> processes)
 			=> processes.All(Inner.Check);
+
+        protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
+        {
+			return process.Transitions();
+		}
     }
 }

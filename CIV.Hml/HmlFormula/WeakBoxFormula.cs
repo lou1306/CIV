@@ -12,5 +12,13 @@ namespace CIV.Hml
         protected override bool CheckStrategy(IEnumerable<IProcess> processes)
             => processes.All(Inner.Check);
 
+        protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
+        {
+            if (process is IHasWeakTransitions)
+            {
+                return ((IHasWeakTransitions)process).WeakTransitions;
+            }
+            throw new ArgumentException();
+        }
     }
 }
