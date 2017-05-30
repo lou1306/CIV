@@ -25,12 +25,12 @@ namespace CIV.Ccs
             switch(context)
             {
                 case NilProcContext c:
-                    return new NilProcess();
+                    return NilProcess.Instance;
                 case PrefixProcContext c:
 					return new PrefixProcess
 					{
 						Label = c.label().GetText(),
-						Inner = new ProcessProxy(this, c.process())
+						Inner = new CcsProxy(this, c.process())
 					};
                 case PidProcContext c:
 					var pid = c.pid().GetText();
@@ -40,31 +40,31 @@ namespace CIV.Ccs
                 case ParProcContext c:
 					return new ParProcess
 					{
-						Inner1 = new ProcessProxy(this, c.process(0)),
-						Inner2 = new ProcessProxy(this, c.process(1))
+						Inner1 = new CcsProxy(this, c.process(0)),
+						Inner2 = new CcsProxy(this, c.process(1))
 					};
                 case ChoiceProcContext c:
 					return new ChoiceProcess
 					{
-						Inner1 = new ProcessProxy(this, c.process(0)),
-						Inner2 = new ProcessProxy(this, c.process(1))
+						Inner1 = new CcsProxy(this, c.process(0)),
+						Inner2 = new CcsProxy(this, c.process(1))
 					};
                 case RestrictIdProcContext c:
 					return new RestrictedProcess
 					{
-						Inner = new ProcessProxy(this, c.process()),
+						Inner = new CcsProxy(this, c.process()),
 						Restrictions = NamedSetsTable[c.setId().GetText()]
 					};
 				case RestrictExprProcContext c:
 					return new RestrictedProcess
 					{
-						Inner = new ProcessProxy(this, c.process()),
+						Inner = new CcsProxy(this, c.process()),
 						Restrictions = InlineSetsTable[c.setExpression()]
 					};
                 case RelabelProcContext c:
 					return new RelabeledProcess
 					{
-						Inner = new ProcessProxy(this, c.process()),
+						Inner = new CcsProxy(this, c.process()),
 						Relabeling = Relabelings[c.relabelExpression()]
 					};
                 default:

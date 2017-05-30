@@ -3,13 +3,13 @@
 namespace CIV.Interfaces
 {
     
-    public abstract class Proxy<T, CTX>
+    public class Proxy<T, CTX>
     {
         protected IFactory<T, CTX> factory;
         protected CTX context;
 
  		T _real;
-        protected T Real 
+        public T Real 
         {
             get
             {
@@ -19,7 +19,7 @@ namespace CIV.Interfaces
 			}
         }
 
-        protected Proxy(IFactory<T, CTX> factory, CTX context)
+        public Proxy(IFactory<T, CTX> factory, CTX context)
         {
             this.factory = factory;
             this.context = context;
