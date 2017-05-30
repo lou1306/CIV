@@ -23,7 +23,7 @@ namespace CIV.Test
         [Fact]
         public void NilProcessHasNoTransitions()
         {
-            var nil = new NilProcess();
+            var nil = NilProcess.Instance;
             Assert.Equal(0, nil.Transitions().Count());
         }
 
@@ -33,10 +33,48 @@ namespace CIV.Test
             var process = new PrefixProcess
             {
                 Label = Const.tau,
-                Inner = Mock.Of<IProcess>()
+                Inner = Mock.Of<CcsProcess>()
             };
             Assert.Equal(1, process.Transitions().Count());
         }
+
+
+        [Fact]
+        public void ChoiceProcessEqualityIsSymmetric()
+        {
+            var p1 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+            var p2 = new PrefixProcess { Label = "b", Inner = NilProcess.Instance };
+
+			var choice1 = new ChoiceProcess { Inner1 = p1, Inner2 = p2 };
+			var choice2 = new ChoiceProcess { Inner1 = p2, Inner2 = p1 };
+			Assert.True(choice1.Equals(choice2));
+            Assert.Equal(choice1.GetHashCode(), choice2.GetHashCode());
+        }
+
+        [Fact]
+        public void PrefixProcessEquality()
+        {
+			var p1 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+			var p2 = new PrefixProcess { Label = "b", Inner = NilProcess.Instance };
+			var p3 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+
+			Assert.True(p1.Equals(p3));
+			Assert.False(p1.Equals(p2));
+		}
+
+
+        [Fact]
+        public void ParProcessEqualityIsSymmetric()
+        {
+			var p1 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+			var p2 = new PrefixProcess { Label = "b", Inner = NilProcess.Instance };
+
+            var choice1 = new ParProcess { Inner1 = p1, Inner2 = p2 };
+            var choice2 = new ParProcess { Inner1 = p2, Inner2 = p1 };
+			Assert.True(choice1.Equals(choice2));
+			Assert.Equal(choice1.GetHashCode(), choice2.GetHashCode());
+        }
+
 
         [Fact]
         public void ParProcessHasParTransitions()
