@@ -13,7 +13,7 @@ namespace CIV.Ccs
     {
         readonly Proxy<CcsProcess, ProcessContext> proxy;
 
-        public CcsProxy(ProcessFactory factory, ProcessContext context)
+        public CcsProxy(CcsFactory factory, ProcessContext context)
         {
             proxy = new Proxy<CcsProcess, ProcessContext>(factory, context);
         }

@@ -26,7 +26,7 @@ namespace CIV.Ccs
 
         public IDictionary<string, CcsProcess> GetProcessesTable()
         {
-            var factory = new ProcessFactory
+            var factory = new CcsFactory
             {
                 NamedProcessesTable = Processes,
                 NamedSetsTable = NamedSets,
