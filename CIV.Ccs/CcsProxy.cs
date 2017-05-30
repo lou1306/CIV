@@ -11,7 +11,7 @@ namespace CIV.Ccs
     /// </summary>
     class CcsProxy : CcsProcess
     {
-        Proxy<CcsProcess, ProcessContext> proxy;
+        readonly Proxy<CcsProcess, ProcessContext> proxy;
 
         public CcsProxy(ProcessFactory factory, ProcessContext context)
         {
