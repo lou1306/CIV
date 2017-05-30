@@ -70,7 +70,7 @@ namespace CIV.Test
         {
             var process = new PrefixProcess
             {
-                Inner = new NilProcess(),
+                Inner = NilProcess.Instance,
                 Label = "action"
             };
             var formula = new BoxFormula
