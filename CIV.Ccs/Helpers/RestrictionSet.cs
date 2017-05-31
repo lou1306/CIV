@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 namespace CIV.Ccs
 {
     public class RestrictionSet : ISet<String>
     {
-        readonly HashSet<String> set = new HashSet<string>();
+        readonly ISet<string> set = new SortedSet<string>();
 
         public int Count => set.Count;
 
@@ -49,6 +50,11 @@ namespace CIV.Ccs
         public void SymmetricExceptWith(IEnumerable<string> other) => set.SymmetricExceptWith(other);
 
         public void UnionWith(IEnumerable<string> other) => set.UnionWith(other);
+
+        public override string ToString()
+        {
+            return String.Join(",", set);
+        }
 
         void ICollection<string>.Add(string item) => set.Add(item);
 
