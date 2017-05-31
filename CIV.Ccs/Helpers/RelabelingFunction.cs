@@ -7,7 +7,7 @@ namespace CIV.Ccs
 {
     public class RelabelingFunction : ICollection<KeyValuePair<string, string>>, IEquatable<RelabelingFunction>
     {
-        readonly IDictionary<string, string> dict = new Dictionary<string, string>();
+        readonly IDictionary<string, string> dict = new SortedDictionary<string, string>();
 
         public int Count => dict.Count;
 
@@ -59,5 +59,13 @@ namespace CIV.Ccs
             return dict.Count == other.dict.Count
                        && !dict.Except(other.dict).Any();
 		}
+
+        public override string ToString()
+        {
+            var relabels = dict
+                .Select(x => String.Format("{0}{1}{2}", x.Value, Const.relab, x.Key))
+                .ToList();
+            return String.Join(",", relabels);
+        }
     }
 }
