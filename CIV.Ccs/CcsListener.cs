@@ -35,15 +35,13 @@ namespace CIV.Ccs
             };
             return Processes.ToDictionary(
                 x => x.Key,
-                x => factory.Create(x.Value));
+                x => new PidProcess
+                {
+                    Pid = x.Key,
+                    Inner = factory.Create(x.Value)
+                } as CcsProcess
+            );
         }
-        //new Processes.ProcessFactory
-        //{
-        //    NamedProcessesTable = Processes,
-        //    NamedSetsTable = NamedSets,
-        //    InlineSetsTable = ExprSets,
-        //    Relabelings = Relabelings
-        //};
 
         public override void EnterSetList(CcsParser.SetListContext context)
         {
