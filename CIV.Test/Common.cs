@@ -15,7 +15,7 @@ namespace CIV.Test
         /// <param name="action">Action.</param>
         public static CcsProcess SetupMockProcess(String action = "action")
         {
-            return Mock.Of<CcsProcess>(p => p.Transitions() == new List<Transition>
+            return Mock.Of<CcsProcess>(p => p.GetTransitions() == new List<Transition>
             {
                 SetupTransition(action)
             }
