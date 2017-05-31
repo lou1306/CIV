@@ -1,4 +1,4 @@
-﻿using static System.Console;
+﻿﻿using static System.Console;
 using CIV.Ccs;
 using CIV.Hml;
 
@@ -14,7 +14,6 @@ namespace CIV
 			var hmlText = "[[ack]][[ack]][[ack]](<<ack>>tt and [[freeAll]]ff)";
 			var prova = HmlFacade.ParseAll(hmlText);
 			WriteLine(prova.Check(processes["Prison"]));
-
 		}
     }
 }

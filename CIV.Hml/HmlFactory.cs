@@ -40,14 +40,12 @@ namespace CIV.Hml
                         Inner = new HmlProxy(this, c.hml())
                     };
 				case WeakDiamondContext c:
-					Console.WriteLine(String.Join(",", CreateLabels(c.labelList())));
 					return new WeakDiamondFormula
 					{
 						Label = CreateLabels(c.labelList()),
 						Inner = new HmlProxy(this, c.hml())
 					};
 				case WeakBoxContext c:
-					Console.WriteLine(String.Join(",", CreateLabels(c.labelList())));
 					return new WeakBoxFormula
 					{
 						Label = CreateLabels(c.labelList()),
