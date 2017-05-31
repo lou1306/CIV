@@ -1,9 +1,7 @@
-﻿using System.Reflection;
-
-namespace CIV.Interfaces
+﻿namespace CIV.Interfaces
 {
     
-    public class Proxy<T, CTX>
+    public class Proxy<T, CTX> where T: class where CTX : class 
     {
         protected IFactory<T, CTX> factory;
         protected CTX context;

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using CIV.Ccs;
-using CIV.Interfaces;
 using Moq;
 using Xunit;
 
@@ -24,7 +23,7 @@ namespace CIV.Test
         public void NilProcessHasNoTransitions()
         {
             var nil = NilProcess.Instance;
-            Assert.Equal(0, nil.Transitions().Count());
+            Assert.Equal(0, nil.GetTransitions().Count());
         }
 
         [Fact]
@@ -35,7 +34,7 @@ namespace CIV.Test
                 Label = Const.tau,
                 Inner = Mock.Of<CcsProcess>()
             };
-            Assert.Equal(1, process.Transitions().Count());
+            Assert.Equal(1, process.GetTransitions().Count());
         }
 
 
@@ -79,7 +78,7 @@ namespace CIV.Test
         [Fact]
         public void ParProcessHasParTransitions()
         {
-            var transitions = SetupParProcess().Transitions();
+            var transitions = SetupParProcess().GetTransitions();
             foreach (var t in transitions)
             {
                 Assert.Equal(typeof(ParProcess), t.Process.GetType());
@@ -88,14 +87,15 @@ namespace CIV.Test
 
         [Theory]
         [InlineData("action")]
-        [InlineData(Const.tau)]
+        [InlineData("tau")]
         public void ParProcessFollowsSemantics(String action)
         {
-            var transitions = SetupParProcess(action).Transitions().ToList();
+            // TODO: split into two facts.
+            var transitions = SetupParProcess(action).GetTransitions().ToList();
             Assert.Equal(3, transitions.Count);
             switch (action)
             {
-                case Const.tau:
+                case "tau":
                     Assert.Equal(3, transitions.Count(t => t.Label == action));
                     break;
                 default:
@@ -111,6 +111,7 @@ namespace CIV.Test
         [InlineData("'action")]
         public void RestrictedProcessFollowsSemantics(String innerAction)
         {
+            // TODO: split into facts, add tau case
             var restrictions = new RestrictionSet { innerAction };
             var process = new RestrictedProcess
             {
@@ -118,7 +119,7 @@ namespace CIV.Test
                 Restrictions = restrictions
             };
             var n = innerAction == Const.tau ? 1 : 0;
-            Assert.Equal(n, process.Transitions().Count());
+            Assert.Equal(n, process.GetTransitions().Count());
 
             process = new RestrictedProcess
             {
@@ -127,7 +128,7 @@ namespace CIV.Test
             };
 
             n = innerAction == Const.tau ? 3 : 1;
-            Assert.Equal(n, process.Transitions().Count());
+            Assert.Equal(n, process.GetTransitions().Count());
         }
 
         [Fact]

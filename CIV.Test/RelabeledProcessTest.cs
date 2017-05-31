@@ -18,7 +18,7 @@ namespace CIV.Test
                     { "action", "relabeled" }
                 }
             };
-            var transitions = process.Transitions();
+            var transitions = process.GetTransitions();
 
             foreach (var t in transitions)
             {
@@ -48,7 +48,7 @@ namespace CIV.Test
                 }
             };
 
-            var transitions = process.Transitions();
+            var transitions = process.GetTransitions();
             Assert.Equal(0, transitions.Count(t => t.Label == action));
             Assert.Equal(1, transitions.Count(t => t.Label == expectedRelabel));
         }
