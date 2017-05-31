@@ -1,7 +1,6 @@
 ﻿using static System.Console;
-using System.Linq;
-using CIV.Ccs;
-using CIV.Hml;
+﻿using CIV.Ccs;
+using CIV.Interfaces;
 
 namespace CIV
 {
@@ -12,9 +11,11 @@ namespace CIV
   			var text = System.IO.File.ReadAllText(args[0]);
 
 			var processes = CcsFacade.ParseAll(text);
-            var hmlText = "[[ack]][[ack]][[ack]](<<ack>>tt and [[freeAll]]ff)";
-            var prova = HmlFacade.ParseAll(hmlText);
-            WriteLine(prova.Check(processes["Prison"]));
+            var trace = CcsFacade.RandomTrace(processes["Prison"], 450);
+            foreach (var action in trace)
+            {
+                WriteLine(action);
+            }
         }
     }
 }
