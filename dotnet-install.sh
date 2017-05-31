@@ -660,7 +660,7 @@ bin_folder_relative_path=""
 temporary_file_template="${TMPDIR:-/tmp}/dotnet.XXXXXXXXX"
 
 channel="release/2.0.0"
-version="Latest"
+version="2.0.0-preview1-005977"
 install_dir="<auto>"
 architecture="<auto>"
 debug_symbols=false
