@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using CIV.Ccs;
 
 namespace CIV.Ccs
 {
@@ -23,9 +24,9 @@ namespace CIV.Ccs
             Relabelings = new Dictionary<CcsParser.RelabelExpressionContext, RelabelingFunction>();
         }
 
-        public IDictionary<string, IProcess> GetProcessesTable()
+        public IDictionary<string, CcsProcess> GetProcessesTable()
         {
-            var factory = new ProcessFactory
+            var factory = new CcsFactory
             {
                 NamedProcessesTable = Processes,
                 NamedSetsTable = NamedSets,
@@ -34,15 +35,13 @@ namespace CIV.Ccs
             };
             return Processes.ToDictionary(
                 x => x.Key,
-                x => factory.Create(x.Value));
+                x => new PidProcess
+                {
+                    Pid = x.Key,
+                    Inner = factory.Create(x.Value)
+                } as CcsProcess
+            );
         }
-        //new Processes.ProcessFactory
-        //{
-        //    NamedProcessesTable = Processes,
-        //    NamedSetsTable = NamedSets,
-        //    InlineSetsTable = ExprSets,
-        //    Relabelings = Relabelings
-        //};
 
         public override void EnterSetList(CcsParser.SetListContext context)
         {

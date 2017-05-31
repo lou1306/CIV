@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using Xunit;
 using CIV.Ccs;
 using Moq;
+using Xunit;
 
 namespace CIV.Test
 {
@@ -22,8 +22,8 @@ namespace CIV.Test
         [Fact]
         public void NilProcessHasNoTransitions()
         {
-            var nil = new NilProcess();
-            Assert.Equal(0, nil.Transitions().Count());
+            var nil = NilProcess.Instance;
+            Assert.Equal(0, nil.GetTransitions().Count());
         }
 
         [Fact]
@@ -32,15 +32,53 @@ namespace CIV.Test
             var process = new PrefixProcess
             {
                 Label = Const.tau,
-                Inner = Mock.Of<IProcess>()
+                Inner = Mock.Of<CcsProcess>()
             };
-            Assert.Equal(1, process.Transitions().Count());
+            Assert.Equal(1, process.GetTransitions().Count());
         }
+
+
+        [Fact]
+        public void ChoiceProcessEqualityIsSymmetric()
+        {
+            var p1 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+            var p2 = new PrefixProcess { Label = "b", Inner = NilProcess.Instance };
+
+			var choice1 = new ChoiceProcess { Inner1 = p1, Inner2 = p2 };
+			var choice2 = new ChoiceProcess { Inner1 = p2, Inner2 = p1 };
+			Assert.True(choice1.Equals(choice2));
+            Assert.Equal(choice1.GetHashCode(), choice2.GetHashCode());
+        }
+
+        [Fact]
+        public void PrefixProcessEquality()
+        {
+			var p1 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+			var p2 = new PrefixProcess { Label = "b", Inner = NilProcess.Instance };
+			var p3 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+
+			Assert.True(p1.Equals(p3));
+			Assert.False(p1.Equals(p2));
+		}
+
+
+        [Fact]
+        public void ParProcessEqualityIsSymmetric()
+        {
+			var p1 = new PrefixProcess { Label = "a", Inner = NilProcess.Instance };
+			var p2 = new PrefixProcess { Label = "b", Inner = NilProcess.Instance };
+
+            var choice1 = new ParProcess { Inner1 = p1, Inner2 = p2 };
+            var choice2 = new ParProcess { Inner1 = p2, Inner2 = p1 };
+			Assert.True(choice1.Equals(choice2));
+			Assert.Equal(choice1.GetHashCode(), choice2.GetHashCode());
+        }
+
 
         [Fact]
         public void ParProcessHasParTransitions()
         {
-            var transitions = SetupParProcess().Transitions();
+            var transitions = SetupParProcess().GetTransitions();
             foreach (var t in transitions)
             {
                 Assert.Equal(typeof(ParProcess), t.Process.GetType());
@@ -49,14 +87,15 @@ namespace CIV.Test
 
         [Theory]
         [InlineData("action")]
-        [InlineData(Const.tau)]
+        [InlineData("tau")]
         public void ParProcessFollowsSemantics(String action)
         {
-            var transitions = SetupParProcess(action).Transitions().ToList();
+            // TODO: split into two facts.
+            var transitions = SetupParProcess(action).GetTransitions().ToList();
             Assert.Equal(3, transitions.Count);
             switch (action)
             {
-                case Const.tau:
+                case "tau":
                     Assert.Equal(3, transitions.Count(t => t.Label == action));
                     break;
                 default:
@@ -72,6 +111,7 @@ namespace CIV.Test
         [InlineData("'action")]
         public void RestrictedProcessFollowsSemantics(String innerAction)
         {
+            // TODO: split into facts, add tau case
             var restrictions = new RestrictionSet { innerAction };
             var process = new RestrictedProcess
             {
@@ -79,7 +119,7 @@ namespace CIV.Test
                 Restrictions = restrictions
             };
             var n = innerAction == Const.tau ? 1 : 0;
-            Assert.Equal(n, process.Transitions().Count());
+            Assert.Equal(n, process.GetTransitions().Count());
 
             process = new RestrictedProcess
             {
@@ -88,7 +128,7 @@ namespace CIV.Test
             };
 
             n = innerAction == Const.tau ? 3 : 1;
-            Assert.Equal(n, process.Transitions().Count());
+            Assert.Equal(n, process.GetTransitions().Count());
         }
 
         [Fact]

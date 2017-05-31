@@ -1,7 +1,7 @@
-using System;
 using Xunit;
-using CIV.HmlFormula;
+using CIV.Hml;
 using CIV.Ccs;
+using CIV.Interfaces;
 using Moq;
 using System.Collections.Generic;
 
@@ -70,7 +70,7 @@ namespace CIV.Test
         {
             var process = new PrefixProcess
             {
-                Inner = new NilProcess(),
+                Inner = NilProcess.Instance,
                 Label = "action"
             };
             var formula = new BoxFormula

@@ -1,15 +1,26 @@
 ﻿using System;
-using static CIV.Ccs.CcsParser;
+using System.Collections.Generic;
+using CIV.Interfaces;
 
 namespace CIV.Ccs
 {
-    class PidProcess : ProcessProxy
+    public class PidProcess : CcsProcess
     {
-        public PidProcess(ProcessFactory factory, ProcessContext context) : 
-        base(factory, context)
+        public CcsProcess Inner { get; set; }
+        public string Pid { get; set; }
+
+        public override bool Equals(CcsProcess other)
         {
+            var otherPid = other as PidProcess;
+            if (otherPid != null)
+            {
+                return Pid == otherPid.Pid;
+            }
+            return Inner.Equals(other);
         }
 
-        public String Pid { get; set; }
+        public override IEnumerable<Transition> GetTransitions() => Inner.GetTransitions();
+
+        public override string ToString() => Pid;
     }
 }

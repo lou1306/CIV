@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using CIV.Interfaces;
 
 namespace CIV.Ccs
 {
-    public class RestrictedProcess : IProcess
+    class RestrictedProcess : CcsProcess
     {
-        public IProcess Inner { get; set; }
+        public CcsProcess Inner { get; set; }
         public ISet<String> Restrictions { get; set; }
 
-        public IEnumerable<Transition> Transitions()
+        public override bool Equals(CcsProcess other)
         {
-            return (from t in Inner.Transitions()
+            var otherRestricted = other as RestrictedProcess;
+            return otherRestricted != null
+                && Inner.Equals(otherRestricted.Inner)
+                     && Restrictions.SetEquals(otherRestricted.Restrictions);
+        }
+
+        public override IEnumerable<Transition> GetTransitions()
+        {
+            return (from t in Inner.GetTransitions()
                     where
                     t.Label == Const.tau ||
                     !(Restrictions.Contains(t.Label) ||
@@ -21,10 +30,15 @@ namespace CIV.Ccs
                         Label = t.Label,
                         Process = new RestrictedProcess
                         {
-                            Inner = t.Process,
+                            Inner = (CcsProcess) t.Process,
                             Restrictions = Restrictions
                         }
                     });
         }
+
+		public override string ToString()
+		{
+            return String.Format(Const.restrictFormat, Inner, Restrictions);
+		}
     }
 }

@@ -1,14 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using CIV.Interfaces;
 
 namespace CIV.Ccs
 {
-    public class PrefixProcess : IProcess
+    class PrefixProcess : CcsProcess
     {
         public String Label { get; set; }
-        public IProcess Inner { get; set; }
+        public CcsProcess Inner { get; set; }
 
-        public IEnumerable<Transition> Transitions()
+        public override bool Equals(CcsProcess other)
+        {
+            var otherPrefix = other as PrefixProcess;
+            return
+                otherPrefix != null &&
+                (Label == otherPrefix.Label) &&
+                Inner.Equals(otherPrefix.Inner);
+        }
+
+        public override IEnumerable<Transition> GetTransitions()
         {
             return new List<Transition>{
                 new Transition{
@@ -17,5 +27,10 @@ namespace CIV.Ccs
                 }
             };
         }
+        public override string ToString()
+        {
+            return String.Format("{0}{1}{2}", Label, Const.prefix, Inner);
+        }
+
     }
 }

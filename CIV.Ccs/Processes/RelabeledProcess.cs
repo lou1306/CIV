@@ -1,16 +1,27 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using CIV.Interfaces;
+using System;
 
 namespace CIV.Ccs
 {
-    public class RelabeledProcess : IProcess
+    class RelabeledProcess : CcsProcess
     {
-        public IProcess Inner { get; set; }
+        public CcsProcess Inner { get; set; }
         public RelabelingFunction Relabeling { get; set; }
 
-        public IEnumerable<Transition> Transitions()
+        public override bool Equals(CcsProcess other)
         {
-            var transitions = Inner.Transitions();
+            var otherRelabeled = other as RelabeledProcess;
+            return
+                otherRelabeled != null
+                    && Inner.Equals(otherRelabeled.Inner)
+                            && Relabeling.Equals(otherRelabeled.Relabeling);
+        }
+
+        public override IEnumerable<Transition> GetTransitions()
+        {
+            var transitions = Inner.GetTransitions();
             return (from t in transitions
                     select RenamedTransition(t));
         }
@@ -25,10 +36,15 @@ namespace CIV.Ccs
                 Label = label,
                 Process = new RelabeledProcess
                 {
-                    Inner = t.Process,
+                    Inner = (CcsProcess) t.Process,
                     Relabeling = Relabeling
                 }
             };
+        }
+
+        public override string ToString()
+        {
+            return String.Format(Const.relabelFormat, Inner, Relabeling);
         }
     }
 }

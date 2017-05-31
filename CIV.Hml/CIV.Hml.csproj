@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+		<AntlrPath>
+      /Users/luca/.nuget/packages/antlr4.codegenerator/4.6.1-beta002/tools/antlr4-csharp-4.6.1-SNAPSHOT-complete.jar 
+    </AntlrPath>
+    <AntlrCommand>
+      java -jar $(AntlrPath) -Dlanguage=CSharp_v4_5
+    </AntlrCommand>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="HmlFormula\" />
+    <Folder Include="gen\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CIV.Ccs\CIV.Ccs.csproj" />
+    <ProjectReference Include="..\CIV.Interfaces\CIV.Interfaces.csproj" />
+  </ItemGroup>
+
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>$(AntlrCommand) -o ../gen -package ${ProjectName} HmlLexer.g4</command>
+          <workingdir>${ProjectDir}/grammar</workingdir>
+        </Command>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>$(AntlrCommand) -o ../gen -package ${ProjectName} HmlParser.g4</command>
+          <workingdir>${ProjectDir}/grammar</workingdir>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+    <NoWarn>1701;1702;1705;3021</NoWarn>
+  </PropertyGroup>
+
+
+	
+</Project>

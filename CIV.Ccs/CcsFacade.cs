@@ -1,41 +1,39 @@
-﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Tree;
+using CIV.Interfaces;
 
 [assembly: InternalsVisibleTo("CIV.Test")]
 namespace CIV.Ccs
 {
     public static class CcsFacade
     {
-        public static IDictionary<string, IProcess> ParseAll(string text){
-            var stream = new AntlrInputStream(text);
-			var lexer = new CcsLexer(stream);
-			var tokens = new CommonTokenStream(lexer);
-			var parser = new CcsParser(tokens);
+        public static IDictionary<string, CcsProcess> ParseAll(string text){
+			var lexer = new CcsLexer(text.ToAntlrInputStream());
+			var parser = new CcsParser(lexer.GetTokenStream());
 			var programCtx = parser.program();
 
 			var listener = new CcsListener();
-			ParseTreeWalker.Default.Walk(listener, programCtx);
+            listener.WalkContext(programCtx);
             return listener.GetProcessesTable();
         }
 
-        public static IEnumerable<string> RandomTrace(IProcess start, int moves, bool printTau = false)
+        public static IEnumerable<string> RandomTrace(CcsProcess start, int moves, bool printTau = false)
 		{
             var result = new List<string>();
 			var rand = new Random();
+            IProcess proc = start;
 			for (int i = 0; i < moves; i++)
 			{
-				var transitions = start.Transitions();
+				var transitions = proc.GetTransitions();
 				if (!transitions.Any())
 				{
 					break;
 				}
 				int index = rand.Next(0, transitions.Count());
 				var nextTransition = transitions.ElementAt(index);
-				start = nextTransition.Process;
+				proc = nextTransition.Process;
 				if (nextTransition.Label != Const.tau || printTau)
 				{
                     result.Add(String.Format("{0:000}: {1}", i, nextTransition.Label));
