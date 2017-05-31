@@ -8,15 +8,14 @@ namespace CIV.Ccs
 		public static readonly string par = GetLiteral(CcsLexer.PAR);
 		public static readonly string prefix = GetLiteral(CcsLexer.PREFIX);
         public static readonly string choice = GetLiteral(CcsLexer.CHOICE);
+        public static readonly string relab = GetLiteral(CcsLexer.DIV);
         public static readonly string restrictFormat =
             String.Format(
-                "{{0}}{0}{1}{{1}}{2}",
-                GetLiteral(CcsLexer.T__1),
-                GetLiteral(CcsLexer.LBRACE),
-                GetLiteral(CcsLexer.RBRACE));
+                "{{0}}{0}{{{{1}}}}",
+                GetLiteral(CcsLexer.T__1));
         public static readonly string relabelFormat =
 			String.Format(
-				"{{0}}{0}{{1}}{1}",
+                "{{0}}{0}{{1}}{1}",
                 GetLiteral(CcsLexer.LBRACK),
 				GetLiteral(CcsLexer.RBRACK));
 
