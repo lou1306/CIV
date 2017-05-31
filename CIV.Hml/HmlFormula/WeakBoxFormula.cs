@@ -16,7 +16,7 @@ namespace CIV.Hml
         {
             if (process is IHasWeakTransitions)
             {
-                return ((IHasWeakTransitions)process).WeakTransitions();
+                return ((IHasWeakTransitions)process).GetWeakTransitions();
             }
             throw new ArgumentException();
         }

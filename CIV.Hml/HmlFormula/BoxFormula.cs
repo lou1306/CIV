@@ -13,7 +13,7 @@ namespace CIV.Hml
 
         protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
         {
-			return process.Transitions();
+			return process.GetTransitions();
 		}
     }
 }
