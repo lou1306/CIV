@@ -8,22 +8,32 @@ namespace CIV.Ccs
     {
         public abstract bool Equals(CcsProcess other);
 
-        public abstract IEnumerable<Transition> Transitions();
+        public abstract IEnumerable<Transition> GetTransitions();
 
-        public IEnumerable<Transition> WeakTransitions()
+        public abstract override string ToString();
+
+        public override int GetHashCode() => ToString().GetHashCode();
+
+        /// <summary>
+        /// Retuns an enumerator of weak transitions from this process. 
+        /// </summary>
+        /// <remarks>
+        /// Notice that this enumerator could be infinite, so do not
+        /// use it without some sort of stopping criterion.
+        /// </remarks>
+        /// <returns>An enumerator of weak transitions.</returns>
+        public IEnumerable<Transition> GetWeakTransitions()
         {
-            // https://stackoverflow.com/questions/3969963/when-not-to-use-yield-return
-            var stack = new Queue<Transition>(Transitions());
-            while (stack.Count > 0)
+            var queue = new Queue<Transition>(GetTransitions());
+            while (queue.Count > 0)
             {
-                var t = stack.Dequeue();
+                var t = queue.Dequeue();
                 yield return t;
                 if (t.Label == Const.tau)
                 {
-                    foreach (var t1 in t.Process.Transitions())
+                    foreach (var t1 in t.Process.GetTransitions())
                     {
-                        stack.Enqueue(t1);
-                        //System.Console.WriteLine("Queueing {0}", t1.Label);
+                        queue.Enqueue(t1);
                     }
                 }
             }

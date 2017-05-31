@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using CIV.Interfaces;
 
@@ -9,10 +10,10 @@ namespace CIV.Ccs
         public CcsProcess Inner1 { get; set; }
         public CcsProcess Inner2 { get; set; }
 
-        public override IEnumerable<Transition> Transitions()
+        public override IEnumerable<Transition> GetTransitions()
         {
-            var transitions1 = Inner1.Transitions();
-            var transitions2 = Inner2.Transitions();
+            var transitions1 = Inner1.GetTransitions();
+            var transitions2 = Inner2.GetTransitions();
             var result = (from t in transitions1
                           select new Transition
                           {
@@ -64,7 +65,14 @@ namespace CIV.Ccs
                 (Inner1.Equals(otherPar.Inner2) &&
                  Inner2.Equals(otherPar.Inner1));
         }
-        public override int GetHashCode() => Inner1.GetHashCode() * Inner2.GetHashCode();
+
+		public override string ToString()
+		{
+            var list = new List<String> { Inner1.ToString(), Inner2.ToString() };
+            list.Sort();
+            return String.Join(Const.par, list);
+
+		}
     }
 }
 

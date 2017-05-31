@@ -4,6 +4,6 @@ namespace CIV.Interfaces
 {
     public interface IProcess
     {
-        IEnumerable<Transition> Transitions();
+        IEnumerable<Transition> GetTransitions();
     }
 }

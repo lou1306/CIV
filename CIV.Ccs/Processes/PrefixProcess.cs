@@ -18,7 +18,7 @@ namespace CIV.Ccs
                 Inner.Equals(otherPrefix.Inner);
         }
 
-        public override IEnumerable<Transition> Transitions()
+        public override IEnumerable<Transition> GetTransitions()
         {
             return new List<Transition>{
                 new Transition{
@@ -27,9 +27,9 @@ namespace CIV.Ccs
                 }
             };
         }
-        public override int GetHashCode()
+        public override string ToString()
         {
-            return Label.GetHashCode() * Inner.GetHashCode();
+            return String.Format("{0}{1}{2}", Label, Const.prefix, Inner);
         }
 
     }

@@ -3,6 +3,6 @@ namespace CIV.Interfaces
 {
     public interface IHasWeakTransitions : IProcess
     {
-		IEnumerable<Transition> WeakTransitions();
+		IEnumerable<Transition> GetWeakTransitions();
     }
 }

@@ -18,9 +18,9 @@ namespace CIV.Ccs
                      && Restrictions.SetEquals(otherRestricted.Restrictions);
         }
 
-        public override IEnumerable<Transition> Transitions()
+        public override IEnumerable<Transition> GetTransitions()
         {
-            return (from t in Inner.Transitions()
+            return (from t in Inner.GetTransitions()
                     where
                     t.Label == Const.tau ||
                     !(Restrictions.Contains(t.Label) ||
@@ -36,9 +36,9 @@ namespace CIV.Ccs
                     });
         }
 
-        public override int GetHashCode()
-        {
-            return Inner.GetHashCode();
-        }
+		public override string ToString()
+		{
+            return String.Format(Const.restrictFormat, Inner, Restrictions);
+		}
     }
 }

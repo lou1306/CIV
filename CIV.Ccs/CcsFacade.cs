@@ -26,7 +26,7 @@ namespace CIV.Ccs
             IProcess proc = start;
 			for (int i = 0; i < moves; i++)
 			{
-				var transitions = proc.Transitions();
+				var transitions = proc.GetTransitions();
 				if (!transitions.Any())
 				{
 					break;

@@ -19,9 +19,9 @@ namespace CIV.Ccs
                             && Relabeling.Equals(otherRelabeled.Relabeling);
         }
 
-        public override IEnumerable<Transition> Transitions()
+        public override IEnumerable<Transition> GetTransitions()
         {
-            var transitions = Inner.Transitions();
+            var transitions = Inner.GetTransitions();
             return (from t in transitions
                     select RenamedTransition(t));
         }
@@ -41,9 +41,10 @@ namespace CIV.Ccs
                 }
             };
         }
-        public override int GetHashCode()
+
+        public override string ToString()
         {
-            return Inner.GetHashCode();
+            return String.Format(Const.relabelFormat, Inner, Relabeling);
         }
     }
 }

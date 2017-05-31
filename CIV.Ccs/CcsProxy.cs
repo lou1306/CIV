@@ -20,8 +20,10 @@ namespace CIV.Ccs
 
         public override bool Equals(CcsProcess other) => proxy.Real.Equals(other);
 
-        public override IEnumerable<Transition> Transitions() => proxy.Real.Transitions();
+        public override int GetHashCode() => proxy.Real.GetHashCode();
 
+        public override IEnumerable<Transition> GetTransitions() => proxy.Real.GetTransitions();
 
+        public override string ToString() => proxy.Real.ToString();
     }
 }
