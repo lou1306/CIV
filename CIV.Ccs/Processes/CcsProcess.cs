@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CIV.Interfaces;
+using System.Linq;
 
 namespace CIV.Ccs
 {
@@ -15,25 +16,40 @@ namespace CIV.Ccs
         public override int GetHashCode() => ToString().GetHashCode();
 
         /// <summary>
-        /// Retuns an enumerator of weak transitions from this process. 
+        /// Gets the weak transitions from this process.
         /// </summary>
         /// <remarks>
-        /// Notice that this enumerator could be infinite, so do not
-        /// use it without some sort of stopping criterion.
+        /// The enumerator is "guarded": it does not visit any process
+        /// more than once.
+        /// Rationale: all actions that could have been reached have already
+        /// been "yielded" during the first visit to that process.
         /// </remarks>
-        /// <returns>An enumerator of weak transitions.</returns>
+        /// <returns>The weak transitions.</returns>
         public IEnumerable<Transition> GetWeakTransitions()
         {
-            var queue = new Queue<Transition>(GetTransitions());
+            var comparer = new TransitionComparer();
+            var transitions = GetTransitions().Distinct(comparer);
+            var queue = new Queue<Transition>(transitions);
+
+            var visited = new HashSet<string> { ToString() };
+
             while (queue.Count > 0)
             {
                 var t = queue.Dequeue();
-                yield return t;
-                if (t.Label == Const.tau)
+                var processRepr = t.Process.ToString();
+                if (!visited.Contains(processRepr))
                 {
-                    foreach (var t1 in t.Process.GetTransitions())
+                    visited.Add(processRepr);
+                    if (t.Label != Const.tau)
                     {
-                        queue.Enqueue(t1);
+                        yield return t;
+                    }
+                    else
+                    {
+                        foreach (var t1 in t.Process.GetTransitions().Distinct(comparer))
+                        {
+                            queue.Enqueue(t1);
+                        }
                     }
                 }
             }
