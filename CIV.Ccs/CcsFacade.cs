@@ -36,7 +36,7 @@ namespace CIV.Ccs
 				proc = nextTransition.Process;
 				if (nextTransition.Label != Const.tau || printTau)
 				{
-                    result.Add(String.Format("{0:000}: {1}", i, nextTransition.Label));
+                    result.Add($"{i:000}: {nextTransition.Label}");
 				}
 			}
             return result;

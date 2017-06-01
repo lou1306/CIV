@@ -63,7 +63,7 @@ namespace CIV.Ccs
         public override string ToString()
         {
             var relabels = dict
-                .Select(x => String.Format("{0}{1}{2}", x.Value, Const.relab, x.Key))
+                .Select(x => $"{x.Value}{Const.relab}{x.Key}")
                 .ToList();
             return String.Join(",", relabels);
         }
