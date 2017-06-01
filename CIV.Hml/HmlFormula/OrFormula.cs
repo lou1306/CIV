@@ -2,7 +2,7 @@
 
 namespace CIV.Hml
 {
-    public class OrFormula : IHmlFormula
+    class OrFormula : IHmlFormula
     {
 		public IHmlFormula Inner1 { get; set; }
 		public IHmlFormula Inner2 { get; set; }

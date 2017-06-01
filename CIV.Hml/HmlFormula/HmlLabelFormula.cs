@@ -13,7 +13,7 @@ namespace CIV.Hml
     /// counterparts when called on a process that does not implement
     /// IHasWeakTransitions.
     /// </remarks>
-    public abstract class HmlLabelFormula : IHmlFormula
+    abstract class HmlLabelFormula : IHmlFormula
     {
 		public ISet<String> Label { get; set; }
 		public IHmlFormula Inner { get; set; }

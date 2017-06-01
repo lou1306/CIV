@@ -6,7 +6,7 @@ using CIV.Interfaces;
 
 namespace CIV.Hml
 {
-    public class BoxFormula : HmlLabelFormula
+    class BoxFormula : HmlLabelFormula
     {
 		protected override bool CheckStrategy(IEnumerable<IProcess> processes)
 			=> processes.All(Inner.Check);

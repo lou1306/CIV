@@ -6,7 +6,7 @@ using System;
 
 namespace CIV.Hml
 {
-    public class WeakDiamondFormula : HmlLabelFormula
+    class WeakDiamondFormula : HmlLabelFormula
     {
         protected override bool CheckStrategy(IEnumerable<IProcess> processes)
         => processes.Any(Inner.Check);
