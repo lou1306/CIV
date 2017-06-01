@@ -31,6 +31,8 @@ namespace CIV.Ccs
             var transitions = GetTransitions().Distinct(comparer);
             var queue = new Queue<Transition>(transitions);
 
+            IEnumerable<Transition> nextInQueue;
+
             var visited = new HashSet<string> { ToString() };
 
             while (queue.Count > 0)
@@ -43,16 +45,46 @@ namespace CIV.Ccs
                     if (t.Label != Const.tau)
                     {
                         yield return t;
+                        nextInQueue = GetRecursiveTauTransitions(visited)
+                            .Select(x => new Transition
+                            {
+                                Label = t.Label,
+                                Process = x.Process
+                            });
                     }
                     else
                     {
-                        foreach (var t1 in t.Process.GetTransitions().Distinct(comparer))
-                        {
-                            queue.Enqueue(t1);
-                        }
+                        nextInQueue = t.Process.GetTransitions().Distinct(comparer);
+                    }
+					foreach (var t1 in nextInQueue)
+					{
+						queue.Enqueue(t1);
+					}
+                }
+            }
+        }
+
+		IEnumerable<Transition> TauTransitions => GetTransitions().Where(x => x.Label == Const.tau);
+
+        IEnumerable<Transition> GetRecursiveTauTransitions(ISet<string> visited = null)
+        {
+            var queue = new Queue<Transition>(TauTransitions);
+            visited = visited ?? new HashSet<string> { ToString() };
+            while (queue.Count > 0)
+            {
+                var t = queue.Dequeue();
+                var procRepr = t.Process.ToString();
+                if (!visited.Contains(procRepr))
+                {
+                    visited.Add(procRepr);
+                    yield return t;
+                    foreach (var item in t.Process.GetTransitions().Where(x => x.Label == Const.tau))
+                    {
+                        queue.Enqueue(item);
                     }
                 }
             }
+
         }
     }
 }
