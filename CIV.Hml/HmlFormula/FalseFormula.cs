@@ -3,7 +3,7 @@
 
 namespace CIV.Hml
 {
-    public class FalseFormula : IHmlFormula
+    class FalseFormula : IHmlFormula
     {
         public bool Check(IProcess process) => false;
     }

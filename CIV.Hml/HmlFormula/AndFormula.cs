@@ -3,7 +3,7 @@ using CIV.Interfaces;
 
 namespace CIV.Hml
 {
-    public class AndFormula : IHmlFormula
+    class AndFormula : IHmlFormula
     {
 		public IHmlFormula Inner1 { get; set; }
 		public IHmlFormula Inner2 { get; set; }

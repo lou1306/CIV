@@ -1,4 +1,7 @@
-﻿using CIV.Interfaces;
+﻿using System.Runtime.CompilerServices;
+using CIV.Interfaces;
+
+[assembly: InternalsVisibleTo("CIV.Test")]
 namespace CIV.Hml
 {
     public static class HmlFacade

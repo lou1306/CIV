@@ -1,7 +1,7 @@
 ﻿using System;
 namespace CIV.Hml
 {
-    public class HmlListener : HmlParserBaseListener
+    class HmlListener : HmlParserBaseListener
     {
         public IHmlFormula RootFormula { get; private set; }
 

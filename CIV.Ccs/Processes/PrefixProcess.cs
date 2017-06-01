@@ -29,7 +29,7 @@ namespace CIV.Ccs
         }
         public override string ToString()
         {
-            return String.Format("{0}{1}{2}", Label, Const.prefix, Inner);
+            return $"{Label}{Const.prefix}{Inner}";
         }
 
     }

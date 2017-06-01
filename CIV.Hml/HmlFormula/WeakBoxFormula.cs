@@ -6,7 +6,7 @@ using CIV.Interfaces;
 
 namespace CIV.Hml
 {
-    public class WeakBoxFormula : HmlLabelFormula
+    class WeakBoxFormula : HmlLabelFormula
     {
 
         protected override bool CheckStrategy(IEnumerable<IProcess> processes)

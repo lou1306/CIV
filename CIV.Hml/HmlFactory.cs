@@ -5,7 +5,7 @@ using static CIV.Hml.HmlParser;
 
 namespace CIV.Hml
 {
-    public class HmlFactory : IFactory<IHmlFormula, HmlContext>
+    class HmlFactory : IFactory<IHmlFormula, HmlContext>
     {
         public IHmlFormula Create(HmlContext context)
         {
