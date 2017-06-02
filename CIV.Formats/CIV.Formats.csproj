@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CIV.Ccs\CIV.Ccs.csproj" />
+    <ProjectReference Include="..\CIV.Hml\CIV.Hml.csproj" />
+    <ProjectReference Include="..\CIV.Interfaces\CIV.Interfaces.csproj" />
+  </ItemGroup>
+</Project>
