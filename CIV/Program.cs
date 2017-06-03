@@ -1,6 +1,5 @@
 ﻿﻿using static System.Console;
 using CIV.Formats;
-using CIV.Ccs;
 
 namespace CIV
 {
@@ -17,16 +16,18 @@ namespace CIV
 
             var project = new Caal().Load(args[0]);
             WriteLine("Loaded project {0}", project.Name);
-			WriteLine("Processes:");
-            //foreach (var kv in project.Processes)
-            //{
-            //    WriteLine("{0} = {1}", kv.Key, (kv.Value as PidProcess).Inner);
-            //}
+			
             foreach (var kv in project.Formulae)
             {
-                WriteLine($"Result for formula {kv.Value}:");
-                WriteLine(kv.Value.Check(project.Processes[kv.Key]));
+				WriteLine($"---->{kv.Key} {kv.Value}");
+
+			    var isSatisfied = kv.Key.Check(kv.Value);
+                var symbol = isSatisfied ? "|=" : "|/=";
+                ForegroundColor = isSatisfied ? System.ConsoleColor.Green : System.ConsoleColor.Red;
+                WriteLine($"{kv.Value} {symbol} {kv.Key}");
             }
-        }
+            ResetColor();
+
+		}
     }
 }
