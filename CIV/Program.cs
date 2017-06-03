@@ -1,33 +1,51 @@
-﻿﻿using static System.Console;
+﻿using System;
 using CIV.Formats;
+using static System.Console;
 
 namespace CIV
 {
+
+	[Flags]
+	enum ExitCodes : int
+	{
+		Success = 0,
+		FileNotFound = 1,
+        ParsingFailed = 2,
+        VerificationFailed = 4
+	}
+
+
     class Program
     {
         static void Main(string[] args)
         {
-  			var text = System.IO.File.ReadAllText(args[0]);
-
-			//var processes = CcsFacade.ParseAll(text);
-			//var hmlText = "[[ack]][[ack]][[ack]](<<ack>>tt and [[freeAll]]ff)";
-			//var prova = HmlFacade.ParseAll(hmlText);
-			//WriteLine(prova.Check(processes["Prison"]));
-
-            var project = new Caal().Load(args[0]);
-            WriteLine("Loaded project {0}", project.Name);
-			
-            foreach (var kv in project.Formulae)
+            try
             {
-				WriteLine($"---->{kv.Key} {kv.Value}");
-
-			    var isSatisfied = kv.Key.Check(kv.Value);
-                var symbol = isSatisfied ? "|=" : "|/=";
-                ForegroundColor = isSatisfied ? System.ConsoleColor.Green : System.ConsoleColor.Red;
-                WriteLine($"{kv.Value} {symbol} {kv.Key}");
-            }
-            ResetColor();
+				var project = new Caal().Load(args[0]);
+                VerifyAll(project);
+			}
+            catch (System.IO.FileNotFoundException ex)
+            {
+                ForegroundColor = ConsoleColor.Red;
+                WriteLine(ex.Message);
+				ResetColor();
+                Environment.Exit((int)ExitCodes.FileNotFound);
+			}
 
 		}
+
+        static void VerifyAll(Caal project)
+        {
+			WriteLine("Loaded project {0}", project.Name);
+
+			foreach (var kv in project.Formulae)
+			{
+				var isSatisfied = kv.Key.Check(kv.Value);
+				var symbol = isSatisfied ? "|=" : "|/=";
+				ForegroundColor = isSatisfied ? System.ConsoleColor.Green : System.ConsoleColor.Red;
+				WriteLine($"{kv.Value} {symbol} {kv.Key}");
+			}
+			ResetColor();
+        }
     }
 }
