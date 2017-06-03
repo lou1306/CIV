@@ -3,7 +3,7 @@ namespace CIV.Hml
 {
     class HmlListener : HmlParserBaseListener
     {
-        public IHmlFormula RootFormula { get; private set; }
+        public HmlFormula RootFormula { get; private set; }
 
         readonly HmlFactory factory = new HmlFactory();
 

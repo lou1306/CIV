@@ -15,5 +15,6 @@ namespace CIV.Hml
         {
             return process.GetTransitions();
         }
+        protected override string BuildRepr() => $"<{String.Join(",", Label)}>{Inner}";
     }
 }

@@ -8,7 +8,9 @@ namespace CIV.Hml
 {
     class BoxFormula : HmlLabelFormula
     {
-		protected override bool CheckStrategy(IEnumerable<IProcess> processes)
+        protected override string BuildRepr() => $"[{String.Join(",", Label)}]{Inner}";
+
+        protected override bool CheckStrategy(IEnumerable<IProcess> processes)
 			=> processes.All(Inner.Check);
 
         protected override IEnumerable<Transition> TransitionStrategy(IProcess process)

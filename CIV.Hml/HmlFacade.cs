@@ -6,7 +6,7 @@ namespace CIV.Hml
 {
     public static class HmlFacade
     {
-        public static IHmlFormula ParseAll(string text)
+        public static HmlFormula ParseAll(string text)
         {
 			var lexer = new HmlLexer(text.ToAntlrInputStream());
             var parser = new HmlParser(lexer.GetTokenStream());

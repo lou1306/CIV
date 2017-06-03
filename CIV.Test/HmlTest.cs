@@ -32,8 +32,8 @@ namespace CIV.Test
         public void AndFormulaFollowsSemantics(bool inner1, bool inner2, bool expected){
             var formula = new AndFormula
             {
-                Inner1 = inner1 ? new TrueFormula() : new FalseFormula() as IHmlFormula,
-                Inner2 = inner2 ? new TrueFormula() : new FalseFormula() as IHmlFormula
+                Inner1 = inner1 ? new TrueFormula() : new FalseFormula() as HmlFormula,
+                Inner2 = inner2 ? new TrueFormula() : new FalseFormula() as HmlFormula
             };
             Assert.Equal(expected, formula.Check(Mock.Of<IProcess>()));
         }
@@ -47,8 +47,8 @@ namespace CIV.Test
 		{
             var formula = new OrFormula
 			{
-				Inner1 = inner1 ? new TrueFormula() : new FalseFormula() as IHmlFormula,
-				Inner2 = inner2 ? new TrueFormula() : new FalseFormula() as IHmlFormula
+				Inner1 = inner1 ? new TrueFormula() : new FalseFormula() as HmlFormula,
+				Inner2 = inner2 ? new TrueFormula() : new FalseFormula() as HmlFormula
 			};
 			Assert.Equal(expected, formula.Check(Mock.Of<IProcess>()));
 		}
@@ -60,7 +60,7 @@ namespace CIV.Test
         {
             var formula = new NegFormula
             {
-                Inner = inner ? new TrueFormula() : new FalseFormula() as IHmlFormula
+                Inner = inner ? new TrueFormula() : new FalseFormula() as HmlFormula
             };
             Assert.Equal(expected, formula.Check(Mock.Of<IProcess>()));
         }
