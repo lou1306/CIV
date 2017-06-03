@@ -20,6 +20,7 @@ namespace CIV.Ccs
         }
         public override bool Equals(CcsProcess other) => other is NilProcess;
 
-        public override string ToString() => Const.nil;
-    }
+        protected override string BuildRepr() => Const.nil;
+
+	}
 }

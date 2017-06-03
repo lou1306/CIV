@@ -24,6 +24,6 @@ namespace CIV.Ccs
 
         public override IEnumerable<Transition> GetTransitions() => proxy.Real.GetTransitions();
 
-        public override string ToString() => proxy.Real.ToString();
+        protected override string BuildRepr() => proxy.Real.ToString();
     }
 }

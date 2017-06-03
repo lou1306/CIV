@@ -9,9 +9,13 @@ namespace CIV.Ccs
     {
         public abstract bool Equals(CcsProcess other);
 
+        protected string _repr;
+
+        protected abstract string BuildRepr();
+
         public abstract IEnumerable<Transition> GetTransitions();
 
-        public abstract override string ToString();
+        public override string ToString() => _repr ?? (_repr = BuildRepr());
 
         public override int GetHashCode() => ToString().GetHashCode();
 
