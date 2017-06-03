@@ -6,13 +6,10 @@ using System;
 
 namespace CIV.Hml
 {
-    class WeakDiamondFormula : HmlLabelFormula
+    class WeakDiamondFormula : DiamondFormula
     {
 
         protected override string BuildRepr() => $"<<{String.Join(",", Label)}>>{Inner}";
-
-        protected override bool CheckStrategy(IEnumerable<IProcess> processes)
-        => processes.Any(Inner.Check);
 
 		protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
 		{

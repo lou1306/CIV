@@ -6,12 +6,9 @@ using CIV.Interfaces;
 
 namespace CIV.Hml
 {
-    class WeakBoxFormula : HmlLabelFormula
+    class WeakBoxFormula : BoxFormula
     {
         protected override string BuildRepr() => $"[[{String.Join(",", Label)}]]{Inner}";
-
-        protected override bool CheckStrategy(IEnumerable<IProcess> processes)
-            => processes.All(Inner.Check);
 
         protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
         {

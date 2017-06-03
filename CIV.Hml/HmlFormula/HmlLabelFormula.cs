@@ -26,6 +26,7 @@ namespace CIV.Hml
 		/// <c>false</c> otherwise.</returns>
 		/// <param name="processes">Processes.</param>
 		protected abstract bool CheckStrategy(IEnumerable<IProcess> processes);
+
         protected abstract IEnumerable<Transition> TransitionStrategy(IProcess process);
 
         public override bool Check(IProcess process)
