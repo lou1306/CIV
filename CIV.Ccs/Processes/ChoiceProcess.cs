@@ -28,12 +28,11 @@ namespace CIV.Ccs
                  Inner2.Equals(otherChoice.Inner1));
         }
 
-        public override string ToString()
+        protected override string BuildRepr()
         {
             var list = new List<String> { Inner1.ToString(), Inner2.ToString() };
             list.Sort();
             return String.Join(Const.choice, list);
-                               
         }
     }
 }

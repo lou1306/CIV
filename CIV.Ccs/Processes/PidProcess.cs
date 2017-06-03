@@ -21,6 +21,6 @@ namespace CIV.Ccs
 
         public override IEnumerable<Transition> GetTransitions() => Inner.GetTransitions();
 
-        public override string ToString() => Pid;
-    }
+        protected override string BuildRepr() => Pid;
+	}
 }

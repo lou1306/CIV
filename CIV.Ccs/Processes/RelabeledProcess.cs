@@ -42,8 +42,8 @@ namespace CIV.Ccs
             };
         }
 
-        public override string ToString()
-        {
+		protected override string BuildRepr()
+		{
             return String.Format(Const.relabelFormat, Inner, Relabeling);
         }
     }
