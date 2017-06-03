@@ -30,10 +30,15 @@ namespace CIV.Hml
 
         public override bool Check(IProcess process)
         {
-            var processes = (from t in TransitionStrategy(process)
-							 where Label.Contains(t.Label)
-							 select t.Process);
-			return CheckStrategy(processes);
+            return CheckStrategy(MatchedProcesses(process));
         }
+
+        protected IEnumerable<IProcess> MatchedProcesses(IProcess process)
+        {
+			return (from t in TransitionStrategy(process)
+					where Label.Contains(t.Label)
+					select t.Process);   
+        }
+
     }
 }
