@@ -31,7 +31,6 @@ namespace CIV
 				ResetColor();
                 Environment.Exit((int)ExitCodes.FileNotFound);
 			}
-
 		}
 
         static void VerifyAll(Caal project)
@@ -42,7 +41,7 @@ namespace CIV
 			{
 				var isSatisfied = kv.Key.Check(kv.Value);
 				var symbol = isSatisfied ? "|=" : "|/=";
-				ForegroundColor = isSatisfied ? System.ConsoleColor.Green : System.ConsoleColor.Red;
+				ForegroundColor = isSatisfied ? ConsoleColor.Green : ConsoleColor.Red;
 				WriteLine($"{kv.Value} {symbol} {kv.Key}");
 			}
 			ResetColor();
