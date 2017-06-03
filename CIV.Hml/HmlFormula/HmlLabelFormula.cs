@@ -13,10 +13,10 @@ namespace CIV.Hml
     /// counterparts when called on a process that does not implement
     /// IHasWeakTransitions.
     /// </remarks>
-    abstract class HmlLabelFormula : IHmlFormula
+    abstract class HmlLabelFormula : HmlFormula
     {
 		public ISet<String> Label { get; set; }
-		public IHmlFormula Inner { get; set; }
+		public HmlFormula Inner { get; set; }
 
 		/// <summary>
 		/// This will be an existential (Any) or universal (All) check, 
@@ -28,7 +28,7 @@ namespace CIV.Hml
 		protected abstract bool CheckStrategy(IEnumerable<IProcess> processes);
         protected abstract IEnumerable<Transition> TransitionStrategy(IProcess process);
 
-        public bool Check(IProcess process)
+        public override bool Check(IProcess process)
         {
             var processes = (from t in TransitionStrategy(process)
 							 where Label.Contains(t.Label)

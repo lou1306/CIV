@@ -1,1 +1,109 @@
-{"id":null,"title":"Prisoners","ccs":"* ack, full and empty are for verification purposes only\n* isFull is to notify that the \"full\" action has been performed\nRoom = roomIn.full.isFull.roomOut.empty.Room;\nPrisoner = 'roomIn.'isFull.ack.Round1Prisoner;\n\nRound1Prisoner= ('turnOn.'roomOut.Round2Prisoner)+('turnOff.'turnOn.'roomOut.'roomIn.'isFull.Round1Prisoner);\nRound2Prisoner = 'roomIn.'isFull.(('turnOn.'roomOut.IdlePrisoner)+('turnOff.'turnOn.'roomOut.Round2Prisoner));\nIdlePrisoner = 'roomIn.'isFull.tau.'roomOut.IdlePrisoner;\n\n* Initial state of the light is unknown\nLight = tau.LightOn+tau.LightOff;\nLightOn = turnOff.LightOff;\nLightOff = turnOn.LightOn;\n\nCounter10 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter9)+('turnOn.'turnOff.'roomOut.Counter10));\nCounter9 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter8)+('turnOn.'turnOff.'roomOut.Counter9));\nCounter8 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter7)+('turnOn.'turnOff.'roomOut.Counter8));\nCounter7 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter6)+('turnOn.'turnOff.'roomOut.Counter7));\nCounter6 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter5)+('turnOn.'turnOff.'roomOut.Counter6));\nCounter5 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter4)+('turnOn.'turnOff.'roomOut.Counter5));\nCounter4 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter3)+('turnOn.'turnOff.'roomOut.Counter4));\nCounter3 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter2)+('turnOn.'turnOff.'roomOut.Counter3));\nCounter2 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter1)+('turnOn.'turnOff.'roomOut.Counter2));\nCounter1 = 'roomIn.'isFull.(('turnOff.'roomOut.Counter0)+('turnOn.'turnOff.'roomOut.Counter1));\nCounter0 = freeAll.0;\n\n* If the prison contains n prisoners (including the counting one), the countdown starts at 2(n-1)\n* We rename \"full\" and \"empty\" to tau for weak bisimulation\nBasePrison = (Room | Light | Prisoner | Prisoner | Prisoner | Prisoner | Counter8)\\{turnOff, turnOn, roomIn, roomOut, isFull};\nPrison = BasePrison[tau/full, tau/empty];\n\n* In order to test properties about the mutual exclusion, we are not interested in the \"ack\" and \"freeAll\" channels\nMutexPrison = BasePrison[tau/ack, tau/freeAll];\n\n****** Specifications\nIdle = tau.Idle; * Idle process. Used as a \"sink\" for weak bisimulations\n\n* Verify that freeAll happens after exactly 2(n-1) acks\nCountSpec = ack.ack.ack.ack.freeAll.Idle;\n\n* Verify that each prisoner does exactly one ack, and that it happens when\n* The prisoner is in the room.\n* This is necessary, otherwise the CountSpec would not make sense.\nPrisonerSpec = full.ack.empty.MutexSpec;\nMutexSpec = full.empty.MutexSpec;\nPrisonerTest = ((Room | Light | Prisoner)\\{turnOff, turnOn, roomIn, roomOut, isFull});","properties":[{"className":"Bisimulation","status":0,"options":{"type":"weak","time":null,"firstProcess":"Prison","secondProcess":"CountSpec","comment":"\"freeAll\" happens after exactly 4 \"ack\"s. Warning: this check takes a little while (~20 secs)"}},{"className":"Bisimulation","status":0,"options":{"type":"weak","time":null,"firstProcess":"PrisonerTest","secondProcess":"PrisonerSpec","comment":"Check that a Prisoner does exactly one ack"}},{"className":"Bisimulation","status":0,"options":{"type":"weak","time":null,"firstProcess":"MutexPrison","secondProcess":"MutexSpec","comment":"Verify that \"full\" is always followed by \"empty\". This guarantees mutual exclusion (there can never be two consecutive \"full\") and eventual exit from the \"critical section\" (any prisoner inside the room will at some point exit)"}},{"className":"HML","status":0,"options":{"process":"PrisonerTest","definitions":"","topFormula":"[[ack,empty]]ff and <<full>>(<<ack>><<empty>>tt and [[empty]]ff);","comment":""}},{"className":"HML","status":0,"options":{"process":"PrisonerTest","definitions":"X max= <<full>>(<<empty>>X and [[ack,full]]ff);","topFormula":"[[full]][[ack]][[empty]]X;","comment":""}},{"className":"HML","status":0,"options":{"process":"Prison","definitions":"","topFormula":"<<ack>>tt and [[freeAll]]ff;","comment":"At the beginning Prison can only do an ack"}},{"className":"HML","status":0,"options":{"process":"MutexPrison","definitions":"X max= <<full>>(<<empty>>X and [[full]]ff);","topFormula":"X and [[empty]]ff;","comment":""}}],"inputMode":"CCS"}
+{
+    "id": null,
+    "title": "Prisoners",
+    "ccs": "* ack, full and empty are for verification purposes only\n* isFull is to notify that the \"full\" action has been performed\nRoom = roomIn.full.isFull.roomOut.empty.Room;\nPrisoner = 'roomIn.'isFull.ack.Round1Prisoner;\n\nRound1Prisoner= ('turnOn.'roomOut.Round2Prisoner)+('turnOff.'turnOn.'roomOut.'roomIn.'isFull.Round1Prisoner);\nRound2Prisoner = 'roomIn.'isFull.(('turnOn.'roomOut.IdlePrisoner)+('turnOff.'turnOn.'roomOut.Round2Prisoner));\nIdlePrisoner = 'roomIn.'isFull.tau.'roomOut.IdlePrisoner;\n\n* Initial state of the light is unknown\nLight = tau.LightOn+tau.LightOff;\nLightOn = turnOff.LightOff;\nLightOff = turnOn.LightOn;\n\nLeader10 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader9)+('turnOn.'turnOff.'roomOut.Leader10));\nLeader9 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader8)+('turnOn.'turnOff.'roomOut.Leader9));\nLeader8 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader7)+('turnOn.'turnOff.'roomOut.Leader8));\nLeader7 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader6)+('turnOn.'turnOff.'roomOut.Leader7));\nLeader6 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader5)+('turnOn.'turnOff.'roomOut.Leader6));\nLeader5 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader4)+('turnOn.'turnOff.'roomOut.Leader5));\nLeader4 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader3)+('turnOn.'turnOff.'roomOut.Leader4));\nLeader3 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader2)+('turnOn.'turnOff.'roomOut.Leader3));\nLeader2 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader1)+('turnOn.'turnOff.'roomOut.Leader2));\nLeader1 = 'roomIn.'isFull.(('turnOff.'roomOut.Leader0)+('turnOn.'turnOff.'roomOut.Leader1));\nLeader0 = freeAll.0;\n\n* If the prison contains n prisoners (including the counting one), the countdown starts at 2(n-1)\n* We rename \"full\" and \"empty\" to tau for weak bisimulation\nBasePrison = (Room | Light | Prisoner | Prisoner | Prisoner | Prisoner | Leader8)\\{turnOff, turnOn, roomIn, roomOut, isFull};\nPrison = BasePrison[tau/full, tau/empty];\n\n* In order to test properties about the mutual exclusion, we are not interested in the \"ack\" and \"freeAll\" channels\nMutexPrison = BasePrison[tau/ack, tau/freeAll];\n\n****** Specifications\nIdle = tau.Idle; * Idle process. Used as a \"sink\" for weak bisimulations\n\n* Verify that freeAll happens after exactly 2(n-1) acks\nProtocolSpec = ack.ack.ack.ack.freeAll.Idle;\n\n* Verify that each prisoner does exactly one ack, and that it happens when\n* The prisoner is in the room.\n* This is necessary, otherwise the CountSpec would not make sense.\nPrisonerSpec = full.ack.empty.MutexSpec;\nMutexSpec = full.empty.MutexSpec;\nPrisonerTest = ((Room | Light | Prisoner)\\{turnOff, turnOn, roomIn, roomOut, isFull});",
+    "properties": [{
+        "className": "Bisimulation",
+        "status": 0,
+        "options": {
+            "type": "weak",
+            "time": null,
+            "firstProcess": "PrisonerTest",
+            "secondProcess": "PrisonerSpec",
+            "comment": "Check that a Prisoner does exactly one ack"
+        }
+    }, {
+        "className": "Bisimulation",
+        "status": 0,
+        "options": {
+            "type": "weak",
+            "time": null,
+            "firstProcess": "MutexPrison",
+            "secondProcess": "MutexSpec",
+            "comment": "Verify that \"full\" is always followed by \"empty\". This guarantees mutual exclusion (there can never be two consecutive \"full\") and eventual exit from the \"critical section\" (any prisoner inside the room will at some point exit)"
+        }
+    }, {
+        "className": "Bisimulation",
+        "status": 0,
+        "options": {
+            "type": "weak",
+            "time": null,
+            "firstProcess": "Prison",
+            "secondProcess": "ProtocolSpec",
+            "comment": "\"freeAll\" happens after exactly 4 \"ack\"s. Warning: this check takes a little while (~20 secs)"
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "PrisonerTest",
+            "definitions": "",
+            "topFormula": "[[ack,empty]]ff and <<full>>(<<ack>><<empty>>tt and [[empty]]ff);",
+            "comment": ""
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "MutexPrison",
+            "definitions": "X max= <<full>>tt and [[full]](<<empty>>X and [[full]]ff);",
+            "topFormula": "X and [[empty]]ff;",
+            "comment": ""
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "Prison",
+            "definitions": "",
+            "topFormula": "<<ack>>tt and [[freeAll]]ff;",
+            "comment": "At the beginning Prison can only do an ack"
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "Prison",
+            "definitions": "",
+            "topFormula": "[[ack]](<<ack>>tt and [[freeAll]]ff);",
+            "comment": ""
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "Prison",
+            "definitions": "",
+            "topFormula": "[[ack]][[ack]](<<ack>>tt and [[freeAll]]ff);",
+            "comment": ""
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "Prison",
+            "definitions": "",
+            "topFormula": "[[ack]][[ack]][[ack]](<<ack>>tt and [[freeAll]]ff);",
+            "comment": ""
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "Prison",
+            "definitions": "",
+            "topFormula": "[[ack]][[ack]][[ack]][[ack]](<<freeAll>>tt and [[ack]]ff and [[freeAll]][[ack,freeAll]]ff);",
+            "comment": "freeAll after exactly 4 ack, no other ack or freeAll after freeAll"
+        }
+    }, {
+        "className": "HML",
+        "status": 0,
+        "options": {
+            "process": "PrisonerTest",
+            "definitions": "X max= <<full>>(<<empty>>X and [[ack,full]]ff);",
+            "topFormula": "[[full]][[ack]][[empty]]X;",
+            "comment": ""
+        }
+    }],
+    "inputMode": "CCS"
+}

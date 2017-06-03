@@ -1,10 +1,13 @@
-﻿using CIV.Interfaces;
+﻿using System;
+using CIV.Interfaces;
 
 namespace CIV.Hml
 {
-    class NegFormula : IHmlFormula
+    class NegFormula : HmlFormula
     {
-        public IHmlFormula Inner { get; set; }
-        public bool Check(IProcess process) => !(Inner.Check(process));
+        public HmlFormula Inner { get; set; }
+        public override bool Check(IProcess process) => !(Inner.Check(process));
+
+        protected override string BuildRepr() => $"not {Inner}";
     }
 }

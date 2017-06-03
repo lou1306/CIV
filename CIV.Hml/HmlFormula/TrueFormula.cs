@@ -2,8 +2,10 @@
 
 namespace CIV.Hml
 {
-    class TrueFormula : IHmlFormula
+    class TrueFormula : HmlFormula
     {
-        public bool Check(IProcess process) => true;
+        protected override string BuildRepr() => "tt";
+
+        public override bool Check(IProcess process) => true;
     }
 }

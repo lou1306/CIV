@@ -8,6 +8,9 @@ namespace CIV.Hml
 {
     class WeakDiamondFormula : HmlLabelFormula
     {
+
+        protected override string BuildRepr() => $"<<{String.Join(",", Label)}>>{Inner}";
+
         protected override bool CheckStrategy(IEnumerable<IProcess> processes)
         => processes.Any(Inner.Check);
 

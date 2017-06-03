@@ -1,10 +1,16 @@
-﻿using CIV.Interfaces;
+﻿using System;
+using CIV.Interfaces;
 
 
 namespace CIV.Hml
 {
-    class FalseFormula : IHmlFormula
+    class FalseFormula : HmlFormula
     {
-        public bool Check(IProcess process) => false;
+        public override bool Check(IProcess process) => false;
+
+        protected override string BuildRepr()
+        {
+            return "ff";
+        }
     }
 }
