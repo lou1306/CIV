@@ -7,12 +7,15 @@ namespace CIV.Hml
 {
     class HmlFactory : IFactory<HmlFormula, HmlContext>
     {
+        readonly FalseFormula _false = new FalseFormula();
+        readonly TrueFormula _true = new TrueFormula();
+
         public HmlFormula Create(HmlContext context)
         {
             switch (context)
             {
-                case TrueContext c: return new TrueFormula();
-                case FalseContext c: return new FalseFormula();
+                case TrueContext c: return _true;
+                case FalseContext c: return _false;
                 case ConjContext c:
                     return new AndFormula
                     {
@@ -33,23 +36,28 @@ namespace CIV.Hml
                 case ParenthContext c:
                     return Create(c.hml());
                 case DiamondContext c:
-                    Console.WriteLine(String.Join(",",CreateLabels(c.labelList())));
                     return new DiamondFormula
                     {
                         Label = CreateLabels(c.labelList()),
-                        Inner = new HmlProxy(this, c.hml())
+                        Inner = Create(c.hml())
                     };
-				case WeakDiamondContext c:
-					return new WeakDiamondFormula
+				case BoxContext c:
+                    return new BoxFormula
 					{
 						Label = CreateLabels(c.labelList()),
-						Inner = new HmlProxy(this, c.hml())
+						Inner = Create(c.hml())
+					};
+				case WeakDiamondContext c:
+                    return new WeakDiamondFormula
+                    {
+                        Label = CreateLabels(c.labelList()),
+                        Inner = Create(c.hml())
 					};
 				case WeakBoxContext c:
 					return new WeakBoxFormula
 					{
 						Label = CreateLabels(c.labelList()),
-						Inner = new HmlProxy(this, c.hml())
+						Inner = Create(c.hml())
 					};
                 default:
                     throw new NotSupportedException();
