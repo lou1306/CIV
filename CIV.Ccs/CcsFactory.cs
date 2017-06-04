@@ -15,6 +15,8 @@ namespace CIV.Ccs
         public IDictionary<SetExpressionContext, ISet<String>> InlineSetsTable { get; set; }
         public IDictionary<RelabelExpressionContext, RelabelingFunction> Relabelings { get; set; }
 
+        IDictionary<string, CcsProcess> _pool = new Dictionary<string, CcsProcess>();
+
         /// <summary>
         /// Create a Process from the specified context.
         /// </summary>
@@ -22,58 +24,74 @@ namespace CIV.Ccs
         /// <param name="context">Context.</param>
         public CcsProcess Create(ProcessContext context)
         {
+
+            if (_pool.ContainsKey(context.GetText()))
+            {
+                return _pool[context.GetText()];
+            }
+            CcsProcess result;
             switch(context)
             {
                 case NilProcContext c:
                     return NilProcess.Instance;
                 case PrefixProcContext c:
-					return new PrefixProcess
+					result = new PrefixProcess
 					{
 						Label = c.label().GetText(),
 						Inner = new CcsProxy(this, c.process())
 					};
+                    break;
                 case PidProcContext c:
 					var pid = c.pid().GetText();
-                    return new PidProcess
+                    result = new PidProcess
                     {
                         Pid = pid,
                         Inner = new CcsProxy(this, NamedProcessesTable[pid])
                     };
+                    break;
                 case ParenthProcContext c:
-					return Create(c.process());
-                case ParProcContext c:
-					return new ParProcess
+					result = Create(c.process());
+					break;
+				case ParProcContext c:
+					result = new ParProcess
 					{
 						Inner1 = new CcsProxy(this, c.process(0)),
 						Inner2 = new CcsProxy(this, c.process(1))
 					};
-                case ChoiceProcContext c:
-					return new ChoiceProcess
+					break;
+				case ChoiceProcContext c:
+					result = new ChoiceProcess
 					{
 						Inner1 = new CcsProxy(this, c.process(0)),
 						Inner2 = new CcsProxy(this, c.process(1))
 					};
-                case RestrictIdProcContext c:
-					return new RestrictedProcess
+					break;
+				case RestrictIdProcContext c:
+					result = new RestrictedProcess
 					{
 						Inner = new CcsProxy(this, c.process()),
 						Restrictions = NamedSetsTable[c.setId().GetText()]
 					};
+					break;
 				case RestrictExprProcContext c:
-					return new RestrictedProcess
+					result = new RestrictedProcess
 					{
 						Inner = new CcsProxy(this, c.process()),
 						Restrictions = InlineSetsTable[c.setExpression()]
 					};
-                case RelabelProcContext c:
-					return new RelabeledProcess
+					break;
+				case RelabelProcContext c:
+					result = new RelabeledProcess
 					{
 						Inner = new CcsProxy(this, c.process()),
 						Relabeling = Relabelings[c.relabelExpression()]
 					};
-                default:
+					break;
+				default:
                     throw new NotSupportedException();
 			}
+            _pool[context.GetText()] = result;
+            return result;
         }
     }
 }
