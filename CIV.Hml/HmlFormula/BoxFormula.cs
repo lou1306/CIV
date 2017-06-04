@@ -17,5 +17,10 @@ namespace CIV.Hml
         {
 			return process.GetTransitions();
 		}
+		public override bool Check(IProcess process)
+		{
+            var grouped = MatchedTransitions(process).GroupBy(x => x.Label);
+			return grouped.All(procs => procs.All(p => Inner.Check(p.Process)));
+		}
     }
 }

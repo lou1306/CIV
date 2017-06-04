@@ -29,17 +29,17 @@ namespace CIV.Hml
 
         protected abstract IEnumerable<Transition> TransitionStrategy(IProcess process);
 
-        public override bool Check(IProcess process)
-        {
-            return CheckStrategy(MatchedProcesses(process));
-        }
-
         protected IEnumerable<IProcess> MatchedProcesses(IProcess process)
         {
-			return (from t in TransitionStrategy(process)
-					where Label.Contains(t.Label)
+            return (from t in MatchedTransitions(process)
 					select t.Process);   
         }
 
+        protected IEnumerable<Transition> MatchedTransitions(IProcess process)
+		{
+			return (from t in TransitionStrategy(process)
+					where Label.Contains(t.Label)
+					select t);
+		}
     }
 }

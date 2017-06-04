@@ -39,25 +39,25 @@ namespace CIV.Hml
                     return new DiamondFormula
                     {
                         Label = CreateLabels(c.labelList()),
-                        Inner = Create(c.hml())
+                        Inner = new HmlProxy(this, c.hml())
                     };
 				case BoxContext c:
                     return new BoxFormula
 					{
 						Label = CreateLabels(c.labelList()),
-						Inner = Create(c.hml())
+						Inner = new HmlProxy(this, c.hml())
 					};
 				case WeakDiamondContext c:
                     return new WeakDiamondFormula
                     {
                         Label = CreateLabels(c.labelList()),
-                        Inner = Create(c.hml())
+						Inner = new HmlProxy(this, c.hml())
 					};
 				case WeakBoxContext c:
 					return new WeakBoxFormula
 					{
 						Label = CreateLabels(c.labelList()),
-						Inner = Create(c.hml())
+						Inner = new HmlProxy(this, c.hml())
 					};
                 default:
                     throw new NotSupportedException();
