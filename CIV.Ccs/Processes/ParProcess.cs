@@ -9,10 +9,11 @@ namespace CIV.Ccs
     {
         public CcsProcess Inner1 { get; set; }
         public CcsProcess Inner2 { get; set; }
+        //public static int count = 0;
 
-        public override IEnumerable<Transition> GetTransitions()
+        protected override IEnumerable<Transition> EnumerateTransitions()
         {
-            var transitions1 = Inner1.GetTransitions();
+			var transitions1 = Inner1.GetTransitions();
             var transitions2 = Inner2.GetTransitions();
             var result = (from t in transitions1
                           select new Transition
@@ -25,7 +26,9 @@ namespace CIV.Ccs
                               }
                           });
             foreach (var t in result)
+            {
                 yield return t;
+            }
 
             result = (from t in transitions2
                       select new Transition
@@ -66,12 +69,12 @@ namespace CIV.Ccs
                  Inner2.Equals(otherPar.Inner1));
         }
 
-		protected override string BuildRepr()
-		{
+        protected override string BuildRepr()
+        {
             var list = new List<String> { Inner1.ToString(), Inner2.ToString() };
             list.Sort();
             return String.Join(Const.par, list);
-		}
+        }
     }
 }
 

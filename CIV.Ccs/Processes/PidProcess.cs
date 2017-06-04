@@ -19,7 +19,8 @@ namespace CIV.Ccs
             return Inner.Equals(other);
         }
 
-        public override IEnumerable<Transition> GetTransitions() => Inner.GetTransitions();
+		protected override IEnumerable<Transition> EnumerateTransitions()
+        => Inner.GetTransitions();
 
         protected override string BuildRepr() => Pid;
 	}

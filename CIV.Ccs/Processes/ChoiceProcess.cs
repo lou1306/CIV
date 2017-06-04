@@ -9,12 +9,13 @@ namespace CIV.Ccs
         public CcsProcess Inner1 { get; set; }
         public CcsProcess Inner2 { get; set; }
 
-        public override IEnumerable<Transition> GetTransitions()
+
+        protected override IEnumerable<Transition> EnumerateTransitions()
         {
-            foreach (var t in Inner1.GetTransitions())
-                yield return t;
-            foreach (var t in Inner2.GetTransitions())
-                yield return t;
+			foreach (var t in Inner1.GetTransitions())
+				yield return t;
+			foreach (var t in Inner2.GetTransitions())
+				yield return t;
         }
 
         public override bool Equals(CcsProcess other)

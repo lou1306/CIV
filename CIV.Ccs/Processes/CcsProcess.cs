@@ -13,7 +13,13 @@ namespace CIV.Ccs
 
         protected abstract string BuildRepr();
 
-        public abstract IEnumerable<Transition> GetTransitions();
+        public IEnumerable<Transition> GetTransitions()
+        {
+            return EnumerateTransitions().Memoize();
+        }
+
+        protected abstract IEnumerable<Transition> EnumerateTransitions();
+
 
         public override string ToString() => _repr ?? (_repr = BuildRepr());
 
