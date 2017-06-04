@@ -18,8 +18,8 @@ namespace CIV.Ccs
                 Inner.Equals(otherPrefix.Inner);
         }
 
-        public override IEnumerable<Transition> GetTransitions()
-        {
+		protected override IEnumerable<Transition> EnumerateTransitions()
+		{
             return new List<Transition>{
                 new Transition{
                     Label = Label,

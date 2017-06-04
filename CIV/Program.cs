@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CIV.Formats;
 using static System.Console;
 
@@ -31,21 +32,28 @@ namespace CIV
 				ResetColor();
                 Environment.Exit((int)ExitCodes.FileNotFound);
 			}
-
 		}
 
         static void VerifyAll(Caal project)
         {
-			WriteLine("Loaded project {0}", project.Name);
+			WriteLine("Loaded project {0}. Starting verification...", project.Name);
 
+            var sw = new Stopwatch();
+            sw.Start();
 			foreach (var kv in project.Formulae)
 			{
+                Write($"{kv.Value} |= {kv.Key}...");
+				Out.Flush();
 				var isSatisfied = kv.Key.Check(kv.Value);
-				var symbol = isSatisfied ? "|=" : "|/=";
-				ForegroundColor = isSatisfied ? System.ConsoleColor.Green : System.ConsoleColor.Red;
-				WriteLine($"{kv.Value} {symbol} {kv.Key}");
+				ForegroundColor = isSatisfied ? ConsoleColor.Green : ConsoleColor.Red;
+                var result = isSatisfied ? "Success!" : "Failure";
+                Write($"\t{result}");
+                WriteLine();
+				ResetColor();
 			}
-			ResetColor();
+            sw.Stop();
+            WriteLine($"Completed in {sw.Elapsed.TotalMilliseconds} ms.");
+
         }
     }
 }

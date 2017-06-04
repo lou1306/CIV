@@ -14,8 +14,8 @@ namespace CIV.Ccs
 
         NilProcess(){}
 
-        public override IEnumerable<Transition> GetTransitions()
-        {
+		protected override IEnumerable<Transition> EnumerateTransitions()
+		{
             return Enumerable.Empty<Transition>();
         }
         public override bool Equals(CcsProcess other) => other is NilProcess;

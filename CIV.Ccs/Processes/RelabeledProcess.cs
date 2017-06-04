@@ -19,8 +19,8 @@ namespace CIV.Ccs
                             && Relabeling.Equals(otherRelabeled.Relabeling);
         }
 
-        public override IEnumerable<Transition> GetTransitions()
-        {
+		protected override IEnumerable<Transition> EnumerateTransitions()
+		{
             var transitions = Inner.GetTransitions();
             return (from t in transitions
                     select RenamedTransition(t));

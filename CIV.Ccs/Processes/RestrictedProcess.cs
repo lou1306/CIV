@@ -18,8 +18,8 @@ namespace CIV.Ccs
                      && Restrictions.SetEquals(otherRestricted.Restrictions);
         }
 
-        public override IEnumerable<Transition> GetTransitions()
-        {
+		protected override IEnumerable<Transition> EnumerateTransitions()
+		{
             return (from t in Inner.GetTransitions()
                     where
                     t.Label == Const.tau ||

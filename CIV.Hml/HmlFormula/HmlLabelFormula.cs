@@ -26,14 +26,20 @@ namespace CIV.Hml
 		/// <c>false</c> otherwise.</returns>
 		/// <param name="processes">Processes.</param>
 		protected abstract bool CheckStrategy(IEnumerable<IProcess> processes);
+
         protected abstract IEnumerable<Transition> TransitionStrategy(IProcess process);
 
-        public override bool Check(IProcess process)
+        protected IEnumerable<IProcess> MatchedProcesses(IProcess process)
         {
-            var processes = (from t in TransitionStrategy(process)
-							 where Label.Contains(t.Label)
-							 select t.Process);
-			return CheckStrategy(processes);
+            return (from t in MatchedTransitions(process)
+					select t.Process);   
         }
+
+        protected IEnumerable<Transition> MatchedTransitions(IProcess process)
+		{
+			return (from t in TransitionStrategy(process)
+					where Label.Contains(t.Label)
+					select t);
+		}
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CIV.Interfaces;
 using System.Linq;
 
+
 namespace CIV.Ccs
 {
     public abstract class CcsProcess : IHasWeakTransitions, IEquatable<CcsProcess>
@@ -13,7 +14,23 @@ namespace CIV.Ccs
 
         protected abstract string BuildRepr();
 
-        public abstract IEnumerable<Transition> GetTransitions();
+
+        /// <summary>
+        /// Gets the transitions.
+        /// </summary>
+        /// <remarks>
+        /// This is virtual only to allow mocking in the CIV.Test project.
+        /// We use Memoize() to store the elements as they are generated,
+        /// so to limit the number of instantiated Transitions.
+        /// </remarks>
+        /// <returns>The transitions.</returns>
+        public virtual IEnumerable<Transition> GetTransitions()
+        {
+            return EnumerateTransitions().Memoize();
+        }
+
+        protected abstract IEnumerable<Transition> EnumerateTransitions();
+
 
         public override string ToString() => _repr ?? (_repr = BuildRepr());
 

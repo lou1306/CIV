@@ -22,7 +22,8 @@ namespace CIV.Ccs
 
         public override int GetHashCode() => proxy.Real.GetHashCode();
 
-        public override IEnumerable<Transition> GetTransitions() => proxy.Real.GetTransitions();
+		protected override IEnumerable<Transition> EnumerateTransitions()
+        => proxy.Real.GetTransitions();
 
         protected override string BuildRepr() => proxy.Real.ToString();
     }
