@@ -1,6 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/lou1306/CIV.png?label=ready&title=Ready)](https://waffle.io/lou1306/CIV?utm_source=badge)
-[![Build Status](https://travis-ci.com/lou1306/CIV.svg?token=ThHjw176gDPz2r4TcA5L&branch=master)](https://travis-ci.com/lou1306/CIV)
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/lou1306/CIV.svg?branch=master)](https://travis-ci.org/lou1306/CIV)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # CIV - CCS Interpreter and Verifier
 
