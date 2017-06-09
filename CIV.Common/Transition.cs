@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CIV.Interfaces
+namespace CIV.Common
 {
     public class Transition
     {

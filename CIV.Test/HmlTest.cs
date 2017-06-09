@@ -1,7 +1,7 @@
 using Xunit;
 using CIV.Hml;
 using CIV.Ccs;
-using CIV.Interfaces;
+using CIV.Common;
 using Moq;
 using System.Collections.Generic;
 

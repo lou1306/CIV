@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using CIV.Interfaces;
+using CIV.Common;
 
 namespace CIV.Hml
 {

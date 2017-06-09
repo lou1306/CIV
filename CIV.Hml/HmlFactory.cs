@@ -1,6 +1,6 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
-using CIV.Interfaces;
+using CIV.Common;
 using static CIV.Hml.HmlParser;
 
 namespace CIV.Hml

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CIV.Ccs;
-using CIV.Interfaces;
+using CIV.Common;
 using Moq;
 
 namespace CIV.Test

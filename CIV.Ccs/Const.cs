@@ -2,7 +2,7 @@
 using static CIV.Ccs.CcsLexer;
 namespace CIV.Ccs
 {
-    public static class Const
+    static class Const
     {
         public static readonly string tau = GetLiteral(TAU);
         public static readonly string nil = GetLiteral(NIL);

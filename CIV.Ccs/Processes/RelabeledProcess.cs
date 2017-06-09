@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using CIV.Interfaces;
+using CIV.Common;
 using System;
 
 namespace CIV.Ccs

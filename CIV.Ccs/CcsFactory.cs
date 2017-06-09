@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CIV.Interfaces;
+using CIV.Common;
 using static CIV.Ccs.CcsParser;
 
 namespace CIV.Ccs

@@ -11,7 +11,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\CIV.Ccs\CIV.Ccs.csproj" />
 	  <ProjectReference Include="..\CIV.Hml\CIV.Hml.csproj" />
-	  <ProjectReference Include="..\CIV.Interfaces\CIV.Interfaces.csproj" />
 	  <ProjectReference Include="..\CIV.Formats\CIV.Formats.csproj" />
+	  <ProjectReference Include="..\CIV.Common\CIV.Common.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
 ﻿using System;
+using CIV.Common;
+
 namespace CIV.Hml
 {
     class HmlListener : HmlParserBaseListener
@@ -11,5 +13,10 @@ namespace CIV.Hml
         {
             RootFormula = factory.Create(context.hml());
         }
-    }
+
+		public override void VisitErrorNode(Antlr4.Runtime.Tree.IErrorNode node)
+		{
+			throw new ParsingFailedException(node.Parent.GetText());
+		}
+	}
 }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿﻿using System;
+using CIV.Common;
 using System.Linq;
 using System.Collections.Generic;
-using CIV.Ccs;
 
 namespace CIV.Ccs
 {
-    public class CcsListener : CcsParserBaseListener
+    class CcsListener : CcsParserBaseListener
     {
         public IDictionary<String, CcsParser.ProcessContext> Processes { get; set; }
         public IDictionary<String, ISet<String>> NamedSets { get; set; }
@@ -89,6 +89,11 @@ namespace CIV.Ccs
         {
             Processes[context.IDENTIFIER().GetText()] = context.process();
             base.ExitProcDef(context);
+        }
+
+        public override void VisitErrorNode(Antlr4.Runtime.Tree.IErrorNode node)
+        {
+            throw new ParsingFailedException(node.Parent.GetText());
         }
     }
 }

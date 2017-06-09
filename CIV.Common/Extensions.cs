@@ -1,8 +1,7 @@
-﻿using System;
-using Antlr4.Runtime;
+﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 
-namespace CIV.Interfaces
+namespace CIV.Common
 {
     public static class Extensions
     {

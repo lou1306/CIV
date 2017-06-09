@@ -1,6 +1,5 @@
 ﻿using System;
-using CIV.Interfaces;
-
+using CIV.Common;
 
 namespace CIV.Hml
 {

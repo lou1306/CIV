@@ -11,7 +11,7 @@ labelList
 
 label : TAU | ACTION | COACTION ;
 
-baseHml : hml; 
+baseHml : hml TERM;
 
 hml
     : LPAREN hml RPAREN                                 #Parenth

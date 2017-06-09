@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CIV.Interfaces;
-using CIV.Ccs;
+using CIV.Common;
 using System;
 
 namespace CIV.Hml

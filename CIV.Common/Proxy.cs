@@ -1,4 +1,4 @@
-﻿namespace CIV.Interfaces
+﻿namespace CIV.Common
 {
     
     public class Proxy<T, CTX> where T: class where CTX : class 
