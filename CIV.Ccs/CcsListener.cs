@@ -1,4 +1,5 @@
-﻿using System;
+﻿﻿using System;
+using CIV.Common;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -92,6 +93,7 @@ namespace CIV.Ccs
 
         public override void VisitErrorNode(Antlr4.Runtime.Tree.IErrorNode node)
         {
+            throw new ParsingFailedException(node.Parent.GetText());
         }
     }
 }

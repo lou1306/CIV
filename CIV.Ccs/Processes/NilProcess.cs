@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CIV.Interfaces;
+using CIV.Common;
 
 namespace CIV.Ccs
 {

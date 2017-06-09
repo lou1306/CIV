@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CIV.Interfaces
+namespace CIV.Common
 {
     public interface IFactory<T, CTX>
     {

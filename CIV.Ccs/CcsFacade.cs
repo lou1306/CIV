@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using CIV.Interfaces;
+using CIV.Common;
 
 [assembly: InternalsVisibleTo("CIV.Test")]
 namespace CIV.Ccs

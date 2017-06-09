@@ -1,4 +1,4 @@
-﻿namespace CIV.Interfaces
+﻿namespace CIV.Common
 {
     public interface IProperty
     {

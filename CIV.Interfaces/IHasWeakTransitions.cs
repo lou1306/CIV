@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace CIV.Interfaces
+namespace CIV.Common
 {
     public interface IHasWeakTransitions : IProcess
     {
