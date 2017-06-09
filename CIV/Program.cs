@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using CIV.Formats;
+using CIV.Common;
 using static System.Console;
 
 namespace CIV
@@ -25,9 +26,10 @@ namespace CIV
 				var project = new Caal().Load(args[0]);
                 VerifyAll(project);
 			}
-            catch (System.IO.FileNotFoundException ex)
+            catch (Exception ex)
             {
                 ForegroundColor = ConsoleColor.Red;
+                WriteLine("An error has occurred:");
                 WriteLine(ex.Message);
 				ResetColor();
                 Environment.Exit((int)ExitCodes.FileNotFound);
