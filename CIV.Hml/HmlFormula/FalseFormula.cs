@@ -1,7 +1,6 @@
 ﻿using System;
 using CIV.Common;
 
-
 namespace CIV.Hml
 {
     class FalseFormula : HmlFormula

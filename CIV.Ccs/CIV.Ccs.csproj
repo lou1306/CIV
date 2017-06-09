@@ -49,6 +49,6 @@
 	   <Folder Include="Helpers\" />
 	 </ItemGroup>
 	 <ItemGroup>
-	   <ProjectReference Include="..\CIV.Interfaces\CIV.Interfaces.csproj" />
+	   <ProjectReference Include="..\CIV.Common\CIV.Common.csproj" />
 	 </ItemGroup>
 </Project>
