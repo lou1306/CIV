@@ -89,5 +89,9 @@ namespace CIV.Ccs
             Processes[context.IDENTIFIER().GetText()] = context.process();
             base.ExitProcDef(context);
         }
+
+        public override void VisitErrorNode(Antlr4.Runtime.Tree.IErrorNode node)
+        {
+        }
     }
 }
