@@ -233,6 +233,7 @@ public partial class HmlParser : Parser {
 		public HmlContext hml() {
 			return GetRuleContext<HmlContext>(0);
 		}
+		public ITerminalNode TERM() { return GetToken(HmlParser.TERM, 0); }
 		public BaseHmlContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -256,6 +257,7 @@ public partial class HmlParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 21; hml(0);
+			State = 22; Match(TERM);
 			}
 		}
 		catch (RecognitionException re) {
@@ -533,7 +535,7 @@ public partial class HmlParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 68;
+			State = 69;
 			_errHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(_input,1,_ctx) ) {
 			case 1:
@@ -542,9 +544,9 @@ public partial class HmlParser : Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				State = 24; Match(LPAREN);
-				State = 25; hml(0);
-				State = 26; Match(RPAREN);
+				State = 25; Match(LPAREN);
+				State = 26; hml(0);
+				State = 27; Match(RPAREN);
 				}
 				break;
 
@@ -553,8 +555,8 @@ public partial class HmlParser : Parser {
 				_localctx = new NegatedContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 28; Match(NOT);
-				State = 29; hml(13);
+				State = 29; Match(NOT);
+				State = 30; hml(13);
 				}
 				break;
 
@@ -563,10 +565,10 @@ public partial class HmlParser : Parser {
 				_localctx = new BoxContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 30; Match(LBOX);
-				State = 31; labelList(0);
-				State = 32; Match(RBOX);
-				State = 33; hml(12);
+				State = 31; Match(LBOX);
+				State = 32; labelList(0);
+				State = 33; Match(RBOX);
+				State = 34; hml(12);
 				}
 				break;
 
@@ -575,10 +577,10 @@ public partial class HmlParser : Parser {
 				_localctx = new BoxAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 35; Match(LBOX);
-				State = 36; Match(ALL);
-				State = 37; Match(RBOX);
-				State = 38; hml(11);
+				State = 36; Match(LBOX);
+				State = 37; Match(ALL);
+				State = 38; Match(RBOX);
+				State = 39; hml(11);
 				}
 				break;
 
@@ -587,10 +589,10 @@ public partial class HmlParser : Parser {
 				_localctx = new DiamondContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 39; Match(LDIAMOND);
-				State = 40; labelList(0);
-				State = 41; Match(RDIAMOND);
-				State = 42; hml(10);
+				State = 40; Match(LDIAMOND);
+				State = 41; labelList(0);
+				State = 42; Match(RDIAMOND);
+				State = 43; hml(10);
 				}
 				break;
 
@@ -599,10 +601,10 @@ public partial class HmlParser : Parser {
 				_localctx = new DiamondAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 44; Match(LDIAMOND);
-				State = 45; Match(ALL);
-				State = 46; Match(RDIAMOND);
-				State = 47; hml(9);
+				State = 45; Match(LDIAMOND);
+				State = 46; Match(ALL);
+				State = 47; Match(RDIAMOND);
+				State = 48; hml(9);
 				}
 				break;
 
@@ -611,10 +613,10 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakBoxContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 48; Match(LWBOX);
-				State = 49; labelList(0);
-				State = 50; Match(RWBOX);
-				State = 51; hml(8);
+				State = 49; Match(LWBOX);
+				State = 50; labelList(0);
+				State = 51; Match(RWBOX);
+				State = 52; hml(8);
 				}
 				break;
 
@@ -623,10 +625,10 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakBoxAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 53; Match(LWBOX);
-				State = 54; Match(ALL);
-				State = 55; Match(RWBOX);
-				State = 56; hml(7);
+				State = 54; Match(LWBOX);
+				State = 55; Match(ALL);
+				State = 56; Match(RWBOX);
+				State = 57; hml(7);
 				}
 				break;
 
@@ -635,10 +637,10 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakDiamondContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 57; Match(LWDIAMOND);
-				State = 58; labelList(0);
-				State = 59; Match(RWDIAMOND);
-				State = 60; hml(6);
+				State = 58; Match(LWDIAMOND);
+				State = 59; labelList(0);
+				State = 60; Match(RWDIAMOND);
+				State = 61; hml(6);
 				}
 				break;
 
@@ -647,10 +649,10 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakDiamondAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 62; Match(LWDIAMOND);
-				State = 63; Match(ALL);
-				State = 64; Match(RWDIAMOND);
-				State = 65; hml(5);
+				State = 63; Match(LWDIAMOND);
+				State = 64; Match(ALL);
+				State = 65; Match(RWDIAMOND);
+				State = 66; hml(5);
 				}
 				break;
 
@@ -659,7 +661,7 @@ public partial class HmlParser : Parser {
 				_localctx = new TrueContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 66; Match(TRUE);
+				State = 67; Match(TRUE);
 				}
 				break;
 
@@ -668,12 +670,12 @@ public partial class HmlParser : Parser {
 				_localctx = new FalseContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 67; Match(FALSE);
+				State = 68; Match(FALSE);
 				}
 				break;
 			}
 			_ctx.stop = _input.Lt(-1);
-			State = 78;
+			State = 79;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
@@ -681,17 +683,17 @@ public partial class HmlParser : Parser {
 					if ( _parseListeners!=null ) TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 76;
+					State = 77;
 					_errHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ConjContext(new HmlContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_hml);
-						State = 70;
+						State = 71;
 						if (!(Precpred(_ctx, 4))) throw new FailedPredicateException(this, "Precpred(_ctx, 4)");
-						State = 71; Match(AND);
-						State = 72; hml(5);
+						State = 72; Match(AND);
+						State = 73; hml(5);
 						}
 						break;
 
@@ -699,16 +701,16 @@ public partial class HmlParser : Parser {
 						{
 						_localctx = new DisjContext(new HmlContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_hml);
-						State = 73;
+						State = 74;
 						if (!(Precpred(_ctx, 3))) throw new FailedPredicateException(this, "Precpred(_ctx, 3)");
-						State = 74; Match(OR);
-						State = 75; hml(4);
+						State = 75; Match(OR);
+						State = 76; hml(4);
 						}
 						break;
 					}
 					} 
 				}
-				State = 80;
+				State = 81;
 				_errHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(_input,3,_ctx);
 			}
@@ -749,37 +751,36 @@ public partial class HmlParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x18T\x4\x2\t\x2"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x18U\x4\x2\t\x2"+
 		"\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x3\x2\x3\x2\x3\x2\x3\x2\x3\x2\x3\x2"+
-		"\a\x2\x11\n\x2\f\x2\xE\x2\x14\v\x2\x3\x3\x3\x3\x3\x4\x3\x4\x3\x5\x3\x5"+
+		"\a\x2\x11\n\x2\f\x2\xE\x2\x14\v\x2\x3\x3\x3\x3\x3\x4\x3\x4\x3\x4\x3\x5"+
 		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3"+
 		"\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5"+
 		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3"+
-		"\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x5\x5G\n\x5\x3\x5"+
-		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\a\x5O\n\x5\f\x5\xE\x5R\v\x5\x3\x5\x2\x2"+
-		"\x4\x2\b\x6\x2\x2\x4\x2\x6\x2\b\x2\x2\x3\x3\x2\x15\x17]\x2\n\x3\x2\x2"+
-		"\x2\x4\x15\x3\x2\x2\x2\x6\x17\x3\x2\x2\x2\b\x46\x3\x2\x2\x2\n\v\b\x2\x1"+
-		"\x2\v\f\x5\x4\x3\x2\f\x12\x3\x2\x2\x2\r\xE\f\x3\x2\x2\xE\xF\a\x14\x2\x2"+
-		"\xF\x11\x5\x4\x3\x2\x10\r\x3\x2\x2\x2\x11\x14\x3\x2\x2\x2\x12\x10\x3\x2"+
-		"\x2\x2\x12\x13\x3\x2\x2\x2\x13\x3\x3\x2\x2\x2\x14\x12\x3\x2\x2\x2\x15"+
-		"\x16\t\x2\x2\x2\x16\x5\x3\x2\x2\x2\x17\x18\x5\b\x5\x2\x18\a\x3\x2\x2\x2"+
-		"\x19\x1A\b\x5\x1\x2\x1A\x1B\a\t\x2\x2\x1B\x1C\x5\b\x5\x2\x1C\x1D\a\n\x2"+
-		"\x2\x1DG\x3\x2\x2\x2\x1E\x1F\a\b\x2\x2\x1FG\x5\b\x5\xF !\a\v\x2\x2!\""+
-		"\x5\x2\x2\x2\"#\a\f\x2\x2#$\x5\b\x5\xE$G\x3\x2\x2\x2%&\a\v\x2\x2&\'\a"+
-		"\x13\x2\x2\'(\a\f\x2\x2(G\x5\b\x5\r)*\a\xF\x2\x2*+\x5\x2\x2\x2+,\a\x10"+
-		"\x2\x2,-\x5\b\x5\f-G\x3\x2\x2\x2./\a\xF\x2\x2/\x30\a\x13\x2\x2\x30\x31"+
-		"\a\x10\x2\x2\x31G\x5\b\x5\v\x32\x33\a\r\x2\x2\x33\x34\x5\x2\x2\x2\x34"+
-		"\x35\a\xE\x2\x2\x35\x36\x5\b\x5\n\x36G\x3\x2\x2\x2\x37\x38\a\r\x2\x2\x38"+
-		"\x39\a\x13\x2\x2\x39:\a\xE\x2\x2:G\x5\b\x5\t;<\a\x11\x2\x2<=\x5\x2\x2"+
-		"\x2=>\a\x12\x2\x2>?\x5\b\x5\b?G\x3\x2\x2\x2@\x41\a\x11\x2\x2\x41\x42\a"+
-		"\x13\x2\x2\x42\x43\a\x12\x2\x2\x43G\x5\b\x5\a\x44G\a\x4\x2\x2\x45G\a\x5"+
-		"\x2\x2\x46\x19\x3\x2\x2\x2\x46\x1E\x3\x2\x2\x2\x46 \x3\x2\x2\x2\x46%\x3"+
-		"\x2\x2\x2\x46)\x3\x2\x2\x2\x46.\x3\x2\x2\x2\x46\x32\x3\x2\x2\x2\x46\x37"+
-		"\x3\x2\x2\x2\x46;\x3\x2\x2\x2\x46@\x3\x2\x2\x2\x46\x44\x3\x2\x2\x2\x46"+
-		"\x45\x3\x2\x2\x2GP\x3\x2\x2\x2HI\f\x6\x2\x2IJ\a\x6\x2\x2JO\x5\b\x5\aK"+
-		"L\f\x5\x2\x2LM\a\a\x2\x2MO\x5\b\x5\x6NH\x3\x2\x2\x2NK\x3\x2\x2\x2OR\x3"+
-		"\x2\x2\x2PN\x3\x2\x2\x2PQ\x3\x2\x2\x2Q\t\x3\x2\x2\x2RP\x3\x2\x2\x2\x6"+
-		"\x12\x46NP";
+		"\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x5\x5H\n\x5"+
+		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\a\x5P\n\x5\f\x5\xE\x5S\v\x5\x3\x5"+
+		"\x2\x2\x4\x2\b\x6\x2\x2\x4\x2\x6\x2\b\x2\x2\x3\x3\x2\x15\x17^\x2\n\x3"+
+		"\x2\x2\x2\x4\x15\x3\x2\x2\x2\x6\x17\x3\x2\x2\x2\bG\x3\x2\x2\x2\n\v\b\x2"+
+		"\x1\x2\v\f\x5\x4\x3\x2\f\x12\x3\x2\x2\x2\r\xE\f\x3\x2\x2\xE\xF\a\x14\x2"+
+		"\x2\xF\x11\x5\x4\x3\x2\x10\r\x3\x2\x2\x2\x11\x14\x3\x2\x2\x2\x12\x10\x3"+
+		"\x2\x2\x2\x12\x13\x3\x2\x2\x2\x13\x3\x3\x2\x2\x2\x14\x12\x3\x2\x2\x2\x15"+
+		"\x16\t\x2\x2\x2\x16\x5\x3\x2\x2\x2\x17\x18\x5\b\x5\x2\x18\x19\a\x3\x2"+
+		"\x2\x19\a\x3\x2\x2\x2\x1A\x1B\b\x5\x1\x2\x1B\x1C\a\t\x2\x2\x1C\x1D\x5"+
+		"\b\x5\x2\x1D\x1E\a\n\x2\x2\x1EH\x3\x2\x2\x2\x1F \a\b\x2\x2 H\x5\b\x5\xF"+
+		"!\"\a\v\x2\x2\"#\x5\x2\x2\x2#$\a\f\x2\x2$%\x5\b\x5\xE%H\x3\x2\x2\x2&\'"+
+		"\a\v\x2\x2\'(\a\x13\x2\x2()\a\f\x2\x2)H\x5\b\x5\r*+\a\xF\x2\x2+,\x5\x2"+
+		"\x2\x2,-\a\x10\x2\x2-.\x5\b\x5\f.H\x3\x2\x2\x2/\x30\a\xF\x2\x2\x30\x31"+
+		"\a\x13\x2\x2\x31\x32\a\x10\x2\x2\x32H\x5\b\x5\v\x33\x34\a\r\x2\x2\x34"+
+		"\x35\x5\x2\x2\x2\x35\x36\a\xE\x2\x2\x36\x37\x5\b\x5\n\x37H\x3\x2\x2\x2"+
+		"\x38\x39\a\r\x2\x2\x39:\a\x13\x2\x2:;\a\xE\x2\x2;H\x5\b\x5\t<=\a\x11\x2"+
+		"\x2=>\x5\x2\x2\x2>?\a\x12\x2\x2?@\x5\b\x5\b@H\x3\x2\x2\x2\x41\x42\a\x11"+
+		"\x2\x2\x42\x43\a\x13\x2\x2\x43\x44\a\x12\x2\x2\x44H\x5\b\x5\a\x45H\a\x4"+
+		"\x2\x2\x46H\a\x5\x2\x2G\x1A\x3\x2\x2\x2G\x1F\x3\x2\x2\x2G!\x3\x2\x2\x2"+
+		"G&\x3\x2\x2\x2G*\x3\x2\x2\x2G/\x3\x2\x2\x2G\x33\x3\x2\x2\x2G\x38\x3\x2"+
+		"\x2\x2G<\x3\x2\x2\x2G\x41\x3\x2\x2\x2G\x45\x3\x2\x2\x2G\x46\x3\x2\x2\x2"+
+		"HQ\x3\x2\x2\x2IJ\f\x6\x2\x2JK\a\x6\x2\x2KP\x5\b\x5\aLM\f\x5\x2\x2MN\a"+
+		"\a\x2\x2NP\x5\b\x5\x6OI\x3\x2\x2\x2OL\x3\x2\x2\x2PS\x3\x2\x2\x2QO\x3\x2"+
+		"\x2\x2QR\x3\x2\x2\x2R\t\x3\x2\x2\x2SQ\x3\x2\x2\x2\x6\x12GOQ";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }
