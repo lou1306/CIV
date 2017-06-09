@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using CIV.Ccs;
 
 namespace CIV.Ccs
 {
-    public class CcsListener : CcsParserBaseListener
+    class CcsListener : CcsParserBaseListener
     {
         public IDictionary<String, CcsParser.ProcessContext> Processes { get; set; }
         public IDictionary<String, ISet<String>> NamedSets { get; set; }
