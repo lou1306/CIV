@@ -58,6 +58,19 @@ public interface IHmlParserListener : IParseTreeListener {
 	void ExitBoxAll([NotNull] HmlParser.BoxAllContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Var</c>
+	/// labeled alternative in <see cref="HmlParser.hml"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVar([NotNull] HmlParser.VarContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Var</c>
+	/// labeled alternative in <see cref="HmlParser.hml"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVar([NotNull] HmlParser.VarContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Conj</c>
 	/// labeled alternative in <see cref="HmlParser.hml"/>.
 	/// </summary>
@@ -214,6 +227,32 @@ public interface IHmlParserListener : IParseTreeListener {
 	void ExitDiamondAll([NotNull] HmlParser.DiamondAllContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by the <c>MaxDef</c>
+	/// labeled alternative in <see cref="HmlParser.varDef"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMaxDef([NotNull] HmlParser.MaxDefContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MaxDef</c>
+	/// labeled alternative in <see cref="HmlParser.varDef"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMaxDef([NotNull] HmlParser.MaxDefContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MinDef</c>
+	/// labeled alternative in <see cref="HmlParser.varDef"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMinDef([NotNull] HmlParser.MinDefContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MinDef</c>
+	/// labeled alternative in <see cref="HmlParser.varDef"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMinDef([NotNull] HmlParser.MinDefContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="HmlParser.labelList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -256,5 +295,16 @@ public interface IHmlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitHml([NotNull] HmlParser.HmlContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="HmlParser.varDef"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVarDef([NotNull] HmlParser.VarDefContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="HmlParser.varDef"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVarDef([NotNull] HmlParser.VarDefContext context);
 }
 } // namespace CIV.Hml
