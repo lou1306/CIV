@@ -68,19 +68,54 @@ namespace CIV.Test
         [Fact]
         public void BoxFormulaFollowsSemantics()
         {
-            var process = new PrefixProcess
-            {
-                Inner = NilProcess.Instance,
-                Label = "action"
-            };
-            var formula = new BoxFormula
-            {
-                Inner = new FalseFormula(),
-                Label = new HashSet<string>{ "anotherAction" }
-            };
-            Assert.True(formula.Check(process));
-        }
+            var processDict = CcsFacade.ParseAll("P = action.0;");
+            var process = processDict["P"];
 
+			var formula = HmlFacade.ParseAll("[action]tt;");
+            Assert.IsType(typeof(BoxFormula), formula);
+			Assert.True(formula.Check(process));
+
+			formula = HmlFacade.ParseAll("[anotherAction]ff;");
+            Assert.True(formula.Check(process));
+
+            formula = HmlFacade.ParseAll("[action,anotherAction]ff;");
+            Assert.False(formula.Check(process));
+			
+            formula = HmlFacade.ParseAll("[action,anotherAction]tt;");
+            Assert.True(formula.Check(process));
+		}
+
+		[Fact]
+		public void DiamondFormulaFollowsSemantics()
+		{
+			var processDict = CcsFacade.ParseAll("P = action.0;");
+			var process = processDict["P"];
+
+			var formula = HmlFacade.ParseAll("<action>tt;");
+			Assert.IsType(typeof(DiamondFormula), formula);
+			Assert.True(formula.Check(process));
+
+			formula = HmlFacade.ParseAll("<anotherAction>ff;");
+            Assert.False(formula.Check(process));
+
+			formula = HmlFacade.ParseAll("<action,anotherAction>tt;");
+			Assert.True(formula.Check(process));
+		}
+
+		[Fact]
+		public void WeakDiamondFormulaFollowsSemantics()
+		{
+            var processDict = CcsFacade.ParseAll("P = tau.a.((tau.b.0) + c.0);");
+			var process = processDict["P"];
+
+			var formula = HmlFacade.ParseAll("<<a>><<b>>tt;");
+
+            Assert.IsType(typeof(WeakDiamondFormula), formula);
+            //Assert.True(formula.Check(process));
+
+            //formula = HmlFacade.ParseAll("<<a>><<c>>tt;");
+            //Assert.True(formula.Check(process));
+		}
 
 	}
 }
