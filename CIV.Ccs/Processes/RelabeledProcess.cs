@@ -10,15 +10,6 @@ namespace CIV.Ccs
         public CcsProcess Inner { get; set; }
         public RelabelingFunction Relabeling { get; set; }
 
-        public override bool Equals(CcsProcess other)
-        {
-            var otherRelabeled = other as RelabeledProcess;
-            return
-                otherRelabeled != null
-                    && Inner.Equals(otherRelabeled.Inner)
-                            && Relabeling.Equals(otherRelabeled.Relabeling);
-        }
-
 		protected override IEnumerable<Transition> EnumerateTransitions()
 		{
             var transitions = Inner.GetTransitions();

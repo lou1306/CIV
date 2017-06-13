@@ -18,17 +18,6 @@ namespace CIV.Ccs
 				yield return t;
         }
 
-        public override bool Equals(CcsProcess other)
-        {
-            var otherChoice = other as ChoiceProcess;
-            return otherChoice != null &&
-                (Inner1.Equals(otherChoice.Inner1) &&
-                 Inner2.Equals(otherChoice.Inner2))
-                ||
-                (Inner1.Equals(otherChoice.Inner2) &&
-                 Inner2.Equals(otherChoice.Inner1));
-        }
-
         protected override string BuildRepr()
         {
             var list = new List<String> { Inner1.ToString(), Inner2.ToString() };

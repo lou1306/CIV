@@ -10,14 +10,6 @@ namespace CIV.Ccs
         public CcsProcess Inner { get; set; }
         public ISet<String> Restrictions { get; set; }
 
-        public override bool Equals(CcsProcess other)
-        {
-            var otherRestricted = other as RestrictedProcess;
-            return otherRestricted != null
-                && Inner.Equals(otherRestricted.Inner)
-                     && Restrictions.SetEquals(otherRestricted.Restrictions);
-        }
-
 		protected override IEnumerable<Transition> EnumerateTransitions()
 		{
             return (from t in Inner.GetTransitions()

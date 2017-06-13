@@ -18,8 +18,6 @@ namespace CIV.Ccs
             proxy = new Proxy<CcsProcess, ProcessContext>(factory, context);
         }
 
-        public override bool Equals(CcsProcess other) => proxy.Real.Equals(other);
-
         public override int GetHashCode() => proxy.Real.GetHashCode();
 
 		protected override IEnumerable<Transition> EnumerateTransitions()

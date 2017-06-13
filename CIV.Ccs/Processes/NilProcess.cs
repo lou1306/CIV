@@ -18,7 +18,6 @@ namespace CIV.Ccs
 		{
             return Enumerable.Empty<Transition>();
         }
-        public override bool Equals(CcsProcess other) => other is NilProcess;
 
         protected override string BuildRepr() => Const.nil;
 
