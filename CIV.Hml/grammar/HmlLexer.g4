@@ -24,5 +24,12 @@ TAU : 'tau';
 COACTION: '\''[a-z][A-Za-z0-9]*;
 ACTION: [a-z][A-Za-z0-9]*;
 
+MAXFP : 'max=';
+MINFP : 'min=';
 
 WHITESPACE  : [ \r\n\t] + -> channel (HIDDEN);
+
+
+IDENTIFIER
+    : [A-Z][A-Za-z0-9]*
+    ;
