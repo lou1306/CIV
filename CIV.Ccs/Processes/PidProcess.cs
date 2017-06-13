@@ -9,16 +9,6 @@ namespace CIV.Ccs
         public CcsProcess Inner { get; set; }
         public string Pid { get; set; }
 
-        public override bool Equals(CcsProcess other)
-        {
-            var otherPid = other as PidProcess;
-            if (otherPid != null)
-            {
-                return Pid == otherPid.Pid;
-            }
-            return Inner.Equals(other);
-        }
-
 		protected override IEnumerable<Transition> EnumerateTransitions()
         => Inner.GetTransitions();
 

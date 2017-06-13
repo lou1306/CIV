@@ -9,6 +9,7 @@ namespace CIV.Hml
     {
         readonly FalseFormula _false = new FalseFormula();
         readonly TrueFormula _true = new TrueFormula();
+        readonly ISet<string> _top = new TopSet<string>();
 
         public HmlFormula Create(HmlContext context)
         {
@@ -57,6 +58,30 @@ namespace CIV.Hml
 					return new WeakBoxFormula
 					{
 						Label = CreateLabels(c.labelList()),
+						Inner = new HmlProxy(this, c.hml())
+					};
+                case BoxAllContext c:
+                    return new BoxFormula
+                    {
+                        Label = _top,
+                        Inner = new HmlProxy(this, c.hml())
+                    };
+                case DiamondAllContext c:
+                    return new DiamondFormula
+					{
+						Label = _top,
+						Inner = new HmlProxy(this, c.hml())
+					};
+                case WeakBoxAllContext c:
+					return new WeakBoxFormula
+					{
+						Label = _top,
+						Inner = new HmlProxy(this, c.hml())
+					};
+                case WeakDiamondAllContext c:
+                    return new WeakDiamondFormula
+					{
+						Label = _top,
 						Inner = new HmlProxy(this, c.hml())
 					};
                 default:

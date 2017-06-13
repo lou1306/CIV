@@ -1,9 +1,7 @@
 using Xunit;
 using CIV.Hml;
-using CIV.Ccs;
 using CIV.Common;
 using Moq;
-using System.Collections.Generic;
 
 namespace CIV.Test
 {
@@ -64,58 +62,5 @@ namespace CIV.Test
             };
             Assert.Equal(expected, formula.Check(Mock.Of<IProcess>()));
         }
-
-        [Fact]
-        public void BoxFormulaFollowsSemantics()
-        {
-            var processDict = CcsFacade.ParseAll("P = action.0;");
-            var process = processDict["P"];
-
-			var formula = HmlFacade.ParseAll("[action]tt;");
-            Assert.IsType(typeof(BoxFormula), formula);
-			Assert.True(formula.Check(process));
-
-			formula = HmlFacade.ParseAll("[anotherAction]ff;");
-            Assert.True(formula.Check(process));
-
-            formula = HmlFacade.ParseAll("[action,anotherAction]ff;");
-            Assert.False(formula.Check(process));
-			
-            formula = HmlFacade.ParseAll("[action,anotherAction]tt;");
-            Assert.True(formula.Check(process));
-		}
-
-		[Fact]
-		public void DiamondFormulaFollowsSemantics()
-		{
-			var processDict = CcsFacade.ParseAll("P = action.0;");
-			var process = processDict["P"];
-
-			var formula = HmlFacade.ParseAll("<action>tt;");
-			Assert.IsType(typeof(DiamondFormula), formula);
-			Assert.True(formula.Check(process));
-
-			formula = HmlFacade.ParseAll("<anotherAction>ff;");
-            Assert.False(formula.Check(process));
-
-			formula = HmlFacade.ParseAll("<action,anotherAction>tt;");
-			Assert.True(formula.Check(process));
-		}
-
-		[Fact]
-		public void WeakDiamondFormulaFollowsSemantics()
-		{
-            var processDict = CcsFacade.ParseAll("P = tau.a.((tau.b.0) + c.0);");
-			var process = processDict["P"];
-
-			var formula = HmlFacade.ParseAll("<<a>><<b>>tt;");
-
-            Assert.IsType(typeof(WeakDiamondFormula), formula);
-            //Assert.True(formula.Check(process));
-
-            //formula = HmlFacade.ParseAll("<<a>><<c>>tt;");
-            //Assert.True(formula.Check(process));
-		}
-
 	}
 }
