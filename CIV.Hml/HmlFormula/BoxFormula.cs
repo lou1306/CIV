@@ -7,8 +7,13 @@ namespace CIV.Hml
 {
     class BoxFormula : HmlLabelFormula
     {
-        protected override string BuildRepr() => $"[{String.Join(",", Label)}]{Inner}";
-
+		protected override string BuildRepr()
+		{
+			if (!(Label is TopSet<string>))
+				return $"[{String.Join(",", Label)}]{Inner}";
+			else
+				return $"[-]{Inner}";
+		}
         protected override bool CheckStrategy(IEnumerable<IProcess> processes)
 			=> processes.All(Inner.Check);
 

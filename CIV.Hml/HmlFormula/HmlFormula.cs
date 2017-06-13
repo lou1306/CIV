@@ -1,4 +1,5 @@
 ﻿using CIV.Common;
+using System.Collections.Generic;
 
 namespace CIV.Hml
 {
@@ -11,5 +12,7 @@ namespace CIV.Hml
         public override string ToString() => _repr ?? (_repr = BuildRepr());
 
         public abstract bool Check(IProcess process);
+
+        public abstract IEnumerable<HmlFormula> GetSubformulae();
     }
 }

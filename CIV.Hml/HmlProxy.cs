@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CIV.Common;
 using static CIV.Hml.HmlParser;
 namespace CIV.Hml
@@ -16,6 +17,11 @@ namespace CIV.Hml
         {
 			return _proxy.Real.Check(process);
 		}
+
+        public override IEnumerable<HmlFormula> GetSubformulae()
+        {
+            return _proxy.Real.GetSubformulae();
+        }
 
         protected override string BuildRepr()
         {

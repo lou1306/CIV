@@ -41,5 +41,14 @@ namespace CIV.Hml
 					where Label.Contains(t.Label)
 					select t);
 		}
+
+		public override IEnumerable<HmlFormula> GetSubformulae()
+		{
+			yield return Inner;
+			foreach (var sub in Inner.GetSubformulae())
+			{
+				yield return sub;
+			}
+		}
     }
 }

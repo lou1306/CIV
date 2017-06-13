@@ -1,6 +1,7 @@
 using Xunit;
 using CIV.Hml;
 using CIV.Common;
+using System.Linq;
 using Moq;
 
 namespace CIV.Test
@@ -61,6 +62,34 @@ namespace CIV.Test
                 Inner = inner ? new TrueFormula() : new FalseFormula() as HmlFormula
             };
             Assert.Equal(expected, formula.Check(Mock.Of<IProcess>()));
+        }
+
+        [Fact]
+        public void BaseSubformulaeAreEmpty()
+        {
+            HmlFormula formula = new TrueFormula();
+            Assert.Empty(formula.GetSubformulae());
+            formula = new FalseFormula();
+            Assert.Empty(formula.GetSubformulae());
+        }
+
+		[Fact]
+		public void OrFormulaHas2Subformulae()
+		{
+            HmlFormula formula = new OrFormula
+            {
+                Inner1 = new TrueFormula(),
+                Inner2 = new FalseFormula()
+            };
+            Assert.Equal(2, formula.GetSubformulae().Count());
+		}
+
+        [Fact]
+        public void SubformulaTest()
+        {
+            var formula = HmlFacade.ParseAll("<a>tt and <b>[[c]]ff;");
+            Assert.Equal(5, formula.GetSubformulae().Count());
+
         }
 	}
 }

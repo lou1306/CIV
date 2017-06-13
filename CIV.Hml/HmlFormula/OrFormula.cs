@@ -1,4 +1,5 @@
-﻿using CIV.Common;
+﻿using System.Collections.Generic;
+using CIV.Common;
 
 namespace CIV.Hml
 {
@@ -13,5 +14,19 @@ namespace CIV.Hml
         {
 			return Inner1.Check(process) || Inner2.Check(process);        
         }
+
+		public override IEnumerable<HmlFormula> GetSubformulae()
+		{
+			yield return Inner1;
+			yield return Inner2;
+			foreach (var subformula in Inner1.GetSubformulae())
+			{
+				yield return subformula;
+			}
+			foreach (var subformula in Inner2.GetSubformulae())
+			{
+				yield return subformula;
+			}
+		}
     }
 }
