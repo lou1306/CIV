@@ -13,7 +13,7 @@ namespace CIV.Ccs
         protected string _repr;
 
         protected abstract string BuildRepr();
-
+        protected static TransitionComparer comparer = new TransitionComparer();
 
         /// <summary>
         /// Gets the transitions.
@@ -48,11 +48,8 @@ namespace CIV.Ccs
         /// <returns>The weak transitions.</returns>
         public IEnumerable<Transition> GetWeakTransitions()
         {
-            var comparer = new TransitionComparer();
             var transitions = GetTransitions().Distinct(comparer);
             var queue = new Queue<Transition>(transitions);
-
-            IEnumerable<Transition> nextInQueue;
 
             var visited = new HashSet<string> { ToString() };
 
@@ -60,37 +57,36 @@ namespace CIV.Ccs
             {
                 var t = queue.Dequeue();
                 var processRepr = t.Process.ToString();
-                if (!visited.Contains(processRepr))
+                yield return t;
+                if (t.Label != Const.tau)
                 {
-                    visited.Add(processRepr);
-                    if (t.Label != Const.tau)
+                    if (!visited.Contains(processRepr))
                     {
-                        yield return t;
-                        nextInQueue = GetRecursiveTauTransitions(visited)
+                        visited.Add(processRepr);
+                        (t.Process as CcsProcess)
+                            .GetRecursiveTauTransitions()
                             .Select(x => new Transition
                             {
                                 Label = t.Label,
                                 Process = x.Process
-                            });
+                            })
+                            .ForEach(queue.Enqueue);
                     }
-                    else
-                    {
-                        nextInQueue = t.Process.GetTransitions().Distinct(comparer);
-                    }
-					foreach (var t1 in nextInQueue)
-					{
-						queue.Enqueue(t1);
-					}
+                }
+                else
+                {
+                    t.Process.GetTransitions().ForEach(queue.Enqueue);//.Distinct(comparer);
                 }
             }
         }
 
-		IEnumerable<Transition> TauTransitions => GetTransitions().Where(x => x.Label == Const.tau);
+        IEnumerable<Transition> TauTransitions => GetTransitions().Where(x => x.Label == Const.tau);
 
-        IEnumerable<Transition> GetRecursiveTauTransitions(ISet<string> visited = null)
+        IEnumerable<Transition> GetRecursiveTauTransitions()
         {
             var queue = new Queue<Transition>(TauTransitions);
-            visited = visited ?? new HashSet<string> { ToString() };
+            var visited = new HashSet<string> { ToString() };
+
             while (queue.Count > 0)
             {
                 var t = queue.Dequeue();
@@ -99,10 +95,10 @@ namespace CIV.Ccs
                 {
                     visited.Add(procRepr);
                     yield return t;
-                    foreach (var item in t.Process.GetTransitions().Where(x => x.Label == Const.tau))
-                    {
-                        queue.Enqueue(item);
-                    }
+                    t.Process
+                     .GetTransitions()
+                     .Where(x => x.Label == Const.tau)
+                     .ForEach(queue.Enqueue);
                 }
             }
 
