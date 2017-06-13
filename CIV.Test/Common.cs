@@ -6,7 +6,7 @@ using Moq;
 
 namespace CIV.Test
 {
-    public static class Common
+    static class Common
     {
         /// <summary>
         /// Setup a mock process that can only do the given action. 

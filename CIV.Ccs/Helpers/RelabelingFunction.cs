@@ -32,12 +32,9 @@ namespace CIV.Ccs
             {
                 throw new ArgumentException("Cannot relabel tau");
             }
-            if (action.IsOutput())
-            {
-                action = action.Coaction();
-                relabeled = relabeled.Coaction();
-            }
             dict.Add(action, relabeled);
+			// f('a) = 'f(a)
+			dict.Add(action.Coaction(), relabeled.Coaction());
         }
 
         public void Add(KeyValuePair<string, string> item) => Add(item.Key, item.Value);

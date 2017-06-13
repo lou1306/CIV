@@ -35,6 +35,8 @@ namespace CIV.Test
                 Inner = Mock.Of<CcsProcess>()
             };
             Assert.Equal(1, process.GetTransitions().Count());
+            var transition = process.GetTransitions().First();
+            Assert.Equal(Const.tau, transition.Label);
         }
 
 
