@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using CIV.Common;
 using System.Linq;
@@ -8,12 +8,15 @@ namespace CIV.Ccs
 {
     public abstract class CcsProcess : IHasWeakTransitions, IEquatable<CcsProcess>
     {
-        public abstract bool Equals(CcsProcess other);
+        public bool Equals(CcsProcess other)
+        {
+            return ToString() == other.ToString();
+        }
 
         protected string _repr;
 
         protected abstract string BuildRepr();
-        protected static TransitionComparer comparer = new TransitionComparer();
+        //protected static TransitionComparer comparer = new TransitionComparer();
 
         /// <summary>
         /// Gets the transitions.
@@ -48,60 +51,38 @@ namespace CIV.Ccs
         /// <returns>The weak transitions.</returns>
         public IEnumerable<Transition> GetWeakTransitions()
         {
-            var transitions = GetTransitions().Distinct(comparer);
+            var transitions = GetTransitions().Distinct();
             var queue = new Queue<Transition>(transitions);
-
             var visited = new HashSet<string> { ToString() };
 
             while (queue.Count > 0)
             {
                 var t = queue.Dequeue();
                 var processRepr = t.Process.ToString();
-                yield return t;
-                if (t.Label != Const.tau)
+				yield return t;
+				if (!visited.Contains(processRepr))
                 {
-                    if (!visited.Contains(processRepr))
-                    {
-                        visited.Add(processRepr);
-                        (t.Process as CcsProcess)
-                            .GetRecursiveTauTransitions()
-                            .Select(x => new Transition
-                            {
-                                Label = t.Label,
-                                Process = x.Process
-                            })
-                            .ForEach(queue.Enqueue);
-                    }
+					if (t.Label == Const.tau)
+					{
+						t.Process
+						 .GetTransitions()
+						 .Distinct()
+						 .ForEach(queue.Enqueue);
+
+					}
+					visited.Add(processRepr);
                 }
-                else
-                {
-                    t.Process.GetTransitions().ForEach(queue.Enqueue);//.Distinct(comparer);
-                }
-            }
+			
+			}
         }
 
-        IEnumerable<Transition> TauTransitions => GetTransitions().Where(x => x.Label == Const.tau);
-
-        IEnumerable<Transition> GetRecursiveTauTransitions()
+        public bool Equals(IProcess other)
         {
-            var queue = new Queue<Transition>(TauTransitions);
-            var visited = new HashSet<string> { ToString() };
-
-            while (queue.Count > 0)
-            {
-                var t = queue.Dequeue();
-                var procRepr = t.Process.ToString();
-                if (!visited.Contains(procRepr))
-                {
-                    visited.Add(procRepr);
-                    yield return t;
-                    t.Process
-                     .GetTransitions()
-                     .Where(x => x.Label == Const.tau)
-                     .ForEach(queue.Enqueue);
-                }
-            }
-
+            throw new NotImplementedException();
         }
+
+        IEnumerable<Transition> TauTransitions => GetTransitions()
+            .Where(x => x.Label == Const.tau)
+            .Distinct();
     }
 }
