@@ -64,32 +64,8 @@ namespace CIV.Test
             Assert.Equal(expected, formula.Check(Mock.Of<IProcess>()));
         }
 
-        [Fact]
-        public void BaseSubformulaeAreEmpty()
-        {
-            HmlFormula formula = new TrueFormula();
-            Assert.Empty(formula.GetSubformulae());
-            formula = new FalseFormula();
-            Assert.Empty(formula.GetSubformulae());
-        }
 
-		[Fact]
-		public void OrFormulaHas2Subformulae()
-		{
-            HmlFormula formula = new OrFormula
-            {
-                Inner1 = new TrueFormula(),
-                Inner2 = new FalseFormula()
-            };
-            Assert.Equal(2, formula.GetSubformulae().Count());
-		}
 
-        [Fact]
-        public void SubformulaTest()
-        {
-            var formula = HmlFacade.ParseAll("<a>tt and <b>[[c]]ff;");
-            Assert.Equal(5, formula.GetSubformulae().Count());
 
-        }
 	}
 }
