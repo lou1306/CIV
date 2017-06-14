@@ -9,9 +9,10 @@ namespace CIV.Hml
 		protected override string BuildRepr()
 		{
 			if (!(Label is TopSet<string>))
-				return $"[[{String.Join(",", Label)}]]{Inner}";
-			else
-				return $"[[-]]{Inner}";
+            {
+                return $"[[{String.Join(",", Label)}]]{Inner}";
+            }
+			return $"[[-]]{Inner}";
 		}
 
         protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
