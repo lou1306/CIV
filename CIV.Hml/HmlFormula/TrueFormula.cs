@@ -10,9 +10,10 @@ namespace CIV.Hml
 
         public override bool Check(IProcess process) => true;
 		
-        public override IEnumerable<HmlFormula> GetSubformulae()
-		{
-			return Enumerable.Empty<HmlFormula>();
-		}
+        public override IEnumerable<IProcess> O(IEnumerable<IProcess> current, IEnumerable<IProcess> all)
+        {
+            return all;
+        }
+      
     }
 }

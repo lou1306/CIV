@@ -27,5 +27,10 @@ namespace CIV.Hml
 			var grouped = MatchedTransitions(process).GroupBy(x => x.Label);
             return grouped.Any(procs => procs.Any(p => Inner.Check(p.Process)));
 		}
+
+		public override IEnumerable<IProcess> O(IEnumerable<IProcess> current, IEnumerable<IProcess> all)
+		{
+			return all.Where(x => TransitionStrategy(x).Any(t => current.Contains(t.Process)));
+		}
     }
 }
