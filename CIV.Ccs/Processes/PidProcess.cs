@@ -13,5 +13,12 @@ namespace CIV.Ccs
         => Inner.GetTransitions();
 
         protected override string BuildRepr() => Pid;
+
+        public override bool Equals(CcsProcess other)
+        {
+            if (this == other) return true;
+            var otherPid = other as PidProcess;
+            return (otherPid?.Inner.Equals(Inner)).GetValueOrDefault(Inner.Equals(other));
+        }
 	}
 }

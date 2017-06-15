@@ -8,9 +8,9 @@ namespace CIV.Ccs
 {
     public abstract class CcsProcess : IHasWeakTransitions, IEquatable<CcsProcess>
     {
-        public bool Equals(CcsProcess other)
+        public virtual bool Equals(CcsProcess other)
         {
-            return ToString() == other.ToString();
+            return this == other || ToString() == other.ToString();
         }
 
         protected string _repr;
@@ -33,7 +33,6 @@ namespace CIV.Ccs
         }
 
         protected abstract IEnumerable<Transition> EnumerateTransitions();
-
 
         public override string ToString() => _repr ?? (_repr = BuildRepr());
 
