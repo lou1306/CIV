@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using CIV.Formats;
 using CIV.Common;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 using static System.Console;
 
 namespace CIV
@@ -22,10 +25,16 @@ namespace CIV
     {
         static void Main(string[] args)
         {
+    
             try
             {
 				var project = new Caal().Load(args[0]);
-                var result = VerifyAll(project);
+				var sw = new Stopwatch();
+				sw.Start();
+                var result = VerifyAll(project).GetAwaiter().GetResult();
+				sw.Stop();
+				WriteLine($"Completed in {sw.Elapsed.TotalMilliseconds} ms.");
+
                 if (!result)
                 {
                     Environment.Exit((int)ExitCode.VerificationFailed);
@@ -55,28 +64,25 @@ namespace CIV
 			}
 		}
 
-        static bool VerifyAll(Caal project)
+        static async Task<bool> VerifyAll(Caal project)
         {
 			WriteLine("Loaded project {0}. Starting verification...", project.Name);
 
-            var sw = new Stopwatch();
-            sw.Start();
+            var tasks = new List<Task<bool>>();
 
-            bool result = true;
 			foreach (var kv in project.Formulae)
 			{
-                Write($"{kv.Value} |= {kv.Key}...");
-				Out.Flush();
-				var isSatisfied = kv.Key.Check(kv.Value);
-                result &= isSatisfied;
-				ForegroundColor = isSatisfied ? ConsoleColor.Green : ConsoleColor.Red;
-                Write(isSatisfied ? "Success!" : "Failure");
-                WriteLine();
-				ResetColor();
+                tasks.Add(Task.Run(() => Verify(kv.Value, kv.Key)));
 			}
-            sw.Stop();
-            WriteLine($"Completed in {sw.Elapsed.TotalMilliseconds} ms.");
-            return result;
+            await Task.WhenAll(tasks);
+            return tasks.All(x => x.Result);
+        }
+
+        static bool Verify(IProcess process, Hml.HmlFormula property)
+        {
+			var isSatisfied = property.Check(process);
+            WriteLine($"{process} |= {property}\t {isSatisfied}");
+            return isSatisfied;
         }
     }
 }
