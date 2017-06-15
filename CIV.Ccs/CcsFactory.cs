@@ -43,11 +43,8 @@ namespace CIV.Ccs
                     break;
                 case PidProcContext c:
 					var pid = c.pid().GetText();
-                    result = new PidProcess
-                    {
-                        Pid = pid,
-                        Inner = new CcsProxy(this, NamedProcessesTable[pid])
-                    };
+                    result = Create(NamedProcessesTable[pid]);
+                    result.Pid = pid;
                     break;
                 case ParenthProcContext c:
 					result = Create(c.process());

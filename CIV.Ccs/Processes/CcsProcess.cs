@@ -8,6 +8,9 @@ namespace CIV.Ccs
 {
     public abstract class CcsProcess : IHasWeakTransitions, IEquatable<CcsProcess>
     {
+
+        public string Pid { get; set; }
+
         public virtual bool Equals(CcsProcess other)
         {
             return this == other || ToString() == other.ToString();
@@ -34,7 +37,7 @@ namespace CIV.Ccs
 
         protected abstract IEnumerable<Transition> EnumerateTransitions();
 
-        public override string ToString() => _repr ?? (_repr = BuildRepr());
+        public override string ToString() => Pid ?? _repr ?? (_repr = BuildRepr());
 
         public override int GetHashCode() => ToString().GetHashCode();
 
@@ -52,15 +55,14 @@ namespace CIV.Ccs
         {
             var transitions = GetTransitions().Distinct();
             var queue = new Queue<Transition>(transitions);
-            var visited = new HashSet<string> { ToString() };
+            var visited = new HashSet<CcsProcess> { this };
 
             while (queue.Count > 0)
             {
                 var t = queue.Dequeue();
-                var processRepr = t.Process.ToString();
-				yield return t;
-				if (!visited.Contains(processRepr))
+                if (!visited.Contains((CcsProcess)t.Process))
                 {
+					yield return t;
 					if (t.Label == Const.tau)
 					{
 						t.Process
@@ -69,7 +71,7 @@ namespace CIV.Ccs
 						 .ForEach(queue.Enqueue);
 
 					}
-					visited.Add(processRepr);
+                    visited.Add((CcsProcess) t.Process);
                 }
 			
 			}
