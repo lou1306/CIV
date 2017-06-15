@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CIV.Common;
+using System.Linq;
 
 namespace CIV.Ccs
 {
@@ -12,10 +13,7 @@ namespace CIV.Ccs
 
         protected override IEnumerable<Transition> EnumerateTransitions()
         {
-			foreach (var t in Inner1.GetTransitions())
-				yield return t;
-			foreach (var t in Inner2.GetTransitions())
-				yield return t;
+            return Inner1.GetTransitions().Concat(Inner2.GetTransitions());
         }
 
         protected override string BuildRepr()

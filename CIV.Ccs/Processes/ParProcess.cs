@@ -9,7 +9,6 @@ namespace CIV.Ccs
     {
         public CcsProcess Inner1 { get; set; }
         public CcsProcess Inner2 { get; set; }
-        //public static int count = 0;
 
         protected override IEnumerable<Transition> EnumerateTransitions()
         {
