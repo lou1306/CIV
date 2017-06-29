@@ -60,20 +60,16 @@ namespace CIV.Ccs
             while (queue.Count > 0)
             {
                 var t = queue.Dequeue();
-                if (!visited.Contains((CcsProcess)t.Process))
-                {
-					yield return t;
-					if (t.Label == Const.tau)
-					{
-						t.Process
-						 .GetTransitions()
-						 .Distinct()
-						 .ForEach(queue.Enqueue);
-
-					}
-                    visited.Add((CcsProcess) t.Process);
-                }
-			
+                yield return t;
+				CcsProcess nextProcess = (CcsProcess)t.Process;
+				if (t.Label == Const.tau && ! visited.Contains(nextProcess))
+				{
+					visited.Add(nextProcess);
+					nextProcess
+					 .GetTransitions()
+					 .Distinct()
+					 .ForEach(queue.Enqueue);
+				}
 			}
         }
 
