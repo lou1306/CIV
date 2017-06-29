@@ -25,7 +25,6 @@ namespace CIV
     {
         static void Main(string[] args)
         {
-    
             try
             {
 				var project = new Caal().Load(args[0]);

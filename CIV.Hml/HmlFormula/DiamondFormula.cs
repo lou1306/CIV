@@ -18,8 +18,7 @@ namespace CIV.Hml
         {
             if (!(Label is TopSet<string>))
                 return $"<{String.Join(",", Label)}>{Inner}";
-            else
-                return $"<->{Inner}";
+            return $"<->{Inner}";
         }
 
 		public override bool Check(IProcess process)

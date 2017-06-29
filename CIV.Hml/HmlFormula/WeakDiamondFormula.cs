@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CIV.Common;
 using System;
 
@@ -10,18 +9,20 @@ namespace CIV.Hml
 
 		protected override string BuildRepr()
 		{
-			if (!(Label is TopSet<string>))
-				return $"<<{String.Join(",", Label)}>>{Inner}";
-			else
-				return $"<<->>{Inner}";
-		}
+            if (!(Label is TopSet<string>))
+                return $"<<{String.Join(",", Label)}>>{Inner}";
+            return $"<<->>{Inner}";
+        }
 		protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
 		{
-			if (process is IHasWeakTransitions)
+			try
 			{
 				return ((IHasWeakTransitions)process).GetWeakTransitions();
 			}
-			throw new ArgumentException();
+            catch(InvalidCastException)
+            {
+                throw new ArgumentException();
+            }
 		}
     }
 }
