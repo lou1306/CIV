@@ -12,8 +12,7 @@ namespace CIV.Ccs
 
 		protected override IEnumerable<Transition> EnumerateTransitions()
 		{
-            var transitions = Inner.GetTransitions();
-            return (from t in transitions
+            return (from t in Inner.GetTransitions()
                     select RenamedTransition(t));
         }
 

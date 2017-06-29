@@ -15,8 +15,8 @@ namespace CIV.Ccs
             return (from t in Inner.GetTransitions()
                     where
                     t.Label == Const.tau ||
-                    !(Restrictions.Contains(t.Label) ||
-                      Restrictions.Contains(t.Label.Coaction()))
+                    (!(Restrictions.Contains(t.Label)) &&
+                     !(Restrictions.Contains(t.Label.Coaction())))
                     select new Transition
                     {
                         Label = t.Label,
