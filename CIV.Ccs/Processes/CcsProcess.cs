@@ -67,7 +67,6 @@ namespace CIV.Ccs
 					visited.Add(nextProcess);
 					nextProcess
 					 .GetTransitions()
-					 .Distinct()
 					 .ForEach(queue.Enqueue);
 				}
 			}
