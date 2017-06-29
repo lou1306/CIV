@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using CIV.Common;
 using System.Linq;
 using System.Collections.Generic;
@@ -35,11 +35,12 @@ namespace CIV.Ccs
             };
             return Processes.ToDictionary(
                 x => x.Key,
-                x => new PidProcess
+                x =>
                 {
-                    Pid = x.Key,
-                    Inner = factory.Create(x.Value)
-                } as CcsProcess
+                    var p = factory.Create(x.Value);
+                    p.Pid = x.Key;
+                    return p;
+                }
             );
         }
 
