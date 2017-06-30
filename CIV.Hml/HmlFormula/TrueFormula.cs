@@ -1,4 +1,6 @@
-﻿using CIV.Common;
+﻿using System.Linq;
+using System.Collections.Generic;
+using CIV.Common;
 
 namespace CIV.Hml
 {
@@ -7,5 +9,11 @@ namespace CIV.Hml
         protected override string BuildRepr() => "tt";
 
         public override bool Check(IProcess process) => true;
+		
+        public override IEnumerable<IProcess> O(IEnumerable<IProcess> current, IEnumerable<IProcess> all)
+        {
+            return all;
+        }
+      
     }
 }

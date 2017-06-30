@@ -21,29 +21,29 @@ namespace CIV.Common
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public bool Contains(T item) => true;
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public void ExceptWith(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public void IntersectWith(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public bool IsProperSubsetOf(IEnumerable<T> other) => false;
@@ -54,21 +54,18 @@ namespace CIV.Common
 
         public bool IsSupersetOf(IEnumerable<T> other) => true;
 
-        public bool Overlaps(IEnumerable<T> other)
-        {
-            return other.Any() ;
-        }
+        public bool Overlaps(IEnumerable<T> other) => other.Any();
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public bool SetEquals(IEnumerable<T> other) => other is TopSet<T>;
 
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public void UnionWith(IEnumerable<T> other)
@@ -81,7 +78,7 @@ namespace CIV.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

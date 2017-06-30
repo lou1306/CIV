@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CIV.Common;
 
 namespace CIV.Hml
@@ -14,5 +15,12 @@ namespace CIV.Hml
         }
 
         protected override string BuildRepr() => $"({Inner1} and {Inner2})";
+
+        public override IEnumerable<IProcess> O(IEnumerable<IProcess> current, IEnumerable<IProcess> all)
+		{
+            var set1 = new HashSet<IProcess>(Inner1.O(current, all));
+            set1.IntersectWith(Inner2.O(current, all));
+            return set1;
+		}
     }
 }

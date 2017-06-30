@@ -1,6 +1,7 @@
 using Xunit;
 using CIV.Hml;
 using CIV.Common;
+using System.Linq;
 using Moq;
 
 namespace CIV.Test
@@ -62,5 +63,9 @@ namespace CIV.Test
             };
             Assert.Equal(expected, formula.Check(Mock.Of<IProcess>()));
         }
+
+
+
+
 	}
 }

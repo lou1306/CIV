@@ -6,7 +6,14 @@ namespace CIV.Hml
 {
     class WeakBoxFormula : BoxFormula
     {
-        protected override string BuildRepr() => $"[[{String.Join(",", Label)}]]{Inner}";
+		protected override string BuildRepr()
+		{
+			if (!(Label is TopSet<string>))
+            {
+                return $"[[{String.Join(",", Label)}]]{Inner}";
+            }
+			return $"[[-]]{Inner}";
+		}
 
         protected override IEnumerable<Transition> TransitionStrategy(IProcess process)
         {

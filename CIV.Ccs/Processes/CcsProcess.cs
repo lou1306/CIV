@@ -8,9 +8,12 @@ namespace CIV.Ccs
 {
     public abstract class CcsProcess : IHasWeakTransitions, IEquatable<CcsProcess>
     {
-        public bool Equals(CcsProcess other)
+
+        public string Pid { get; set; }
+
+        public virtual bool Equals(CcsProcess other)
         {
-            return ToString() == other.ToString();
+            return this == other || ToString() == other.ToString();
         }
 
         protected string _repr;
@@ -34,8 +37,7 @@ namespace CIV.Ccs
 
         protected abstract IEnumerable<Transition> EnumerateTransitions();
 
-
-        public override string ToString() => _repr ?? (_repr = BuildRepr());
+        public override string ToString() => Pid ?? _repr ?? (_repr = BuildRepr());
 
         public override int GetHashCode() => ToString().GetHashCode();
 
@@ -53,26 +55,20 @@ namespace CIV.Ccs
         {
             var transitions = GetTransitions().Distinct();
             var queue = new Queue<Transition>(transitions);
-            var visited = new HashSet<string> { ToString() };
+            var visited = new HashSet<CcsProcess> { this };
 
             while (queue.Count > 0)
             {
                 var t = queue.Dequeue();
-                var processRepr = t.Process.ToString();
-				yield return t;
-				if (!visited.Contains(processRepr))
-                {
-					if (t.Label == Const.tau)
-					{
-						t.Process
-						 .GetTransitions()
-						 .Distinct()
-						 .ForEach(queue.Enqueue);
-
-					}
-					visited.Add(processRepr);
-                }
-			
+                yield return t;
+				CcsProcess nextProcess = (CcsProcess)t.Process;
+				if (t.Label == Const.tau && ! visited.Contains(nextProcess))
+				{
+					visited.Add(nextProcess);
+					nextProcess
+					 .GetTransitions()
+					 .ForEach(queue.Enqueue);
+				}
 			}
         }
 

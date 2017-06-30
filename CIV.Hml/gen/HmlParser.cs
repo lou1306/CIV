@@ -33,21 +33,24 @@ public partial class HmlParser : Parser {
 	public const int
 		TERM=1, TRUE=2, FALSE=3, AND=4, OR=5, NOT=6, LPAREN=7, RPAREN=8, LBOX=9, 
 		RBOX=10, LWBOX=11, RWBOX=12, LDIAMOND=13, RDIAMOND=14, LWDIAMOND=15, RWDIAMOND=16, 
-		ALL=17, COMMA=18, TAU=19, COACTION=20, ACTION=21, WHITESPACE=22;
+		ALL=17, COMMA=18, TAU=19, COACTION=20, ACTION=21, MAXFP=22, MINFP=23, 
+		WHITESPACE=24, IDENTIFIER=25;
 	public const int
-		RULE_labelList = 0, RULE_label = 1, RULE_baseHml = 2, RULE_hml = 3;
+		RULE_labelList = 0, RULE_label = 1, RULE_baseHml = 2, RULE_hml = 3, RULE_varDef = 4;
 	public static readonly string[] ruleNames = {
-		"labelList", "label", "baseHml", "hml"
+		"labelList", "label", "baseHml", "hml", "varDef"
 	};
 
 	private static readonly string[] _LiteralNames = {
 		null, "';'", "'tt'", "'ff'", "'and'", "'or'", "'not'", "'('", "')'", "'['", 
-		"']'", "'[['", "']]'", "'<'", "'>'", "'<<'", "'>>'", "'-'", "','", "'tau'"
+		"']'", "'[['", "']]'", "'<'", "'>'", "'<<'", "'>>'", "'-'", "','", "'tau'", 
+		null, null, "'max='", "'min='"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, "TERM", "TRUE", "FALSE", "AND", "OR", "NOT", "LPAREN", "RPAREN", 
 		"LBOX", "RBOX", "LWBOX", "RWBOX", "LDIAMOND", "RDIAMOND", "LWDIAMOND", 
-		"RWDIAMOND", "ALL", "COMMA", "TAU", "COACTION", "ACTION", "WHITESPACE"
+		"RWDIAMOND", "ALL", "COMMA", "TAU", "COACTION", "ACTION", "MAXFP", "MINFP", 
+		"WHITESPACE", "IDENTIFIER"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -139,10 +142,10 @@ public partial class HmlParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
-			State = 9; label();
+			State = 11; label();
 			}
 			_ctx.stop = _input.Lt(-1);
-			State = 16;
+			State = 18;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,0,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
@@ -153,14 +156,14 @@ public partial class HmlParser : Parser {
 					{
 					_localctx = new LabelListContext(_parentctx, _parentState);
 					PushNewRecursionContext(_localctx, _startState, RULE_labelList);
-					State = 11;
+					State = 13;
 					if (!(Precpred(_ctx, 1))) throw new FailedPredicateException(this, "Precpred(_ctx, 1)");
-					State = 12; Match(COMMA);
-					State = 13; label();
+					State = 14; Match(COMMA);
+					State = 15; label();
 					}
 					} 
 				}
-				State = 18;
+				State = 20;
 				_errHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(_input,0,_ctx);
 			}
@@ -204,7 +207,7 @@ public partial class HmlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 19;
+			State = 21;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TAU) | (1L << COACTION) | (1L << ACTION))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -256,8 +259,8 @@ public partial class HmlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 21; hml(0);
-			State = 22; Match(TERM);
+			State = 23; hml(0);
+			State = 24; Match(TERM);
 			}
 		}
 		catch (RecognitionException re) {
@@ -317,6 +320,18 @@ public partial class HmlParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			IHmlParserListener typedListener = listener as IHmlParserListener;
 			if (typedListener != null) typedListener.ExitBoxAll(this);
+		}
+	}
+	public partial class VarContext : HmlContext {
+		public ITerminalNode IDENTIFIER() { return GetToken(HmlParser.IDENTIFIER, 0); }
+		public VarContext(HmlContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IHmlParserListener typedListener = listener as IHmlParserListener;
+			if (typedListener != null) typedListener.EnterVar(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IHmlParserListener typedListener = listener as IHmlParserListener;
+			if (typedListener != null) typedListener.ExitVar(this);
 		}
 	}
 	public partial class ConjContext : HmlContext {
@@ -535,7 +550,7 @@ public partial class HmlParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 69;
+			State = 72;
 			_errHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(_input,1,_ctx) ) {
 			case 1:
@@ -544,9 +559,9 @@ public partial class HmlParser : Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				State = 25; Match(LPAREN);
-				State = 26; hml(0);
-				State = 27; Match(RPAREN);
+				State = 27; Match(LPAREN);
+				State = 28; hml(0);
+				State = 29; Match(RPAREN);
 				}
 				break;
 
@@ -555,8 +570,8 @@ public partial class HmlParser : Parser {
 				_localctx = new NegatedContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 29; Match(NOT);
-				State = 30; hml(13);
+				State = 31; Match(NOT);
+				State = 32; hml(14);
 				}
 				break;
 
@@ -565,10 +580,10 @@ public partial class HmlParser : Parser {
 				_localctx = new BoxContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 31; Match(LBOX);
-				State = 32; labelList(0);
-				State = 33; Match(RBOX);
-				State = 34; hml(12);
+				State = 33; Match(LBOX);
+				State = 34; labelList(0);
+				State = 35; Match(RBOX);
+				State = 36; hml(13);
 				}
 				break;
 
@@ -577,10 +592,10 @@ public partial class HmlParser : Parser {
 				_localctx = new BoxAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 36; Match(LBOX);
-				State = 37; Match(ALL);
-				State = 38; Match(RBOX);
-				State = 39; hml(11);
+				State = 38; Match(LBOX);
+				State = 39; Match(ALL);
+				State = 40; Match(RBOX);
+				State = 41; hml(12);
 				}
 				break;
 
@@ -589,10 +604,10 @@ public partial class HmlParser : Parser {
 				_localctx = new DiamondContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 40; Match(LDIAMOND);
-				State = 41; labelList(0);
-				State = 42; Match(RDIAMOND);
-				State = 43; hml(10);
+				State = 42; Match(LDIAMOND);
+				State = 43; labelList(0);
+				State = 44; Match(RDIAMOND);
+				State = 45; hml(11);
 				}
 				break;
 
@@ -601,10 +616,10 @@ public partial class HmlParser : Parser {
 				_localctx = new DiamondAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 45; Match(LDIAMOND);
-				State = 46; Match(ALL);
-				State = 47; Match(RDIAMOND);
-				State = 48; hml(9);
+				State = 47; Match(LDIAMOND);
+				State = 48; Match(ALL);
+				State = 49; Match(RDIAMOND);
+				State = 50; hml(10);
 				}
 				break;
 
@@ -613,10 +628,10 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakBoxContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 49; Match(LWBOX);
-				State = 50; labelList(0);
-				State = 51; Match(RWBOX);
-				State = 52; hml(8);
+				State = 51; Match(LWBOX);
+				State = 52; labelList(0);
+				State = 53; Match(RWBOX);
+				State = 54; hml(9);
 				}
 				break;
 
@@ -625,10 +640,10 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakBoxAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 54; Match(LWBOX);
-				State = 55; Match(ALL);
-				State = 56; Match(RWBOX);
-				State = 57; hml(7);
+				State = 56; Match(LWBOX);
+				State = 57; Match(ALL);
+				State = 58; Match(RWBOX);
+				State = 59; hml(8);
 				}
 				break;
 
@@ -637,10 +652,10 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakDiamondContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 58; Match(LWDIAMOND);
-				State = 59; labelList(0);
-				State = 60; Match(RWDIAMOND);
-				State = 61; hml(6);
+				State = 60; Match(LWDIAMOND);
+				State = 61; labelList(0);
+				State = 62; Match(RWDIAMOND);
+				State = 63; hml(7);
 				}
 				break;
 
@@ -649,33 +664,42 @@ public partial class HmlParser : Parser {
 				_localctx = new WeakDiamondAllContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 63; Match(LWDIAMOND);
-				State = 64; Match(ALL);
-				State = 65; Match(RWDIAMOND);
-				State = 66; hml(5);
+				State = 65; Match(LWDIAMOND);
+				State = 66; Match(ALL);
+				State = 67; Match(RWDIAMOND);
+				State = 68; hml(6);
 				}
 				break;
 
 			case 11:
 				{
-				_localctx = new TrueContext(_localctx);
+				_localctx = new VarContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 67; Match(TRUE);
+				State = 69; Match(IDENTIFIER);
 				}
 				break;
 
 			case 12:
 				{
+				_localctx = new TrueContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 70; Match(TRUE);
+				}
+				break;
+
+			case 13:
+				{
 				_localctx = new FalseContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 68; Match(FALSE);
+				State = 71; Match(FALSE);
 				}
 				break;
 			}
 			_ctx.stop = _input.Lt(-1);
-			State = 79;
+			State = 82;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
@@ -683,17 +707,17 @@ public partial class HmlParser : Parser {
 					if ( _parseListeners!=null ) TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 77;
+					State = 80;
 					_errHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ConjContext(new HmlContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_hml);
-						State = 71;
+						State = 74;
 						if (!(Precpred(_ctx, 4))) throw new FailedPredicateException(this, "Precpred(_ctx, 4)");
-						State = 72; Match(AND);
-						State = 73; hml(5);
+						State = 75; Match(AND);
+						State = 76; hml(5);
 						}
 						break;
 
@@ -701,16 +725,16 @@ public partial class HmlParser : Parser {
 						{
 						_localctx = new DisjContext(new HmlContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_hml);
-						State = 74;
+						State = 77;
 						if (!(Precpred(_ctx, 3))) throw new FailedPredicateException(this, "Precpred(_ctx, 3)");
-						State = 75; Match(OR);
-						State = 76; hml(4);
+						State = 78; Match(OR);
+						State = 79; hml(4);
 						}
 						break;
 					}
 					} 
 				}
-				State = 81;
+				State = 84;
 				_errHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(_input,3,_ctx);
 			}
@@ -723,6 +747,95 @@ public partial class HmlParser : Parser {
 		}
 		finally {
 			UnrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
+	public partial class VarDefContext : ParserRuleContext {
+		public VarDefContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_varDef; } }
+	 
+		public VarDefContext() { }
+		public virtual void CopyFrom(VarDefContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class MaxDefContext : VarDefContext {
+		public ITerminalNode IDENTIFIER() { return GetToken(HmlParser.IDENTIFIER, 0); }
+		public ITerminalNode MAXFP() { return GetToken(HmlParser.MAXFP, 0); }
+		public HmlContext hml() {
+			return GetRuleContext<HmlContext>(0);
+		}
+		public ITerminalNode TERM() { return GetToken(HmlParser.TERM, 0); }
+		public MaxDefContext(VarDefContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IHmlParserListener typedListener = listener as IHmlParserListener;
+			if (typedListener != null) typedListener.EnterMaxDef(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IHmlParserListener typedListener = listener as IHmlParserListener;
+			if (typedListener != null) typedListener.ExitMaxDef(this);
+		}
+	}
+	public partial class MinDefContext : VarDefContext {
+		public ITerminalNode IDENTIFIER() { return GetToken(HmlParser.IDENTIFIER, 0); }
+		public ITerminalNode MINFP() { return GetToken(HmlParser.MINFP, 0); }
+		public HmlContext hml() {
+			return GetRuleContext<HmlContext>(0);
+		}
+		public ITerminalNode TERM() { return GetToken(HmlParser.TERM, 0); }
+		public MinDefContext(VarDefContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IHmlParserListener typedListener = listener as IHmlParserListener;
+			if (typedListener != null) typedListener.EnterMinDef(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IHmlParserListener typedListener = listener as IHmlParserListener;
+			if (typedListener != null) typedListener.ExitMinDef(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public VarDefContext varDef() {
+		VarDefContext _localctx = new VarDefContext(_ctx, State);
+		EnterRule(_localctx, 8, RULE_varDef);
+		try {
+			State = 95;
+			_errHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(_input,4,_ctx) ) {
+			case 1:
+				_localctx = new MaxDefContext(_localctx);
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 85; Match(IDENTIFIER);
+				State = 86; Match(MAXFP);
+				State = 87; hml(0);
+				State = 88; Match(TERM);
+				}
+				break;
+
+			case 2:
+				_localctx = new MinDefContext(_localctx);
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 90; Match(IDENTIFIER);
+				State = 91; Match(MINFP);
+				State = 92; hml(0);
+				State = 93; Match(TERM);
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
 		}
 		return _localctx;
 	}
@@ -751,36 +864,41 @@ public partial class HmlParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x18U\x4\x2\t\x2"+
-		"\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x3\x2\x3\x2\x3\x2\x3\x2\x3\x2\x3\x2"+
-		"\a\x2\x11\n\x2\f\x2\xE\x2\x14\v\x2\x3\x3\x3\x3\x3\x4\x3\x4\x3\x4\x3\x5"+
-		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x1B\x64\x4\x2\t"+
+		"\x2\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x3\x2\x3\x2\x3\x2\x3\x2"+
+		"\x3\x2\x3\x2\a\x2\x13\n\x2\f\x2\xE\x2\x16\v\x2\x3\x3\x3\x3\x3\x4\x3\x4"+
+		"\x3\x4\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3"+
 		"\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5"+
 		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3"+
-		"\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x5\x5H\n\x5"+
-		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\a\x5P\n\x5\f\x5\xE\x5S\v\x5\x3\x5"+
-		"\x2\x2\x4\x2\b\x6\x2\x2\x4\x2\x6\x2\b\x2\x2\x3\x3\x2\x15\x17^\x2\n\x3"+
-		"\x2\x2\x2\x4\x15\x3\x2\x2\x2\x6\x17\x3\x2\x2\x2\bG\x3\x2\x2\x2\n\v\b\x2"+
-		"\x1\x2\v\f\x5\x4\x3\x2\f\x12\x3\x2\x2\x2\r\xE\f\x3\x2\x2\xE\xF\a\x14\x2"+
-		"\x2\xF\x11\x5\x4\x3\x2\x10\r\x3\x2\x2\x2\x11\x14\x3\x2\x2\x2\x12\x10\x3"+
-		"\x2\x2\x2\x12\x13\x3\x2\x2\x2\x13\x3\x3\x2\x2\x2\x14\x12\x3\x2\x2\x2\x15"+
-		"\x16\t\x2\x2\x2\x16\x5\x3\x2\x2\x2\x17\x18\x5\b\x5\x2\x18\x19\a\x3\x2"+
-		"\x2\x19\a\x3\x2\x2\x2\x1A\x1B\b\x5\x1\x2\x1B\x1C\a\t\x2\x2\x1C\x1D\x5"+
-		"\b\x5\x2\x1D\x1E\a\n\x2\x2\x1EH\x3\x2\x2\x2\x1F \a\b\x2\x2 H\x5\b\x5\xF"+
-		"!\"\a\v\x2\x2\"#\x5\x2\x2\x2#$\a\f\x2\x2$%\x5\b\x5\xE%H\x3\x2\x2\x2&\'"+
-		"\a\v\x2\x2\'(\a\x13\x2\x2()\a\f\x2\x2)H\x5\b\x5\r*+\a\xF\x2\x2+,\x5\x2"+
-		"\x2\x2,-\a\x10\x2\x2-.\x5\b\x5\f.H\x3\x2\x2\x2/\x30\a\xF\x2\x2\x30\x31"+
-		"\a\x13\x2\x2\x31\x32\a\x10\x2\x2\x32H\x5\b\x5\v\x33\x34\a\r\x2\x2\x34"+
-		"\x35\x5\x2\x2\x2\x35\x36\a\xE\x2\x2\x36\x37\x5\b\x5\n\x37H\x3\x2\x2\x2"+
-		"\x38\x39\a\r\x2\x2\x39:\a\x13\x2\x2:;\a\xE\x2\x2;H\x5\b\x5\t<=\a\x11\x2"+
-		"\x2=>\x5\x2\x2\x2>?\a\x12\x2\x2?@\x5\b\x5\b@H\x3\x2\x2\x2\x41\x42\a\x11"+
-		"\x2\x2\x42\x43\a\x13\x2\x2\x43\x44\a\x12\x2\x2\x44H\x5\b\x5\a\x45H\a\x4"+
-		"\x2\x2\x46H\a\x5\x2\x2G\x1A\x3\x2\x2\x2G\x1F\x3\x2\x2\x2G!\x3\x2\x2\x2"+
-		"G&\x3\x2\x2\x2G*\x3\x2\x2\x2G/\x3\x2\x2\x2G\x33\x3\x2\x2\x2G\x38\x3\x2"+
-		"\x2\x2G<\x3\x2\x2\x2G\x41\x3\x2\x2\x2G\x45\x3\x2\x2\x2G\x46\x3\x2\x2\x2"+
-		"HQ\x3\x2\x2\x2IJ\f\x6\x2\x2JK\a\x6\x2\x2KP\x5\b\x5\aLM\f\x5\x2\x2MN\a"+
-		"\a\x2\x2NP\x5\b\x5\x6OI\x3\x2\x2\x2OL\x3\x2\x2\x2PS\x3\x2\x2\x2QO\x3\x2"+
-		"\x2\x2QR\x3\x2\x2\x2R\t\x3\x2\x2\x2SQ\x3\x2\x2\x2\x6\x12GOQ";
+		"\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5"+
+		"\x3\x5\x5\x5K\n\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\a\x5S\n\x5\f\x5"+
+		"\xE\x5V\v\x5\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3"+
+		"\x6\x5\x6\x62\n\x6\x3\x6\x2\x2\x4\x2\b\a\x2\x2\x4\x2\x6\x2\b\x2\n\x2\x2"+
+		"\x3\x3\x2\x15\x17n\x2\f\x3\x2\x2\x2\x4\x17\x3\x2\x2\x2\x6\x19\x3\x2\x2"+
+		"\x2\bJ\x3\x2\x2\x2\n\x61\x3\x2\x2\x2\f\r\b\x2\x1\x2\r\xE\x5\x4\x3\x2\xE"+
+		"\x14\x3\x2\x2\x2\xF\x10\f\x3\x2\x2\x10\x11\a\x14\x2\x2\x11\x13\x5\x4\x3"+
+		"\x2\x12\xF\x3\x2\x2\x2\x13\x16\x3\x2\x2\x2\x14\x12\x3\x2\x2\x2\x14\x15"+
+		"\x3\x2\x2\x2\x15\x3\x3\x2\x2\x2\x16\x14\x3\x2\x2\x2\x17\x18\t\x2\x2\x2"+
+		"\x18\x5\x3\x2\x2\x2\x19\x1A\x5\b\x5\x2\x1A\x1B\a\x3\x2\x2\x1B\a\x3\x2"+
+		"\x2\x2\x1C\x1D\b\x5\x1\x2\x1D\x1E\a\t\x2\x2\x1E\x1F\x5\b\x5\x2\x1F \a"+
+		"\n\x2\x2 K\x3\x2\x2\x2!\"\a\b\x2\x2\"K\x5\b\x5\x10#$\a\v\x2\x2$%\x5\x2"+
+		"\x2\x2%&\a\f\x2\x2&\'\x5\b\x5\xF\'K\x3\x2\x2\x2()\a\v\x2\x2)*\a\x13\x2"+
+		"\x2*+\a\f\x2\x2+K\x5\b\x5\xE,-\a\xF\x2\x2-.\x5\x2\x2\x2./\a\x10\x2\x2"+
+		"/\x30\x5\b\x5\r\x30K\x3\x2\x2\x2\x31\x32\a\xF\x2\x2\x32\x33\a\x13\x2\x2"+
+		"\x33\x34\a\x10\x2\x2\x34K\x5\b\x5\f\x35\x36\a\r\x2\x2\x36\x37\x5\x2\x2"+
+		"\x2\x37\x38\a\xE\x2\x2\x38\x39\x5\b\x5\v\x39K\x3\x2\x2\x2:;\a\r\x2\x2"+
+		";<\a\x13\x2\x2<=\a\xE\x2\x2=K\x5\b\x5\n>?\a\x11\x2\x2?@\x5\x2\x2\x2@\x41"+
+		"\a\x12\x2\x2\x41\x42\x5\b\x5\t\x42K\x3\x2\x2\x2\x43\x44\a\x11\x2\x2\x44"+
+		"\x45\a\x13\x2\x2\x45\x46\a\x12\x2\x2\x46K\x5\b\x5\bGK\a\x1B\x2\x2HK\a"+
+		"\x4\x2\x2IK\a\x5\x2\x2J\x1C\x3\x2\x2\x2J!\x3\x2\x2\x2J#\x3\x2\x2\x2J("+
+		"\x3\x2\x2\x2J,\x3\x2\x2\x2J\x31\x3\x2\x2\x2J\x35\x3\x2\x2\x2J:\x3\x2\x2"+
+		"\x2J>\x3\x2\x2\x2J\x43\x3\x2\x2\x2JG\x3\x2\x2\x2JH\x3\x2\x2\x2JI\x3\x2"+
+		"\x2\x2KT\x3\x2\x2\x2LM\f\x6\x2\x2MN\a\x6\x2\x2NS\x5\b\x5\aOP\f\x5\x2\x2"+
+		"PQ\a\a\x2\x2QS\x5\b\x5\x6RL\x3\x2\x2\x2RO\x3\x2\x2\x2SV\x3\x2\x2\x2TR"+
+		"\x3\x2\x2\x2TU\x3\x2\x2\x2U\t\x3\x2\x2\x2VT\x3\x2\x2\x2WX\a\x1B\x2\x2"+
+		"XY\a\x18\x2\x2YZ\x5\b\x5\x2Z[\a\x3\x2\x2[\x62\x3\x2\x2\x2\\]\a\x1B\x2"+
+		"\x2]^\a\x19\x2\x2^_\x5\b\x5\x2_`\a\x3\x2\x2`\x62\x3\x2\x2\x2\x61W\x3\x2"+
+		"\x2\x2\x61\\\x3\x2\x2\x2\x62\v\x3\x2\x2\x2\a\x14JRT\x61";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

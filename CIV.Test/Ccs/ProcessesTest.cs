@@ -94,14 +94,15 @@ namespace CIV.Test
         {
             // TODO: split into two facts.
             var transitions = SetupParProcess(action).GetTransitions().ToList();
-            Assert.Equal(3, transitions.Count);
             switch (action)
             {
                 case "tau":
-                    Assert.Equal(3, transitions.Count(t => t.Label == action));
+					Assert.Equal(2, transitions.Count);
+					Assert.Equal(2, transitions.Count(t => t.Label == action));
                     break;
                 default:
-                    Assert.Equal(1, transitions.Count(t => t.Label == action));
+					Assert.Equal(3, transitions.Count);
+					Assert.Equal(1, transitions.Count(t => t.Label == action));
                     Assert.Equal(1, transitions.Count(t => t.Label == action.Coaction()));
                     Assert.Equal(1, transitions.Count(t => t.Label == Const.tau));
                     break;

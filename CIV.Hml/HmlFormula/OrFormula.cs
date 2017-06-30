@@ -1,4 +1,6 @@
-﻿using CIV.Common;
+﻿using System.Collections.Generic;
+using CIV.Common;
+using System.Linq;
 
 namespace CIV.Hml
 {
@@ -13,5 +15,10 @@ namespace CIV.Hml
         {
 			return Inner1.Check(process) || Inner2.Check(process);        
         }
+
+		public override IEnumerable<IProcess> O(IEnumerable<IProcess> current, IEnumerable<IProcess> all)
+		{
+            return Inner1.O(current, all).Concat(Inner2.O(current, all));
+		}
     }
 }

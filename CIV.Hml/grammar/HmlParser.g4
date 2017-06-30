@@ -24,8 +24,14 @@ hml
     | <assoc=right>LWBOX ALL RWBOX hml                  #WeakBoxAll
     | <assoc=right>LWDIAMOND labelList RWDIAMOND hml    #WeakDiamond
     | <assoc=right>LWDIAMOND ALL RWDIAMOND hml          #WeakDiamondAll
+    | IDENTIFIER                                        #Var
     | hml AND hml                                       #Conj
     | hml OR hml                                        #Disj
     | TRUE                                              #True
     | FALSE                                             #False
+    ;
+
+varDef
+    : IDENTIFIER MAXFP hml TERM     #MaxDef
+    | IDENTIFIER MINFP hml TERM     #MinDef
     ;

@@ -9,17 +9,16 @@ namespace CIV.Ccs
         public String Label { get; set; }
         public CcsProcess Inner { get; set; }
 
-		protected override IEnumerable<Transition> EnumerateTransitions()
-		{
-            return new List<Transition>{
-                new Transition{
-                    Label = Label,
-                    Process = Inner
-                }
-            };
-        }
-		protected override string BuildRepr()
-		{
+        protected override IEnumerable<Transition> EnumerateTransitions()
+        {
+			yield return new Transition
+			{
+			    Label = Label,
+			    Process = Inner
+			};
+			}
+        protected override string BuildRepr()
+        {
             return $"{Label}{Const.prefix}{Inner}";
         }
 

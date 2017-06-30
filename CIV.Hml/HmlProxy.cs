@@ -1,4 +1,4 @@
-﻿using System;
+using System.Collections.Generic;
 using CIV.Common;
 using static CIV.Hml.HmlParser;
 namespace CIV.Hml
@@ -16,6 +16,11 @@ namespace CIV.Hml
         {
 			return _proxy.Real.Check(process);
 		}
+
+        public override IEnumerable<IProcess> O(IEnumerable<IProcess> current, IEnumerable<IProcess> all)
+        {
+            return _proxy.Real.O(current, all);
+        }
 
         protected override string BuildRepr()
         {
